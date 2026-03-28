@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Sphere — Premium Online Tutoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080D0B;--bg2:#0F1714;--bg3:#141E1A;
+    --sage:#7EA890;--sage-light:#A8C8B8;
+    --cream:#EBE6DC;--cream-dim:rgba(235,230,220,0.6);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(8,13,11,0.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(126,168,144,0.12)}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .nav-logo-img{width:44px;height:44px;border-radius:50%;background:#D4D0CB;overflow:hidden;flex-shrink:0}
+  .nav-logo-img img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+  .nav-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;letter-spacing:0.08em;color:var(--cream);text-transform:uppercase}
+  .nav-brand span{display:block;font-size:9px;font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0.22em;color:var(--sage);text-transform:uppercase;margin-top:1px}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--sage)}
+  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+  .nav-cta:hover{background:var(--sage);color:var(--bg)}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 80px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(126,168,144,0.1) 0%,transparent 65%);pointer-events:none}
+  .hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(126,168,144,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(126,168,144,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage);margin-bottom:32px}
+  .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:40px;height:1px;background:var(--sage);opacity:0.5}
+  .hero-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8vw,92px);font-weight:300;line-height:1.02;letter-spacing:-0.02em;color:var(--cream);max-width:900px;margin-bottom:28px}
+  .hero-headline em{font-style:italic;color:var(--sage-light)}
+  .hero-sub{font-size:16px;line-height:1.7;color:var(--cream-dim);max-width:520px;margin-bottom:52px}
+  .hero-ctas{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center}
+
+  /* BUTTONS */
+  .btn-primary{padding:16px 44px;background:var(--sage);color:var(--bg);font-size:12px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.3s;display:inline-block}
+  .btn-primary:hover{opacity:0.88}
+  .btn-outline{padding:16px 44px;background:transparent;color:var(--sage);border:1px solid var(--sage);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.3s;display:inline-block}
+  .btn-outline:hover{background:var(--sage);color:var(--bg)}
+  .btn-secondary{font-size:13px;color:var(--cream-dim);text-decoration:none;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:8px;transition:color 0.3s}
+  .btn-secondary:hover{color:var(--cream)}
+  .btn-secondary::before{content:'';width:28px;height:1px;background:currentColor;transition:width 0.3s}
+  .btn-secondary:hover::before{width:40px}
+
+  /* VSL */
+  .vsl-section{padding:0 48px 80px;display:flex;flex-direction:column;align-items:center}
+  .vsl-wrap{width:100%;max-width:860px;aspect-ratio:16/9;background:var(--bg2);border:1px solid rgba(126,168,144,0.15);position:relative;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.5)}
+  .vsl-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+  .vsl-play{width:80px;height:80px;border:2px solid var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s}
+  .vsl-play:hover{background:var(--sage);transform:scale(1.08)}
+  .vsl-play:hover svg path{fill:var(--bg)}
+  .vsl-play svg{width:28px;height:28px;margin-left:4px}
+  .vsl-play svg path{fill:var(--sage);transition:fill 0.3s}
+  .vsl-label{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-dim)}
+  .vsl-corner{position:absolute;width:24px;height:24px;border-color:var(--sage);border-style:solid;opacity:0.4}
+  .vsl-corner.tl{top:16px;left:16px;border-width:1px 0 0 1px}
+  .vsl-corner.tr{top:16px;right:16px;border-width:1px 1px 0 0}
+  .vsl-corner.bl{bottom:16px;left:16px;border-width:0 0 1px 1px}
+  .vsl-corner.br{bottom:16px;right:16px;border-width:0 1px 1px 0}
+
+  /* BOOK STRIP */
+  .book-strip{text-align:center;padding:0 48px 80px}
+  .book-strip p{font-size:13px;color:var(--cream-dim);letter-spacing:0.06em;margin-bottom:20px}
+
+  /* PROOF BAR */
+  .proof-bar{border-top:1px solid rgba(126,168,144,0.1);border-bottom:1px solid rgba(126,168,144,0.1);background:var(--bg2);padding:52px 48px}
+  .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1000px;margin:0 auto}
+  .proof-item{text-align:center;padding:0 24px;border-right:1px solid rgba(126,168,144,0.1)}
+  .proof-item:last-child{border-right:none}
+  .proof-number{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--sage-light);line-height:1;margin-bottom:8px}
+  .proof-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cream-dim)}
+
+  /* SECTION HEADER */
+  .section-wrap{max-width:1100px;margin:0 auto;padding:100px 48px}
+  .section-header{text-align:center;margin-bottom:64px}
+  .section-tag{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:block}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);font-weight:300;line-height:1.1;color:var(--cream)}
+
+  /* WHY CARDS */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}
+  .why-card{background:var(--bg2);padding:44px 36px;border-top:1px solid rgba(126,168,144,0.15);transition:background 0.3s}
+  .why-card:hover{background:var(--bg3)}
+  .why-num{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--sage);opacity:0.5;letter-spacing:0.1em;margin-bottom:24px}
+  .why-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:14px;line-height:1.2}
+  .why-body{font-size:14px;line-height:1.75;color:var(--cream-dim)}
+
+  /* REVIEWS */
+  .reviews-bg{background:var(--bg2);padding:100px 0}
+  .reviews-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+  .review-card{background:var(--bg);padding:44px 36px;position:relative;overflow:hidden;border-top:1px solid rgba(126,168,144,0.12);transition:transform 0.3s}
+  .review-card:hover{transform:translateY(-4px)}
+  .stars{color:#E8B44A;font-size:14px;margin-bottom:24px;letter-spacing:2px}
+  .review-quote{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;line-height:1.6;color:var(--cream);margin-bottom:28px;font-style:italic}
+  .review-author{font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);margin-bottom:4px}
+  .review-role{font-size:12px;color:var(--cream-dim)}
+  .review-qmark{font-family:'Cormorant Garamond',serif;font-size:80px;line-height:0.8;color:var(--sage);opacity:0.12;position:absolute;top:28px;right:28px}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+  .price-card{background:var(--bg2);padding:44px 36px;border-top:1px solid rgba(126,168,144,0.12)}
+  .price-card.featured{background:var(--bg3);border-top:2px solid var(--sage)}
+  .price-badge{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--sage);padding:4px 14px;display:inline-block;margin-bottom:28px}
+  .price-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--cream);margin-bottom:8px}
+  .price-amount{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--sage-light);line-height:1;margin-bottom:6px}
+  .price-amount sup{font-size:20px;vertical-align:super}
+  .price-per{font-size:12px;color:var(--cream-dim);letter-spacing:0.1em;margin-bottom:28px}
+  .price-divider{height:1px;background:rgba(126,168,144,0.12);margin-bottom:28px}
+  .price-features{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+  .price-features li{font-size:14px;color:var(--cream-dim);display:flex;align-items:flex-start;gap:12px;line-height:1.5}
+  .price-features li::before{content:'→';color:var(--sage);font-size:13px;flex-shrink:0;margin-top:1px}
+
+  /* FAQ TEASER */
+  .faq-teaser{padding:80px 48px;text-align:center;background:var(--bg2);border-top:1px solid rgba(126,168,144,0.08)}
+  .faq-teaser p{font-size:15px;color:var(--cream-dim);margin-bottom:24px}
+
+  /* FINAL CTA */
+  .final-cta{padding:140px 48px;text-align:center;position:relative;overflow:hidden}
+  .final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(126,168,144,0.08) 0%,transparent 70%);pointer-events:none}
+  .final-cta-tag{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--sage);margin-bottom:24px;display:block}
+  .final-cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,72px);font-weight:300;line-height:1.1;color:var(--cream);max-width:700px;margin:0 auto 20px}
+  .final-cta-sub{font-size:15px;color:var(--cream-dim);max-width:440px;margin:0 auto 48px;line-height:1.7}
+  .final-cta-small{margin-top:20px;font-size:12px;color:var(--cream-dim);opacity:0.6;letter-spacing:0.06em}
+
+  /* FOOTER */
+  footer{padding:48px;border-top:1px solid rgba(126,168,144,0.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .footer-brand{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:0.1em;color:var(--cream-dim)}
+  .footer-links{display:flex;gap:28px}
+  .footer-links a{font-size:12px;letter-spacing:0.1em;color:var(--cream-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+  .footer-links a:hover{color:var(--sage)}
+  .footer-copy{font-size:11px;color:rgba(235,230,220,0.3)}
+
+  @media(max-width:900px){
+    nav{padding:0 24px}
+    .nav-links{display:none}
+    .hero,.vsl-section,.book-strip,.proof-bar,.section-wrap,.reviews-inner,.faq-teaser,.final-cta,footer{padding-left:24px;padding-right:24px}
+    .why-grid,.reviews-grid,.pricing-grid{grid-template-columns:1fr}
+    .proof-grid{grid-template-columns:repeat(2,1fr);gap:28px}
+    .proof-item{border-right:none;border-bottom:1px solid rgba(126,168,144,0.1);padding-bottom:28px}
+    .proof-item:last-child{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-img"><img src="Sphere_Tuition_Logo.png" alt="Science Sphere" onerror="this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.outerHTML='<span style=font-size:18px;color:#3D3D3D;font-weight:700>S</span>'"></div>
+    <div class="nav-brand">Science Sphere<span>Online Tutoring</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="faq.html">FAQ</a>
+    <a href="book.html" class="nav-cta">Book Free Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Trusted by students achieving A &amp; A* grades</div>
+  <h1 class="hero-headline">The tutor who just sat<br>your exams knows <em>exactly</em><br>where you'll lose marks.</h1>
+  <p class="hero-sub">Premium one-to-one A-Level Maths &amp; Physics tutoring. Built for students who want the grade — not just the lesson.</p>
+  <div class="hero-ctas">
+    <a href="book.html" class="btn-primary">Book Your Free Intro Call</a>
+    <a href="#reviews" class="btn-secondary">See Student Results</a>
+  </div>
+</section>
+
+<section class="vsl-section">
+  <div class="vsl-wrap">
+    <div class="vsl-corner tl"></div><div class="vsl-corner tr"></div><div class="vsl-corner bl"></div><div class="vsl-corner br"></div>
+    <div class="vsl-placeholder">
+      <div class="vsl-play"><svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z"/></svg></div>
+      <div class="vsl-label">Watch — Why Science Sphere is Different</div>
+    </div>
+  </div>
+</section>
+
+<section class="book-strip">
+  <p>No commitment. 20 minutes. Find out exactly what's holding you back.</p>
+  <a href="book.html" class="btn-primary">Book Your Free Intro Call</a>
+</section>
+
+<section class="proof-bar">
+  <div class="proof-grid">
+    <div class="proof-item"><div class="proof-number">100%</div><div class="proof-label">Online — Any Device</div></div>
+    <div class="proof-item"><div class="proof-number">1-to-1</div><div class="proof-label">Dedicated Sessions</div></div>
+    <div class="proof-item"><div class="proof-number">A &amp; A*</div><div class="proof-label">Grades Achieved</div></div>
+    <div class="proof-item"><div class="proof-number">5★</div><div class="proof-label">Average Rating</div></div>
+  </div>
+</section>
+
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-tag">The Recency Advantage</span>
+    <h2 class="section-title">Why students choose<br>Science Sphere</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-num">01</div><div class="why-title">I sat your exams — recently.</div><div class="why-body">Harrison just completed his own GCSEs and A-Levels. He knows the current mark schemes, the exact questions examiners are setting, and the specific mistakes students make right now — not a decade ago.</div></div>
+    <div class="why-card"><div class="why-num">02</div><div class="why-title">No wasted time. Pure exam focus.</div><div class="why-body">Every session is built around what you need to pass. No generic lesson plans. Harrison diagnoses your gaps in session one and maps a clear path from where you are to the grade you need.</div></div>
+    <div class="why-card"><div class="why-num">03</div><div class="why-title">Patient, personal, and accountable.</div><div class="why-body">No rushing through content. No moving on until you've understood the reasoning and method behind each question. Students describe sessions as calm, clear, and effective.</div></div>
+  </div>
+</div>
+
+<section class="reviews-bg" id="reviews">
+  <div class="reviews-inner">
+    <div class="section-header">
+      <span class="section-tag">Student &amp; Parent Reviews</span>
+      <h2 class="section-title">What they say after<br>working with Harrison</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison is a fantastic maths tutor and has already really helped me improve my skills in a short period of time. I am far more confident and already improving my grade for university.</div><div class="review-author">Ellie</div><div class="review-role">A-Level Maths Student</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison has been tutoring my daughter through the summer leading into Year 11. He is knowledgeable, professional, and his positive attitude to achieve a great result is amazing.</div><div class="review-author">Jodie</div><div class="review-role">Parent, Year 11 GCSE Maths</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">He was very patient and made sure to check up on my understanding which I liked a lot.</div><div class="review-author">Chuks</div><div class="review-role">Parent from Coventry</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-tag">Simple Pricing</span>
+    <h2 class="section-title">Choose what works<br>for you</h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Single Session</div>
+      <div class="price-amount"><sup>£</sup>40</div>
+      <div class="price-per">per 60-min session</div>
+      <div class="price-divider"></div>
+      <ul class="price-features"><li>One 60-minute online session</li><li>Maths or Physics — any level</li><li>No commitment required</li><li>Perfect for trying it out</li></ul>
+      <a href="book.html" class="btn-primary" style="font-size:11px;padding:13px 28px">Book a Session</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-name">5-Session Block</div>
+      <div class="price-amount"><sup>£</sup>185</div>
+      <div class="price-per">paid upfront — save £15</div>
+      <div class="price-divider"></div>
+      <ul class="price-features"><li>Five 60-minute sessions</li><li>Structured learning plan</li><li>Progress tracked every session</li><li>Parent updates included</li></ul>
+      <a href="book.html" class="btn-primary" style="font-size:11px;padding:13px 28px">Book Free Intro Call</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Exam Intensive</div>
+      <div class="price-amount"><sup>£</sup>350</div>
+      <div class="price-per">10-session exam sprint</div>
+      <div class="price-divider"></div>
+      <ul class="price-features"><li>Ten 60-minute sessions</li><li>Full revision programme</li><li>Past paper practice included</li><li>Ideal for April–May exam push</li></ul>
+      <a href="book.html" class="btn-primary" style="font-size:11px;padding:13px 28px">Get Started</a>
+    </div>
+  </div>
+</div>
+
+<section class="faq-teaser">
+  <p>Have questions before you book? We've answered the most common ones.</p>
+  <a href="faq.html" class="btn-outline">View Frequently Asked Questions</a>
+</section>
+
+<section class="final-cta">
+  <span class="final-cta-tag">Limited Spaces Available</span>
+  <h2 class="final-cta-title">Your exams are closer<br>than they feel.</h2>
+  <p class="final-cta-sub">Book a free 20-minute intro call. No pressure, no obligation — just clarity on exactly what's holding you back and how to fix it.</p>
+  <a href="book.html" class="btn-primary" style="font-size:13px;padding:18px 52px">Book Your Free Intro Call</a>
+  <p class="final-cta-small">Evenings &amp; weekends available · GCSE &amp; A-Level · Maths &amp; Physics</p>
+</section>
+
+<footer>
+  <div class="footer-brand">Science Sphere Online Tutoring</div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="faq.html">FAQ</a><a href="book.html">Book a Call</a><a href="mailto:hello@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

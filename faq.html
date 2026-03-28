@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Science Sphere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#080D0B;--bg2:#0F1714;--bg3:#141E1A;--sage:#7EA890;--sage-light:#A8C8B8;--cream:#EBE6DC;--cream-dim:rgba(235,230,220,0.6)}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(8,13,11,0.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(126,168,144,0.12)}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .nav-logo-img{width:44px;height:44px;border-radius:50%;background:#D4D0CB;overflow:hidden;flex-shrink:0}
+  .nav-logo-img img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+  .nav-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;letter-spacing:0.08em;color:var(--cream);text-transform:uppercase}
+  .nav-brand span{display:block;font-size:9px;font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0.22em;color:var(--sage);text-transform:uppercase;margin-top:1px}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover{color:var(--sage)}
+  .nav-links a.active{color:var(--sage)}
+  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+  .nav-cta:hover{background:var(--sage);color:var(--bg)}
+
+  .page-hero{padding:140px 48px 72px;text-align:center;position:relative;overflow:hidden}
+  .page-hero::before{content:'';position:absolute;top:30%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(126,168,144,0.07) 0%,transparent 65%);pointer-events:none}
+  .page-hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(126,168,144,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(126,168,144,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+  .page-tag{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--sage);display:block;margin-bottom:20px}
+  .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,72px);font-weight:300;line-height:1.1;color:var(--cream);margin-bottom:20px}
+  .page-sub{font-size:15px;color:var(--cream-dim);max-width:480px;margin:0 auto;line-height:1.7}
+
+  .faq-layout{max-width:1100px;margin:0 auto;padding:80px 48px 120px;display:grid;grid-template-columns:240px 1fr;gap:80px;align-items:start}
+  .faq-sidebar{position:sticky;top:96px}
+  .sidebar-label{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage);margin-bottom:20px;display:block}
+  .cat-btn{padding:14px 20px;background:transparent;border:none;border-left:2px solid rgba(126,168,144,0.15);color:var(--cream-dim);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;text-align:left;cursor:pointer;transition:all 0.2s;display:block;width:100%}
+  .cat-btn:hover{border-left-color:rgba(126,168,144,0.5);color:var(--cream)}
+  .cat-btn.active{border-left-color:var(--sage);color:var(--sage)}
+
+  .faq-category{margin-bottom:72px}
+  .faq-category:last-child{margin-bottom:0}
+  .cat-heading{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--cream);margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid rgba(126,168,144,0.12)}
+  .faq-item{border-bottom:1px solid rgba(126,168,144,0.08);overflow:hidden}
+  .faq-q{width:100%;background:transparent;border:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;text-align:left;padding:24px 0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;transition:color 0.2s}
+  .faq-q:hover{color:var(--sage-light)}
+  .faq-q.open{color:var(--sage-light)}
+  .faq-arrow{width:20px;height:20px;border:1px solid rgba(126,168,144,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;color:var(--sage);font-size:14px;line-height:1}
+  .faq-q.open .faq-arrow{background:var(--sage);color:var(--bg);border-color:var(--sage);transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+  .faq-a.open{max-height:600px}
+  .faq-a-inner{padding:0 0 28px;font-size:14px;color:var(--cream-dim);line-height:1.8}
+  .faq-a-inner p{margin-bottom:12px}
+  .faq-a-inner p:last-child{margin-bottom:0}
+  .faq-a-inner strong{color:var(--cream);font-weight:500}
+  .faq-a-inner a{color:var(--sage);text-decoration:underline;text-underline-offset:3px}
+
+  .help-section{background:var(--bg2);padding:80px 48px;text-align:center;border-top:1px solid rgba(126,168,144,0.08)}
+  .help-inner{max-width:560px;margin:0 auto}
+  .help-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--cream);margin-bottom:16px}
+  .help-sub{font-size:14px;color:var(--cream-dim);line-height:1.7;margin-bottom:36px}
+  .help-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn-primary{padding:16px 44px;background:var(--sage);color:var(--bg);font-size:12px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.3s;display:inline-block}
+  .btn-primary:hover{opacity:0.88}
+  .btn-outline{padding:16px 44px;background:transparent;color:var(--sage);border:1px solid var(--sage);font-size:12px;font-weight:400;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.3s;display:inline-block}
+  .btn-outline:hover{background:var(--sage);color:var(--bg)}
+
+  footer{padding:48px;border-top:1px solid rgba(126,168,144,0.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .footer-brand{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:0.1em;color:var(--cream-dim)}
+  .footer-links{display:flex;gap:28px}
+  .footer-links a{font-size:12px;letter-spacing:0.1em;color:var(--cream-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+  .footer-links a:hover{color:var(--sage)}
+  .footer-copy{font-size:11px;color:rgba(235,230,220,0.3)}
+
+  @media(max-width:900px){
+    nav{padding:0 24px}.nav-links{display:none}
+    .page-hero,.faq-layout,.help-section,footer{padding-left:24px;padding-right:24px}
+    .faq-layout{grid-template-columns:1fr;gap:40px}
+    .faq-sidebar{position:static;display:flex;gap:8px;flex-wrap:wrap}
+    .cat-btn{border-left:none;border-bottom:2px solid rgba(126,168,144,0.15);width:auto;padding:8px 14px;font-size:12px}
+    .cat-btn.active{border-bottom-color:var(--sage)}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-img"><img src="Sphere_Tuition_Logo.png" alt="Science Sphere" onerror="this.outerHTML='<span style=font-size:18px;color:#3D3D3D;font-weight:700>S</span>'"></div>
+    <div class="nav-brand">Science Sphere<span>Online Tutoring</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="faq.html" class="active">FAQ</a>
+    <a href="book.html" class="nav-cta">Book Free Call</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <span class="page-tag">Common Questions</span>
+  <h1 class="page-title">Frequently Asked<br>Questions</h1>
+  <p class="page-sub">Everything you need to know before booking. Can't find what you're looking for? Book a free call and ask Harrison directly.</p>
+</section>
+
+<div class="faq-layout">
+  <div class="faq-sidebar">
+    <span class="sidebar-label">Categories</span>
+    <button class="cat-btn active" onclick="jumpTo('sessions',this)">Sessions &amp; Format</button>
+    <button class="cat-btn" onclick="jumpTo('pricing',this)">Pricing &amp; Packages</button>
+    <button class="cat-btn" onclick="jumpTo('results',this)">Results &amp; Progress</button>
+    <button class="cat-btn" onclick="jumpTo('logistics',this)">Booking &amp; Logistics</button>
+    <button class="cat-btn" onclick="jumpTo('fit',this)">Is This Right for Me?</button>
+  </div>
+
+  <div class="faq-main">
+
+    <div class="faq-category" id="sessions">
+      <div class="cat-heading">Sessions &amp; Format</div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How long is each session?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>All sessions are 60 minutes. This gives enough time to work through problems properly, explain the method, and check understanding — without rushing.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How do online sessions work?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions run on Zoom or Google Meet with a shared digital whiteboard. You'll need a device with a camera and stable internet — a laptop or tablet works best. Harrison uses screen sharing to work through problems in real time, and you can annotate too.</p><p>Many students find online easier than in-person — no travel, comfortable environment, and sessions can be recorded for revision if needed.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What subjects and levels do you cover?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison tutors <strong>Maths and Physics</strong> at both GCSE and A-Level. He recently completed these exams himself, so his knowledge of current mark schemes and common question patterns is highly up to date.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Do you set homework between sessions?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. Targeted homework reinforces what was covered in the session and helps Harrison track where understanding has stuck and where gaps remain. It's manageable and focused — not overwhelming.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What exam boards do you support?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>All major UK exam boards including <strong>AQA, Edexcel, OCR, and WJEC</strong>. When you book your intro call, let Harrison know which board you're studying and he'll tailor sessions accordingly.</p></div></div></div>
+    </div>
+
+    <div class="faq-category" id="pricing">
+      <div class="cat-heading">Pricing &amp; Packages</div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How much does tutoring cost?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Single sessions are <strong>£40</strong> per hour. The 5-session block is <strong>£185</strong> (saving £15), and the 10-session Exam Intensive is <strong>£350</strong>. The intro call is completely free with no obligation to book.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Can I start with just one session?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Absolutely. Many students start with a single session to see how it feels before moving to a block. Book the free intro call first, then take it from there — no pressure.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What's included in the 5-session block?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Five 60-minute sessions, a structured learning plan, progress tracking between each session, homework after each session, and parent updates if requested. The block must be used within 8 weeks of purchase.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Is there a referral offer?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. If you refer a friend or sibling who books a paid session block, you both receive a free session. Just mention it when they book and have them note your name.</p></div></div></div>
+    </div>
+
+    <div class="faq-category" id="results">
+      <div class="cat-heading">Results &amp; Progress</div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How quickly will I see improvement?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Most students notice increased confidence and clearer understanding within the first two or three sessions. Grade improvements on papers typically show within 4–6 weeks of consistent sessions, depending on the gap between current and target grade.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What makes Harrison different from other tutors?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>The main difference is recency. Harrison recently sat his own GCSEs and A-Levels, so he knows exactly how current exams are structured, which topics are examined most, and where students typically lose marks right now — not based on what exams looked like years ago.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Do parents receive updates on progress?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes, for students on a 5-session block or exam intensive, Harrison sends a brief progress note after each session covering what was covered, homework set, and what to focus on next. Parents are welcome to be copied on all communication for younger students.</p></div></div></div>
+    </div>
+
+    <div class="faq-category" id="logistics">
+      <div class="cat-heading">Booking &amp; Logistics</div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What days and times are available?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions are available on <strong>weekday evenings and weekends</strong>. Exact availability is shown when you book via the calendar. Slots are allocated first-come, first-served — earlier booking is better, especially in April–May exam season.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What if I need to cancel or reschedule?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions can be rescheduled with at least <strong>24 hours' notice</strong> at no charge. Cancellations within 24 hours are charged at the full session rate. This is confirmed in writing before your first paid session.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How do I pay?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison sends a secure payment link after your intro call. All major cards are accepted. Blocks are paid upfront; single sessions can be paid upfront or on the day.</p></div></div></div>
+    </div>
+
+    <div class="faq-category" id="fit">
+      <div class="cat-heading">Is This Right for Me?</div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child already gets decent grades. Is this still worthwhile?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes, and often especially so. Many students on a B or 6 are losing marks in specific areas — not because they don't understand the subject, but because of exam technique or mark scheme awareness. Targeted sessions can often push a B to an A with less effort than parents expect.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child is very behind. Is it too late to make a difference?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>It depends on how much time there is, but in most cases — no. Harrison will tell you honestly on the intro call what a realistic improvement looks like given the timeline. Even a focused 4–6 week push before exams can shift a grade significantly if approached correctly.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Still not sure if it's the right fit?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Book the <a href="book.html">free intro call</a>. It costs nothing and takes 20 minutes. You'll leave with clarity on whether Science Sphere is the right choice — and if it isn't, Harrison will say so and suggest what else might help.</p></div></div></div>
+    </div>
+
+  </div>
+</div>
+
+<section class="help-section">
+  <div class="help-inner">
+    <div class="help-title">Still have a question?</div>
+    <div class="help-sub">The quickest way to get an answer is to book the free intro call. Harrison will answer anything directly — or you can email if you prefer.</div>
+    <div class="help-ctas">
+      <a href="book.html" class="btn-primary">Book Free Intro Call</a>
+      <a href="mailto:hello@sciencesphere.co.uk" class="btn-outline">Send an Email</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Science Sphere Online Tutoring</div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="faq.html">FAQ</a><a href="book.html">Book a Call</a><a href="mailto:hello@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggle(btn) {
+    var a = btn.nextElementSibling;
+    var open = a.classList.contains('open');
+    document.querySelectorAll('.faq-a.open').forEach(function(el){el.classList.remove('open');el.previousElementSibling.classList.remove('open')});
+    if(!open){a.classList.add('open');btn.classList.add('open')}
+  }
+  function jumpTo(id, btn) {
+    document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+    document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
