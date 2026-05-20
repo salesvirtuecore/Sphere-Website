@@ -43,6 +43,7 @@
   /* BUTTONS */
   .btn-primary{padding:16px 44px;background:var(--sage);color:var(--bg);font-size:12px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.3s;display:inline-block}
   .btn-primary:hover{opacity:0.88}
+  .btn-large{font-size:13px;padding:18px 52px}
   .btn-outline{padding:16px 44px;background:transparent;color:var(--sage);border:1px solid var(--sage);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.3s;display:inline-block}
   .btn-outline:hover{background:var(--sage);color:var(--bg)}
   .btn-secondary{font-size:13px;color:var(--cream-dim);text-decoration:none;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:8px;transition:color 0.3s}
@@ -118,6 +119,18 @@
   .price-features li{font-size:14px;color:var(--cream-dim);display:flex;align-items:flex-start;gap:12px;line-height:1.5}
   .price-features li::before{content:'→';color:var(--sage);font-size:13px;flex-shrink:0;margin-top:1px}
 
+  /* ACADEMY */
+  .academy-section{background:var(--bg2);border-top:1px solid rgba(126,168,144,0.1);border-bottom:1px solid rgba(126,168,144,0.1);padding:100px 0}
+  .academy-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+  .academy-sub{font-size:16px;line-height:1.7;color:var(--cream-dim);max-width:580px;margin:16px auto 0;text-align:center}
+  .academy-features{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:64px}
+  .academy-feat{background:var(--bg);padding:36px 28px;border-top:1px solid rgba(126,168,144,0.15);transition:background 0.3s}
+  .academy-feat:hover{background:var(--bg3)}
+  .academy-feat-icon{font-size:22px;color:var(--sage);margin-bottom:18px}
+  .academy-feat-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--cream);margin-bottom:10px;line-height:1.2}
+  .academy-feat-body{font-size:14px;line-height:1.7;color:var(--cream-dim)}
+  .academy-cta{text-align:center;margin-top:48px}
+
   /* FAQ TEASER */
   .faq-teaser{padding:80px 48px;text-align:center;background:var(--bg2);border-top:1px solid rgba(126,168,144,0.08)}
   .faq-teaser p{font-size:15px;color:var(--cream-dim);margin-bottom:24px}
@@ -141,8 +154,8 @@
   @media(max-width:900px){
     nav{padding:0 24px;grid-template-columns:1fr auto 1fr}
     .nav-links{display:none}
-    .hero,.vsl-section,.book-strip,.proof-bar,.section-wrap,.reviews-inner,.faq-teaser,.final-cta,footer{padding-left:24px;padding-right:24px}
-    .why-grid,.reviews-grid,.pricing-grid{grid-template-columns:1fr}
+    .hero,.vsl-section,.book-strip,.proof-bar,.section-wrap,.reviews-inner,.academy-inner,.faq-teaser,.final-cta,footer{padding-left:24px;padding-right:24px}
+    .why-grid,.reviews-grid,.academy-features{grid-template-columns:1fr}
     .proof-grid{grid-template-columns:repeat(2,1fr);gap:28px}
     .proof-item{border-right:none;border-bottom:1px solid rgba(126,168,144,0.1);padding-bottom:28px}
     .proof-item:last-child{border-bottom:none}
@@ -215,46 +228,34 @@
       <h2 class="section-title">What they say after<br>working with Harrison</h2>
     </div>
     <div class="reviews-grid">
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison is a fantastic maths tutor and has already really helped me improve my skills in a short period of time. I am far more confident and already improving my grade for university.</div><div class="review-author">Ellie</div><div class="review-role">A-Level Maths Student</div></div>
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison has been tutoring my daughter through the summer leading into Year 11. He is knowledgeable, professional, and his positive attitude to achieve a great result is amazing.</div><div class="review-author">Jodie</div><div class="review-role">Parent, Year 11 GCSE Maths</div></div>
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">He was very patient and made sure to check up on my understanding which I liked a lot.</div><div class="review-author">Chuks</div><div class="review-role">Parent from Coventry</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison is a fantastic tutor and he has already helped improve my maths skills in a short period of time. He is patient. I am far more confident and improving my grade for university.</div><div class="review-author">Ellie</div><div class="review-role">A-Level Maths Student</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Fantastic tutor!! Harrison is a very skilled maths teacher! Lessons are straight forward and engaging! I would definitely recommend Science Sphere tutoring to anyone looking for great maths or further maths tuition. I had further maths tutoring for a couple of months and can definitely say it helped tremendously. It's very good value and I can confidently say it's some of the best money I've spent!</div><div class="review-author">Pedro Lopes</div><div class="review-role">Student</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">He was very patient and made sure to check up on my understanding which I liked a lot.</div><div class="review-author">Chuks</div><div class="review-role">Student</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison really helped our daughter with maths and science during GCSEs. We found him patient and flexible to help adapt to her needs. Ultimately, she achieved the grades she needed and was super happy with her results. Thank you Harrison for all the help. I would definitely recommend him.</div><div class="review-author">Craig Nicholas</div><div class="review-role">Parent, GCSE Maths &amp; Science</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison has been an excellent tutor. He has really helped my son with both his maths and his physics. We would highly recommend him and would like to say a massive thank you.</div><div class="review-author">Nicky</div><div class="review-role">Parent, A-Level Maths &amp; Physics</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison is an excellent tutor. He helped me with A-Level Physics when I was struggling with many concepts and after a couple of sessions, I improved significantly and got the grades I wanted. Thanks!</div><div class="review-author">Zak Far</div><div class="review-role">A-Level Physics Student</div></div>
     </div>
   </div>
 </section>
 
-<div class="section-wrap">
-  <div class="section-header">
-    <span class="section-tag">Simple Pricing</span>
-    <h2 class="section-title">Choose what works<br>for you</h2>
-  </div>
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-name">Single Session</div>
-      <div class="price-amount"><sup>£</sup>40</div>
-      <div class="price-per">per 60-min session</div>
-      <div class="price-divider"></div>
-      <ul class="price-features"><li>One 60-minute online session</li><li>Maths or Physics — any level</li><li>No commitment required</li><li>Perfect for trying it out</li></ul>
-      <a href="book.html" class="btn-primary" style="font-size:11px;padding:13px 28px">Book a Session</a>
+<section class="academy-section">
+  <div class="academy-inner">
+    <div class="section-header">
+      <span class="section-tag">Science Sphere Academy</span>
+      <h2 class="section-title">Grade-targeted exam practice.<br>Built alongside your sessions.</h2>
+      <p class="academy-sub">Filter past-paper questions by grade E through A* — so you practise exactly where you need to improve. Includes examiner insights with every answer.</p>
     </div>
-    <div class="price-card featured">
-      <div class="price-badge">Most Popular</div>
-      <div class="price-name">5-Session Block</div>
-      <div class="price-amount"><sup>£</sup>185</div>
-      <div class="price-per">paid upfront — save £15</div>
-      <div class="price-divider"></div>
-      <ul class="price-features"><li>Five 60-minute sessions</li><li>Structured learning plan</li><li>Progress tracked every session</li><li>Parent updates included</li></ul>
-      <a href="book.html" class="btn-primary" style="font-size:11px;padding:13px 28px">Book Free Intro Call</a>
+    <div class="academy-features">
+      <div class="academy-feat"><div class="academy-feat-icon">◎</div><div class="academy-feat-title">Grade-Targeted Practice</div><div class="academy-feat-body">Filter questions by grade band so you focus on the level you need to reach.</div></div>
+      <div class="academy-feat"><div class="academy-feat-icon">◈</div><div class="academy-feat-title">Track Your Progress</div><div class="academy-feat-body">See which grade bands you've mastered and where to direct your revision next.</div></div>
+      <div class="academy-feat"><div class="academy-feat-icon">◇</div><div class="academy-feat-title">Examiner Insights</div><div class="academy-feat-body">Every answer includes tips from examiner reports — know exactly what earns marks.</div></div>
+      <div class="academy-feat"><div class="academy-feat-icon">◉</div><div class="academy-feat-title">Maths &amp; Physics</div><div class="academy-feat-body">A-Level and GCSE content, structured by chapter and mapped to real exam topics.</div></div>
     </div>
-    <div class="price-card">
-      <div class="price-name">Exam Intensive</div>
-      <div class="price-amount"><sup>£</sup>350</div>
-      <div class="price-per">10-session exam sprint</div>
-      <div class="price-divider"></div>
-      <ul class="price-features"><li>Ten 60-minute sessions</li><li>Full revision programme</li><li>Past paper practice included</li><li>Ideal for April–May exam push</li></ul>
-      <a href="book.html" class="btn-primary" style="font-size:11px;padding:13px 28px">Get Started</a>
+    <div class="academy-cta">
+      <a href="https://sphere-exam-academy.vercel.app" target="_blank" rel="noopener" class="btn-primary btn-large">Explore the Academy</a>
     </div>
   </div>
-</div>
+</section>
 
 <section class="faq-teaser">
   <p>Have questions before you book? We've answered the most common ones.</p>
@@ -265,7 +266,7 @@
   <span class="final-cta-tag">Limited Spaces Available</span>
   <h2 class="final-cta-title">Your exams are closer<br>than they feel.</h2>
   <p class="final-cta-sub">Book a free 20-minute intro call. No pressure, no obligation — just clarity on exactly what's holding you back and how to fix it.</p>
-  <a href="book.html" class="btn-primary" style="font-size:13px;padding:18px 52px">Book Your Free Intro Call</a>
+  <a href="book.html" class="btn-primary btn-large">Book Your Free Intro Call</a>
   <p class="final-cta-small">Evenings &amp; weekends available · GCSE &amp; A-Level · Maths &amp; Physics</p>
 </section>
 
