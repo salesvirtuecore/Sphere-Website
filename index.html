@@ -70,6 +70,13 @@
   .book-strip{text-align:center;padding:0 48px 80px}
   .book-strip p{font-size:13px;color:var(--cream-dim);letter-spacing:0.06em;margin-bottom:20px}
 
+  /* URGENCY BADGES */
+  .urgency-badges{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:28px}
+  .urgency-badge{display:inline-flex;align-items:center;gap:10px;padding:13px 32px;border-radius:100px;font-size:13px;letter-spacing:0.05em;font-weight:400}
+  .urgency-badge.deadline{background:rgba(126,168,144,0.1);border:1px solid rgba(126,168,144,0.28);color:var(--sage-light)}
+  .urgency-badge.spots{background:rgba(232,180,74,0.08);border:1px solid rgba(232,180,74,0.28);color:#E8C87A}
+  .urgency-badge svg{width:15px;height:15px;flex-shrink:0}
+
   /* PROOF BAR */
   .proof-bar{border-top:1px solid rgba(126,168,144,0.1);border-bottom:1px solid rgba(126,168,144,0.1);background:var(--bg2);padding:52px 48px}
   .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1000px;margin:0 auto}
@@ -182,6 +189,30 @@
 <section class="book-strip">
   <p>No commitment. 20 minutes. Find out exactly what's holding you back.</p>
   <a href="book.html" class="btn-primary">Book Your Free Intro Call</a>
+  <div class="urgency-badges">
+    <div class="urgency-badge deadline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 12"/></svg>
+      Cohort Closes 15th August
+    </div>
+    <div class="urgency-badge spots">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Only 6 Spots Left
+    </div>
+  </div>
+</section>
+
+<section class="reviews-bg" id="reviews">
+  <div class="reviews-inner">
+    <div class="section-header">
+      <span class="section-tag">Student &amp; Parent Reviews</span>
+      <h2 class="section-title">What they say after<br>working with Harrison</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison is a fantastic maths tutor and has already really helped me improve my skills in a short period of time. I am far more confident and already improving my grade for university.</div><div class="review-author">Ellie</div><div class="review-role">A-Level Maths Student</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison has been tutoring my daughter through the summer leading into Year 11. He is knowledgeable, professional, and his positive attitude to achieve a great result is amazing.</div><div class="review-author">Jodie</div><div class="review-role">Parent, Year 11 GCSE Maths</div></div>
+      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">He was very patient and made sure to check up on my understanding which I liked a lot.</div><div class="review-author">Chuks</div><div class="review-role">Parent from Coventry</div></div>
+    </div>
+  </div>
 </section>
 
 <section class="proof-bar">
@@ -204,20 +235,6 @@
     <div class="why-card"><div class="why-num">03</div><div class="why-title">Patient, personal, and accountable.</div><div class="why-body">No rushing through content. No moving on until you've understood the reasoning and method behind each question. Students describe sessions as calm, clear, and effective.</div></div>
   </div>
 </div>
-
-<section class="reviews-bg" id="reviews">
-  <div class="reviews-inner">
-    <div class="section-header">
-      <span class="section-tag">Student &amp; Parent Reviews</span>
-      <h2 class="section-title">What they say after<br>working with Harrison</h2>
-    </div>
-    <div class="reviews-grid">
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison is a fantastic maths tutor and has already really helped me improve my skills in a short period of time. I am far more confident and already improving my grade for university.</div><div class="review-author">Ellie</div><div class="review-role">A-Level Maths Student</div></div>
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison has been tutoring my daughter through the summer leading into Year 11. He is knowledgeable, professional, and his positive attitude to achieve a great result is amazing.</div><div class="review-author">Jodie</div><div class="review-role">Parent, Year 11 GCSE Maths</div></div>
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">He was very patient and made sure to check up on my understanding which I liked a lot.</div><div class="review-author">Chuks</div><div class="review-role">Parent from Coventry</div></div>
-    </div>
-  </div>
-</section>
 
 <div class="section-wrap">
   <div class="section-header">
