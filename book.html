@@ -49,16 +49,8 @@
   .calendly-inner{padding:44px}
   .calendly-heading{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--cream);margin-bottom:6px}
   .calendly-sub{font-size:13px;color:var(--cream-dim);margin-bottom:32px}
-  .calendly-widget-wrap{background:var(--bg3);border:1px solid rgba(126,168,144,0.1);min-height:580px;position:relative;overflow:hidden}
-  .cal-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:48px;text-align:center}
-  .cal-icon{width:60px;height:60px;border:1px solid var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto}
-  .cal-icon svg{width:28px;height:28px}
-  .cal-icon svg path{stroke:var(--sage);fill:none}
-  .cal-placeholder-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream)}
-  .cal-placeholder-sub{font-size:13px;color:var(--cream-dim);line-height:1.6;max-width:300px}
-  .btn-calendly{display:inline-block;padding:14px 36px;background:var(--sage);color:var(--bg);font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;margin-top:8px;transition:opacity 0.3s}
-  .btn-calendly:hover{opacity:0.85}
-  .cal-note{font-size:11px;color:var(--cream-dim);opacity:0.5;letter-spacing:0.06em}
+  .calendly-widget-wrap{background:var(--bg3);border:1px solid rgba(126,168,144,0.1);position:relative}
+  .calendly-inline-widget{min-width:280px;height:700px}
 
   .reassure-strip{max-width:1100px;margin:0 auto;padding:0 48px 100px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
   .reassure-item{padding:32px 28px;background:var(--bg2);text-align:center}
@@ -121,13 +113,7 @@
       <div class="calendly-heading">Choose your time</div>
       <div class="calendly-sub">Evenings &amp; weekends available · Zoom or Google Meet</div>
       <div class="calendly-widget-wrap">
-        <div class="cal-placeholder">
-          <div class="cal-icon"><svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-          <div class="cal-placeholder-title">Select a Time Slot</div>
-          <div class="cal-placeholder-sub">Booking calendar connects here once Calendly is set up.</div>
-          <a href="https://calendly.com/harrisonrich/30min" class="btn-calendly" target="_blank">Open Booking Calendar</a>
-          <div class="cal-note">Free 20-min intro call · No card required</div>
-        </div>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/harrisonrich/30min?background_color=141e1a&text_color=ebe6dc&primary_color=7ea890"></div>
       </div>
     </div>
   </div>
@@ -145,5 +131,6 @@
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
 
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
