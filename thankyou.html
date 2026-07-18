@@ -63,14 +63,17 @@
   .reviews-header{text-align:center;margin-bottom:56px}
   .reviews-tag{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:block}
   .reviews-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;line-height:1.1;color:var(--cream)}
-  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-  .review-card{background:var(--bg);padding:44px 36px;position:relative;overflow:hidden;border-top:1px solid rgba(126,168,144,0.12);transition:transform 0.3s}
-  .review-card:hover{transform:translateY(-4px)}
-  .stars{color:#E8B44A;font-size:14px;margin-bottom:24px;letter-spacing:2px}
-  .review-quote{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;line-height:1.6;color:var(--cream);margin-bottom:28px;font-style:italic}
-  .review-author{font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);margin-bottom:4px}
-  .review-role{font-size:12px;color:var(--cream-dim)}
-  .review-qmark{font-family:'Cormorant Garamond',serif;font-size:80px;line-height:0.8;color:var(--sage);opacity:0.12;position:absolute;top:28px;right:28px}
+  .reviews-wall{column-count:4;column-gap:16px}
+  .review-shot{display:block;width:100%;margin:0 0 16px;padding:0;border:1px solid rgba(126,168,144,0.15);background:var(--bg3);cursor:zoom-in;break-inside:avoid;overflow:hidden;transition:border-color 0.3s,transform 0.3s;-webkit-appearance:none;appearance:none}
+  .review-shot:hover{border-color:var(--sage);transform:translateY(-3px)}
+  .review-shot img{display:block;width:100%;height:auto}
+
+  /* LIGHTBOX */
+  .lightbox{position:fixed;inset:0;background:rgba(8,13,11,0.94);display:none;align-items:center;justify-content:center;z-index:2000;padding:56px 40px;cursor:zoom-out}
+  .lightbox.active{display:flex}
+  .lightbox img{max-width:100%;max-height:100%;box-shadow:0 40px 100px rgba(0,0,0,0.6);cursor:default}
+  .lightbox-close{position:fixed;top:24px;right:32px;width:44px;height:44px;border:1px solid rgba(235,230,220,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:22px;line-height:1;cursor:pointer;transition:all 0.3s;background:rgba(8,13,11,0.6)}
+  .lightbox-close:hover{border-color:var(--sage);color:var(--sage)}
 
   /* FINAL */
   .final{padding:100px 48px;text-align:center}
@@ -86,15 +89,28 @@
   .footer-links a{font-size:12px;letter-spacing:0.1em;color:var(--cream-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
   .footer-links a:hover{color:var(--sage)}
   .footer-copy{font-size:11px;color:rgba(235,230,220,0.3)}
+  .trustpilot-badge{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--cream-dim);transition:opacity 0.3s}
+  .trustpilot-badge:hover{opacity:0.75}
+  .trustpilot-stars{color:#00b67a;font-size:13px;letter-spacing:1px}
+  .trustpilot-badge-text{font-size:12px;letter-spacing:0.04em}
+  .trustpilot-badge-text strong{color:#00b67a;font-weight:700}
+  .trustpilot-cta{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;border:1px solid rgba(126,168,144,0.25);background:var(--bg3);text-decoration:none;transition:border-color 0.3s,transform 0.3s;margin:28px auto 0}
+  .trustpilot-cta:hover{border-color:#00b67a;transform:translateY(-2px)}
+  .trustpilot-cta .trustpilot-stars{font-size:15px}
+  .trustpilot-cta-text{font-size:13px;color:var(--cream)}
+  .trustpilot-cta-text strong{color:#00b67a;font-weight:700}
 
   @media(max-width:900px){
     nav{padding:0 24px;grid-template-columns:1fr auto 1fr}
     .nav-links{display:none}
     .hero,.vsl-section,.steps-section,.reviews-inner,.final,footer{padding-left:24px;padding-right:24px}
-    .reviews-grid{grid-template-columns:1fr}
+    .reviews-wall{column-count:2}
     .step-card{grid-template-columns:1fr;gap:16px;padding:28px 24px}
     .step-num-wrap{flex-direction:row;align-items:center}
     .step-line{width:32px;height:1px}
+  }
+  @media(max-width:560px){
+    .reviews-wall{column-count:1}
   }
 </style>
 </head>
@@ -125,7 +141,7 @@
 
 <!-- VIDEO -->
 <section class="vsl-section">
-  <div style="padding:56.25% 0 0 0;position:relative;width:100%;max-width:860px;box-shadow:0 40px 100px rgba(0,0,0,0.5)"><iframe src="https://player.vimeo.com/video/1193005068?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Your Intro to Science Sphere"></iframe></div>
+  <div style="padding:56.25% 0 0 0;position:relative;width:100%;max-width:860px;box-shadow:0 40px 100px rgba(0,0,0,0.5)"><iframe src="https://player.vimeo.com/video/1210799725?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Harrison thank you video"></iframe></div>
   <script src="https://player.vimeo.com/api/player.js"></script>
 </section>
 
@@ -191,14 +207,51 @@
     <div class="reviews-header">
       <span class="reviews-tag">Student &amp; Parent Reviews</span>
       <h2 class="reviews-title">You're in good company</h2>
+      <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-cta"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-cta-text">Read our reviews on <strong>Trustpilot</strong></span></a>
     </div>
-    <div class="reviews-grid">
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison is a fantastic maths tutor and has already really helped me improve my skills in a short period of time. I am far more confident and already improving my grade for university.</div><div class="review-author">Ellie</div><div class="review-role">A-Level Maths Student</div></div>
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">Harrison has been tutoring my daughter through the summer leading into Year 11. He is knowledgeable, professional, and his positive attitude to achieve a great result is amazing.</div><div class="review-author">Jodie</div><div class="review-role">Parent, Year 11 GCSE Maths</div></div>
-      <div class="review-card"><div class="review-qmark">"</div><div class="stars">★★★★★</div><div class="review-quote">He was very patient and made sure to check up on my understanding which I liked a lot.</div><div class="review-author">Chuks</div><div class="review-role">Parent from Coventry</div></div>
+    <div class="reviews-wall">
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-iyobosa.png"><img src="img/testimonials/testimonial-iyobosa.png" alt="Review from Iyobosa"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-craig-nicholas.png"><img src="img/testimonials/testimonial-craig-nicholas.png" alt="Facebook recommendation from Craig Nicholas"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-pedro-lopes.png"><img src="img/testimonials/testimonial-pedro-lopes.png" alt="Facebook recommendation from Pedro Lopes"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-tania-bournemouth.png"><img src="img/testimonials/testimonial-tania-bournemouth.png" alt="Review from Tania, parent from Bournemouth"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-ellie.jpg"><img src="img/testimonials/testimonial-ellie.jpg" alt="Review from Ellie"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-jodie.jpg"><img src="img/testimonials/testimonial-jodie.jpg" alt="Review from Jodie"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-zak-far.png"><img src="img/testimonials/testimonial-zak-far.png" alt="Facebook recommendation from Zak Far"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-nicky.png"><img src="img/testimonials/testimonial-nicky.png" alt="Review from Nicky, parent from Worthing"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-chuks.png"><img src="img/testimonials/testimonial-chuks.png" alt="Review from Chuks, parent from Coventry"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-teal-results.jpeg"><img src="img/testimonials/testimonial-teal-results.jpeg" alt="Results day text message conversation about Teal"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-chuks-whatsapp.png"><img src="img/testimonials/testimonial-chuks-whatsapp.png" alt="WhatsApp conversation with Chuks about exam results"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-mubashir-whatsapp.jpeg"><img src="img/testimonials/testimonial-mubashir-whatsapp.jpeg" alt="WhatsApp conversation about a physics exam result"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-apprenticeship-whatsapp.jpeg"><img src="img/testimonials/testimonial-apprenticeship-whatsapp.jpeg" alt="WhatsApp message about exam grades and an apprenticeship"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-ruby-whatsapp.jpeg"><img src="img/testimonials/testimonial-ruby-whatsapp.jpeg" alt="WhatsApp message about Ruby's exam results"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-titilope.png"><img src="img/testimonials/testimonial-titilope.png" alt="Feedback report from Titilope"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-tania-student.jpeg"><img src="img/testimonials/testimonial-tania-student.jpeg" alt="Review from Tania, student"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-dean.png"><img src="img/testimonials/testimonial-dean.png" alt="Thank you message from Richard and Liz about Dean"></button>
+      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-thankyou-note.png"><img src="img/testimonials/testimonial-thankyou-note.png" alt="Thank you message from a student"></button>
     </div>
   </div>
 </section>
+
+<div class="lightbox" id="lightbox">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="Enlarged review">
+</div>
+<script>
+(function(){
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  function closeLightbox(){ lightbox.classList.remove('active'); lightboxImg.src=''; }
+  document.querySelectorAll('.review-shot').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      lightboxImg.src = btn.getAttribute('data-full');
+      lightbox.classList.add('active');
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){ if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLightbox(); });
+})();
+</script>
 
 <!-- FINAL NOTE -->
 <section class="final">
@@ -210,6 +263,7 @@
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
   <div class="footer-links"><a href="index.html">Home</a><a href="faq.html">FAQ</a><a href="book.html">Book a Call</a><a href="mailto:hello@sciencesphere.co.uk">Contact</a></div>
+  <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
 
