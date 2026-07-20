@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="facebook-domain-verification" content="pjdj7u233k7tbty3igx9wrd8mjaf13" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ — Science Sphere</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,6 +73,7 @@
   .footer-links a{font-size:12px;letter-spacing:0.1em;color:var(--cream-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
   .footer-links a:hover{color:var(--sage)}
   .footer-copy{font-size:11px;color:rgba(235,230,220,0.3)}
+  .disclaimer-bar{text-align:center;padding:18px 48px 0;font-size:10px;line-height:1.7;color:rgba(235,230,220,0.32);max-width:760px;margin:0 auto}
   .trustpilot-badge{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--cream-dim);transition:opacity 0.3s}
   .trustpilot-badge:hover{opacity:0.75}
   .trustpilot-stars{color:#00b67a;font-size:13px;letter-spacing:1px}
@@ -87,6 +89,23 @@
     .cat-btn.active{border-bottom-color:var(--sage)}
   }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2063290941729698');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -180,6 +199,8 @@
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
+
+<p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
 
 <script>
   function toggle(btn) {

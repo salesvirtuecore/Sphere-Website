@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="facebook-domain-verification" content="pjdj7u233k7tbty3igx9wrd8mjaf13" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Science Sphere — Premium Online Tutoring</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,6 +120,13 @@
   .faq-teaser{padding:80px 48px;text-align:center;background:var(--bg2);border-top:1px solid rgba(126,168,144,0.08)}
   .faq-teaser p{font-size:15px;color:var(--cream-dim);margin-bottom:24px}
 
+  /* LEAD MAGNET STRIP */
+  .guide-teaser{padding:80px 48px;text-align:center;border-top:1px solid rgba(126,168,144,0.08)}
+  .guide-teaser-tag{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:block}
+  .guide-teaser-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,40px);font-weight:300;color:var(--cream);margin-bottom:14px;line-height:1.15}
+  .guide-teaser-title em{font-style:italic;color:var(--sage-light)}
+  .guide-teaser p{font-size:14px;color:var(--cream-dim);max-width:460px;margin:0 auto 28px;line-height:1.7}
+
   /* FINAL CTA */
   .final-cta{padding:140px 48px;text-align:center;position:relative;overflow:hidden}
   .final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(126,168,144,0.08) 0%,transparent 70%);pointer-events:none}
@@ -134,6 +142,7 @@
   .footer-links a{font-size:12px;letter-spacing:0.1em;color:var(--cream-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
   .footer-links a:hover{color:var(--sage)}
   .footer-copy{font-size:11px;color:rgba(235,230,220,0.3)}
+  .disclaimer-bar{text-align:center;padding:18px 48px 0;font-size:10px;line-height:1.7;color:rgba(235,230,220,0.32);max-width:760px;margin:0 auto}
   .trustpilot-badge{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--cream-dim);transition:opacity 0.3s}
   .trustpilot-badge:hover{opacity:0.75}
   .trustpilot-stars{color:#00b67a;font-size:13px;letter-spacing:1px}
@@ -158,6 +167,23 @@
     .reviews-wall{column-count:1}
   }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2063290941729698');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -191,7 +217,7 @@
 
 <section class="book-strip">
   <p>No commitment. 20 minutes. Find out exactly what's holding you back.</p>
-  <a href="book.html" class="btn-primary">Book Your Free Intro Call</a>
+  <button type="button" class="btn-primary" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0" data-tally-redirect="book.html">Book Your Free Intro Call</button>
 </section>
 
 <section class="reviews-bg" id="reviews">
@@ -276,6 +302,13 @@
   </div>
 </div>
 
+<section class="guide-teaser">
+  <span class="guide-teaser-tag">Free Guide For Parents</span>
+  <h2 class="guide-teaser-title">Is your child's tutor <em>actually</em> working?</h2>
+  <p>The 11 signs of real progress — and the red flags most parents miss. A free 3-minute read for parents of GCSE &amp; A-Level students.</p>
+  <button type="button" class="btn-primary" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0" data-tally-redirect="guide-download.html">Get Your Free Guide</button>
+</section>
+
 <section class="faq-teaser">
   <p>Have questions before you book? We've answered the most common ones.</p>
   <a href="faq.html" class="btn-outline">View Frequently Asked Questions</a>
@@ -285,7 +318,7 @@
   <span class="final-cta-tag">Limited Spaces Available</span>
   <h2 class="final-cta-title">Your exams are closer<br>than they feel.</h2>
   <p class="final-cta-sub">Book a free 20-minute intro call. No pressure, no obligation — just clarity on exactly what's holding you back and how to fix it.</p>
-  <a href="book.html" class="btn-primary" style="font-size:13px;padding:18px 52px">Book Your Free Intro Call</a>
+  <button type="button" class="btn-primary" style="font-size:13px;padding:18px 52px" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0" data-tally-redirect="book.html">Book Your Free Intro Call</button>
   <p class="final-cta-small">Evenings &amp; weekends available · GCSE &amp; A-Level · Maths &amp; Physics</p>
 </section>
 
@@ -296,5 +329,27 @@
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
 
+<p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
+
+<script async src="https://tally.so/widgets/embed.js"></script>
+<script>
+  // Track which button opened the Tally popup so we know where to send
+  // the visitor once they submit — different buttons, different destinations.
+  var tallyRedirect = null;
+  document.querySelectorAll('[data-tally-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      tallyRedirect = btn.getAttribute('data-tally-redirect');
+    });
+  });
+  window.addEventListener('message', function (e) {
+    var data = e.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (err) { return; }
+    }
+    if (data && data.event === 'Tally.FormSubmitted' && tallyRedirect) {
+      window.location.href = tallyRedirect;
+    }
+  });
+</script>
 </body>
 </html>
