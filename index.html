@@ -218,7 +218,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <section class="book-strip">
   <p>No commitment. 20 minutes. Find out exactly what's holding you back.</p>
-  <a class="btn-primary" href="https://tally.so/r/xXLDjr">Book Your Free Intro Call</a>
+  <button type="button" class="btn-primary" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Your Free Intro Call</button>
 </section>
 
 <section class="reviews-bg" id="reviews">
@@ -307,7 +307,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <span class="guide-teaser-tag">Free Guide For Parents</span>
   <h2 class="guide-teaser-title">Is your child's tutor <em>actually</em> working?</h2>
   <p>The 11 signs of real progress — and the red flags most parents miss. A free 3-minute read for parents of GCSE &amp; A-Level students.</p>
-  <a class="btn-primary" href="https://tally.so/r/xXLDjr">Get Your Free Guide</a>
+  <button type="button" class="btn-primary" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Get Your Free Guide</button>
 </section>
 
 <section class="faq-teaser">
@@ -319,7 +319,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <span class="final-cta-tag">Limited Spaces Available</span>
   <h2 class="final-cta-title">Your exams are closer<br>than they feel.</h2>
   <p class="final-cta-sub">Book a free 20-minute intro call. No pressure, no obligation — just clarity on exactly what's holding you back and how to fix it.</p>
-  <a class="btn-primary" style="font-size:13px;padding:18px 52px" href="https://tally.so/r/xXLDjr">Book Your Free Intro Call</a>
+  <button type="button" class="btn-primary" style="font-size:13px;padding:18px 52px" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Your Free Intro Call</button>
   <p class="final-cta-small">Evenings &amp; weekends available · GCSE &amp; A-Level · Maths &amp; Physics</p>
 </section>
 
@@ -332,5 +332,26 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
 
+<script async src="https://tally.so/widgets/embed.js"></script>
+<script>
+  // On submit, read the form's own calculated "redirect_url" field out of the
+  // full submission payload Tally sends, and navigate there — this is the same
+  // per-role value (Parent -> /book, Student -> /guide) Tally computes server-side,
+  // so we don't have to guess a static destination per button.
+  window.addEventListener('message', function (e) {
+    var data = e.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (err) { return; }
+    }
+    if (!data || data.event !== 'Tally.FormSubmitted') return;
+    var fields = (data.payload && (data.payload.fields || data.payload.answers)) || [];
+    var redirectField = fields.find(function (f) {
+      return (f.label || f.key || '').toLowerCase().indexOf('redirect_url') !== -1;
+    });
+    if (redirectField && redirectField.value) {
+      window.location.href = redirectField.value;
+    }
+  });
+</script>
 </body>
 </html>
