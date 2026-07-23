@@ -190,15 +190,15 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <nav>
   <div></div>
-  <a class="nav-logo" href="index.html">
+  <a class='nav-logo' href='/'>
     <div class="nav-logo-img"><img src="sphere_tuition_logo.png" alt="Science Sphere" onerror="this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.outerHTML='<span style=font-size:18px;color:#3D3D3D;font-weight:700>S</span>'"></div>
     <div class="nav-brand">Science Sphere<span>Online Tutoring</span></div>
   </a>
   <div class="nav-links">
-    <a href="index.html" class="active">Home</a>
+    <a class='active' href='/'>Home</a>
     <a href="#about">About</a>
-    <a href="faq.html">FAQ</a>
-    <a href="book.html" class="nav-cta">Book Free Call</a>
+    <a href='/faq'>FAQ</a>
+    <a class='nav-cta' href='/book'>Book Free Call</a>
   </div>
 </nav>
 
@@ -218,7 +218,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <section class="book-strip">
   <p>No commitment. 20 minutes. Find out exactly what's holding you back.</p>
-  <button type="button" class="btn-primary" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0" data-tally-redirect="book.html">Book Your Free Intro Call</button>
+  <a class="btn-primary" href="https://tally.so/r/xXLDjr">Book Your Free Intro Call</a>
 </section>
 
 <section class="reviews-bg" id="reviews">
@@ -307,50 +307,30 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <span class="guide-teaser-tag">Free Guide For Parents</span>
   <h2 class="guide-teaser-title">Is your child's tutor <em>actually</em> working?</h2>
   <p>The 11 signs of real progress — and the red flags most parents miss. A free 3-minute read for parents of GCSE &amp; A-Level students.</p>
-  <button type="button" class="btn-primary" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0" data-tally-redirect="guide-download.html">Get Your Free Guide</button>
+  <a class="btn-primary" href="https://tally.so/r/xXLDjr">Get Your Free Guide</a>
 </section>
 
 <section class="faq-teaser">
   <p>Have questions before you book? We've answered the most common ones.</p>
-  <a href="faq.html" class="btn-outline">View Frequently Asked Questions</a>
+  <a class='btn-outline' href='/faq'>View Frequently Asked Questions</a>
 </section>
 
 <section class="final-cta">
   <span class="final-cta-tag">Limited Spaces Available</span>
   <h2 class="final-cta-title">Your exams are closer<br>than they feel.</h2>
   <p class="final-cta-sub">Book a free 20-minute intro call. No pressure, no obligation — just clarity on exactly what's holding you back and how to fix it.</p>
-  <button type="button" class="btn-primary" style="font-size:13px;padding:18px 52px" data-tally-open="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0" data-tally-redirect="book.html">Book Your Free Intro Call</button>
+  <a class="btn-primary" style="font-size:13px;padding:18px 52px" href="https://tally.so/r/xXLDjr">Book Your Free Intro Call</a>
   <p class="final-cta-small">Evenings &amp; weekends available · GCSE &amp; A-Level · Maths &amp; Physics</p>
 </section>
 
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
-  <div class="footer-links"><a href="index.html">Home</a><a href="faq.html">FAQ</a><a href="book.html">Book a Call</a><a href="mailto:hello@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href='/book'>Book a Call</a><a href="mailto:hello@sciencesphere.co.uk">Contact</a></div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
 
 <p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
 
-<script async src="https://tally.so/widgets/embed.js"></script>
-<script>
-  // Track which button opened the Tally popup so we know where to send
-  // the visitor once they submit — different buttons, different destinations.
-  var tallyRedirect = null;
-  document.querySelectorAll('[data-tally-open]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      tallyRedirect = btn.getAttribute('data-tally-redirect');
-    });
-  });
-  window.addEventListener('message', function (e) {
-    var data = e.data;
-    if (typeof data === 'string') {
-      try { data = JSON.parse(data); } catch (err) { return; }
-    }
-    if (data && data.event === 'Tally.FormSubmitted' && tallyRedirect) {
-      window.location.href = tallyRedirect;
-    }
-  });
-</script>
 </body>
 </html>
