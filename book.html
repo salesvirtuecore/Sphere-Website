@@ -175,5 +175,16 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 <p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
 
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+  // Persist ad attribution (UTM params) across pages so it's available
+  // whichever page the visitor eventually converts on.
+  (function () {
+    var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var params = new URLSearchParams(window.location.search);
+    UTM_KEYS.forEach(function (k) {
+      if (params.has(k)) localStorage.setItem(k, params.get(k));
+    });
+  })();
+</script>
 </body>
 </html>
