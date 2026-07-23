@@ -97,6 +97,21 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<script>
+  // Fires only when arriving from a completed Tally submission (redirect_url has ?lead=1),
+  // not on every visit to this page — avoids over-counting Leads from normal nav clicks.
+  if (new URLSearchParams(window.location.search).get('lead') === '1') {
+    fbq('track', 'Lead', { value: 25, currency: 'GBP' });
+  }
+
+  // Fires when the Calendly widget confirms an actual booking was completed.
+  window.addEventListener('message', function (e) {
+    if (e.origin.indexOf('calendly.com') === -1) return;
+    if (e.data.event === 'calendly.event_scheduled') {
+      fbq('track', 'Schedule', { value: 25, currency: 'GBP' });
+    }
+  });
+</script>
 </head>
 <body>
 
