@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="facebook-domain-verification" content="pjdj7u233k7tbty3igx9wrd8mjaf13" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Free Guide — Science Sphere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#080D0B;--bg2:#0F1714;--bg3:#141E1A;--sage:#7EA890;--sage-light:#A8C8B8;--cream:#EBE6DC;--cream-dim:rgba(235,230,220,0.6)}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(8,13,11,0.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(126,168,144,0.12)}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .nav-logo-img{width:44px;height:44px;border-radius:50%;background:#D4D0CB;overflow:hidden;flex-shrink:0}
+  .nav-logo-img img{width:100%;height:100%;object-fit:cover}
+  .nav-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;letter-spacing:0.08em;color:var(--cream);text-transform:uppercase}
+  .nav-brand span{display:block;font-size:9px;font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0.22em;color:var(--sage);text-transform:uppercase;margin-top:1px}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover{color:var(--sage)}
+
+  .page-hero{padding:150px 48px 20px;text-align:center;position:relative;overflow:hidden}
+  .page-hero::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(126,168,144,0.08) 0%,transparent 65%);pointer-events:none}
+  .page-hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(126,168,144,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(126,168,144,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+  .hero-check{width:56px;height:56px;border:1px solid var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative}
+  .hero-check svg{width:24px;height:24px;color:var(--sage)}
+  .page-tag{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--sage);display:block;margin-bottom:20px;position:relative}
+  .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5.5vw,60px);font-weight:300;line-height:1.15;color:var(--cream);margin-bottom:22px;max-width:640px;margin-left:auto;margin-right:auto;position:relative}
+  .page-sub{font-size:15px;color:var(--cream-dim);max-width:560px;margin:0 auto;line-height:1.8;position:relative}
+
+  .note-card{max-width:640px;margin:44px auto 0;padding:32px 40px;background:var(--bg2);border-left:2px solid var(--sage);text-align:left;position:relative}
+  .note-card p{font-size:14px;line-height:1.8;color:var(--cream-dim)}
+  .note-card p+p{margin-top:14px}
+  .note-card strong{color:var(--cream);font-weight:500}
+
+  .guide-section{max-width:640px;margin:56px auto 0;padding:0 48px;text-align:center}
+  .guide-card{background:var(--bg2);border:1px solid rgba(126,168,144,0.15);padding:44px 40px}
+  .guide-card-tag{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--sage);margin-bottom:14px;display:block}
+  .guide-card-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:12px;line-height:1.25}
+  .guide-card-sub{font-size:13px;color:var(--cream-dim);line-height:1.7;margin-bottom:28px}
+  .btn-primary{padding:16px 40px;background:var(--sage);color:var(--bg);font-size:12px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.3s;display:inline-block}
+  .btn-primary:hover{opacity:0.88}
+
+  .review-section{max-width:640px;margin:80px auto 0;padding:0 48px 100px;text-align:center}
+  .trust-review{background:var(--bg2);padding:36px 40px;border-left:2px solid var(--sage);text-align:left}
+  .trust-review-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px}
+  .trust-review-name{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sage)}
+  .trustpilot-cta{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;border:1px solid rgba(126,168,144,0.25);background:var(--bg3);text-decoration:none;transition:border-color 0.3s,transform 0.3s;margin:28px auto 0}
+  .trustpilot-cta:hover{border-color:#00b67a;transform:translateY(-2px)}
+  .trustpilot-stars{color:#00b67a;font-size:15px;letter-spacing:1px}
+  .trustpilot-cta-text{font-size:13px;color:var(--cream)}
+  .trustpilot-cta-text strong{color:#00b67a;font-weight:700}
+
+  footer{padding:48px;border-top:1px solid rgba(126,168,144,0.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .footer-brand{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:0.1em;color:var(--cream-dim)}
+  .footer-links{display:flex;gap:28px}
+  .footer-links a{font-size:12px;letter-spacing:0.1em;color:var(--cream-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+  .footer-links a:hover{color:var(--sage)}
+  .footer-copy{font-size:11px;color:rgba(235,230,220,0.3)}
+  .disclaimer-bar{text-align:center;padding:18px 48px 0;font-size:10px;line-height:1.7;color:rgba(235,230,220,0.32);max-width:760px;margin:0 auto}
+  .trustpilot-badge{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--cream-dim);transition:opacity 0.3s}
+  .trustpilot-badge:hover{opacity:0.75}
+  .trustpilot-badge-text{font-size:12px;letter-spacing:0.04em}
+  .trustpilot-badge-text strong{color:#00b67a;font-weight:700}
+
+  @media(max-width:900px){
+    nav{padding:0 24px}.nav-links{display:none}
+    .page-hero,.note-card,.guide-section,.review-section,footer{padding-left:24px;padding-right:24px}
+  }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2063290941729698');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script src="https://t.contentsquare.net/uxa/d800dc446a788.js" defer></script>
+</head>
+<body>
+
+<nav>
+  <a class='nav-logo' href='/'>
+    <div class="nav-logo-img"><img src="sphere_tuition_logo.png" alt="Science Sphere" onerror="this.outerHTML='<span style=font-size:18px;color:#3D3D3D;font-weight:700>S</span>'"></div>
+    <div class="nav-brand">Science Sphere<span>Online Tutoring</span></div>
+  </a>
+  <div class="nav-links">
+    <a href='/'>Home</a>
+    <a href='/faq'>FAQ</a>
+    <a href='/book'>Book a Call</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-check">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <span class="page-tag">Thanks for getting in touch</span>
+  <h1 class="page-title">One quick thing before we go further.</h1>
+  <p class="page-sub">We've logged your details and someone from our team will be in touch shortly.</p>
+
+  <div class="note-card">
+    <p>Right now, we set up all new tutoring directly with a <strong>parent or guardian</strong> — that's just how enrolment and scheduling works on our end, so we're not able to book you in for a call directly as a student.</p>
+    <p>That's completely fine — we'll be in touch, and it's worth having a parent or guardian reach out to us at <strong>contact@sciencesphere.co.uk</strong> whenever suits, so we can get things moving properly.</p>
+  </div>
+</section>
+
+<section class="guide-section">
+  <div class="guide-card">
+    <span class="guide-card-tag">In the meantime</span>
+    <h2 class="guide-card-title">Grab your free guide</h2>
+    <p class="guide-card-sub">Top 20 GCSE &amp; A-Level Maths and Physics Exam Mistakes (and how to avoid them) — practical, exam-ready tips you can start using today.</p>
+    <a href="guides/exam-mistakes-guide.pdf" class="btn-primary" download>Download the Guide</a>
+  </div>
+</section>
+
+<section class="review-section">
+  <div class="trust-review">
+    <div class="trust-review-text">"I would 100% recommend Harrison if you want to quickly boost your maths grades."</div>
+    <div class="trust-review-name">Ellie — A-Level Maths Student</div>
+  </div>
+  <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-cta"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-cta-text">Read our reviews on <strong>Trustpilot</strong></span></a>
+</section>
+
+<footer>
+  <div class="footer-brand">Science Sphere Online Tutoring</div>
+  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href='/book'>Book a Call</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
+  <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
+  <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
+</footer>
+
+<p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
+
+<script>
+  // Persist ad attribution (UTM params) across pages so it's available
+  // whichever page the visitor eventually converts on.
+  (function () {
+    var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var params = new URLSearchParams(window.location.search);
+    UTM_KEYS.forEach(function (k) {
+      if (params.has(k)) localStorage.setItem(k, params.get(k));
+    });
+  })();
+</script>
+</body>
+</html>

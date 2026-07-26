@@ -106,18 +106,19 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<script src="https://t.contentsquare.net/uxa/d800dc446a788.js" defer></script>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">
+  <a class='nav-logo' href='/'>
     <div class="nav-logo-img"><img src="sphere_tuition_logo.png" alt="Science Sphere" onerror="this.outerHTML='<span style=font-size:18px;color:#3D3D3D;font-weight:700>S</span>'"></div>
     <div class="nav-brand">Science Sphere<span>Online Tutoring</span></div>
   </a>
   <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="faq.html" class="active">FAQ</a>
-    <a href="book.html" class="nav-cta">Book Free Call</a>
+    <a href='/'>Home</a>
+    <a class='active' href='/faq'>FAQ</a>
+    <a class='nav-cta' href='/book'>Book Free Call</a>
   </div>
 </nav>
 
@@ -176,7 +177,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
       <div class="cat-heading">Is This Right for Me?</div>
       <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child already gets decent grades. Is this still worthwhile?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes, and often especially so. Many students on a B or 6 are losing marks in specific areas — not because they don't understand the subject, but because of exam technique or mark scheme awareness. Targeted sessions can often push a B to an A with less effort than parents expect.</p></div></div></div>
       <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child is very behind. Is it too late to make a difference?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>It depends on how much time there is, but in most cases — no. Harrison will tell you honestly on the intro call what a realistic improvement looks like given the timeline. Even a focused 4–6 week push before exams can shift a grade significantly if approached correctly.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Still not sure if it's the right fit?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Book the <a href="book.html">free intro call</a>. It costs nothing and takes 20 minutes. You'll leave with clarity on whether Science Sphere is the right choice — and if it isn't, Harrison will say so and suggest what else might help.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Still not sure if it's the right fit?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Book the <a href='/book'>free intro call</a>. It costs nothing and takes 20 minutes. You'll leave with clarity on whether Science Sphere is the right choice — and if it isn't, Harrison will say so and suggest what else might help.</p></div></div></div>
     </div>
 
   </div>
@@ -187,15 +188,15 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     <div class="help-title">Still have a question?</div>
     <div class="help-sub">The quickest way to get an answer is to book the free intro call. Harrison will answer anything directly — or you can email if you prefer.</div>
     <div class="help-ctas">
-      <a href="book.html" class="btn-primary">Book Free Intro Call</a>
-      <a href="mailto:hello@sciencesphere.co.uk" class="btn-outline">Send an Email</a>
+      <a class='btn-primary' href='/book'>Book Free Intro Call</a>
+      <a href="mailto:contact@sciencesphere.co.uk" class="btn-outline">Send an Email</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
-  <div class="footer-links"><a href="index.html">Home</a><a href="faq.html">FAQ</a><a href="book.html">Book a Call</a><a href="mailto:hello@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href='/book'>Book a Call</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
@@ -214,6 +215,17 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active')});
     btn.classList.add('active');
   }
+</script>
+<script>
+  // Persist ad attribution (UTM params) across pages so it's available
+  // whichever page the visitor eventually converts on.
+  (function () {
+    var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var params = new URLSearchParams(window.location.search);
+    UTM_KEYS.forEach(function (k) {
+      if (params.has(k)) localStorage.setItem(k, params.get(k));
+    });
+  })();
 </script>
 </body>
 </html>
