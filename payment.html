@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="facebook-domain-verification" content="pjdj7u233k7tbty3igx9wrd8mjaf13" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Package — Science Sphere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#080D0B;--bg2:#0F1714;--bg3:#141E1A;--sage:#7EA890;--sage-light:#A8C8B8;--cream:#EBE6DC;--cream-dim:rgba(235,230,220,0.6)}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(8,13,11,0.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(126,168,144,0.12)}
+  .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .nav-logo-img{width:44px;height:44px;border-radius:50%;background:#D4D0CB;overflow:hidden;flex-shrink:0}
+  .nav-logo-img img{width:100%;height:100%;object-fit:cover}
+  .nav-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;letter-spacing:0.08em;color:var(--cream);text-transform:uppercase}
+  .nav-brand span{display:block;font-size:9px;font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0.22em;color:var(--sage);text-transform:uppercase;margin-top:1px}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover{color:var(--sage)}
+
+  /* HERO */
+  .page-hero{padding:150px 48px 56px;text-align:center;position:relative;overflow:hidden}
+  .page-hero::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(126,168,144,0.08) 0%,transparent 65%);pointer-events:none}
+  .page-tag{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--sage);display:block;margin-bottom:20px}
+  .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6vw,64px);font-weight:300;line-height:1.1;color:var(--cream);margin-bottom:18px}
+  .page-title .grad-text{font-style:italic;color:var(--sage-light)}
+  .page-sub{font-size:15px;color:var(--cream-dim);max-width:480px;margin:0 auto 40px;line-height:1.7}
+
+  .pay-contact{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto}
+  .pay-contact input{flex:1;min-width:200px;padding:15px 18px;background:var(--bg2);border:1px solid rgba(126,168,144,0.25);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;transition:border-color 0.3s}
+  .pay-contact input::placeholder{color:var(--cream-dim)}
+  .pay-contact input:focus{outline:none;border-color:var(--sage)}
+  .pay-error{color:#e08a6b;font-size:12px;margin-top:14px;min-height:16px;letter-spacing:0.02em}
+
+  /* PLANS */
+  .pay-plans{padding:20px 48px 120px}
+  .plan-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+  .plan-card{background:var(--bg2);padding:44px 36px;border-top:1px solid rgba(126,168,144,0.12);display:flex;flex-direction:column}
+  .plan-card-featured{background:var(--bg3);border-top:2px solid var(--sage)}
+  .plan-badge{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--sage);padding:4px 14px;display:inline-block;margin-bottom:24px;align-self:flex-start}
+  .plan-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:8px}
+  .plan-price{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:300;color:var(--sage-light);line-height:1;margin-bottom:6px}
+  .plan-price span{font-size:12px;font-family:'DM Sans',sans-serif;color:var(--cream-dim);letter-spacing:0.06em;display:block;margin-top:8px}
+  .plan-desc{font-size:13.5px;color:var(--cream-dim);line-height:1.65;margin:18px 0 24px}
+  .plan-benefits{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:8px;flex-grow:1}
+  .plan-benefits li{font-size:13.5px;color:var(--cream-dim);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+  .plan-benefits li::before{content:'→';color:var(--sage);font-size:12px;flex-shrink:0;margin-top:2px}
+  .plan-btn{margin-top:28px;width:100%;text-align:center}
+
+  .btn{border:none;cursor:pointer;text-decoration:none;display:inline-block;font-family:'DM Sans',sans-serif;transition:opacity 0.3s,background 0.3s}
+  .btn-primary{background:var(--sage);color:var(--bg);font-weight:500}
+  .btn-primary:hover{opacity:0.88}
+  .btn-lg{padding:15px 0;font-size:12px;letter-spacing:0.14em;text-transform:uppercase}
+
+  /* FOOTER */
+  footer{padding:48px;border-top:1px solid rgba(126,168,144,0.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .footer-brand{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:0.1em;color:var(--cream-dim)}
+  .footer-links{display:flex;gap:28px}
+  .footer-links a{font-size:12px;letter-spacing:0.1em;color:var(--cream-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+  .footer-links a:hover{color:var(--sage)}
+  .footer-copy{font-size:11px;color:rgba(235,230,220,0.3)}
+  .disclaimer-bar{text-align:center;padding:18px 48px 0;font-size:10px;line-height:1.7;color:rgba(235,230,220,0.32);max-width:760px;margin:0 auto}
+  .trustpilot-badge{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--cream-dim);transition:opacity 0.3s}
+  .trustpilot-badge:hover{opacity:0.75}
+  .trustpilot-stars{color:#00b67a;font-size:13px;letter-spacing:1px}
+  .trustpilot-badge-text{font-size:12px;letter-spacing:0.04em}
+  .trustpilot-badge-text strong{color:#00b67a;font-weight:700}
+
+  @media(max-width:900px){
+    nav{padding:0 24px}.nav-links{display:none}
+    .page-hero,.pay-plans,footer{padding-left:24px;padding-right:24px}
+    .plan-grid{grid-template-columns:1fr}
+  }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2063290941729698');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-img"><img src="sphere_tuition_logo.png" alt="Science Sphere" onerror="this.outerHTML='<span style=font-size:18px;color:#3D3D3D;font-weight:700>S</span>'"></div>
+    <div class="nav-brand">Science Sphere<span>Online Tutoring</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="faq.html">FAQ</a>
+    <a href="book.html">Book a Call</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <span class="page-tag">Enroll Today</span>
+  <h1 class="page-title">Pick Your <span class="grad-text">Package</span></h1>
+  <p class="page-sub">Enter your details once, then choose a package below — you'll be taken straight to secure checkout.</p>
+
+  <div class="pay-contact">
+    <input type="text" id="payName" placeholder="Full name" autocomplete="name">
+    <input type="email" id="payEmail" placeholder="Email" autocomplete="email">
+  </div>
+  <p class="pay-error" id="payError"></p>
+</section>
+
+<section class="pay-plans">
+  <div class="plan-grid">
+
+    <article class="plan-card">
+      <span class="plan-badge">Single Session</span>
+      <h3>Try a Session</h3>
+      <p class="plan-price">£40<span>per 60-minute session</span></p>
+      <p class="plan-desc">One 60-minute online session with Harrison — no commitment, perfect for trying it out.</p>
+      <ul class="plan-benefits">
+        <li>One 60-minute online session</li>
+        <li>Maths or Physics — any level</li>
+        <li>No commitment required</li>
+        <li>Perfect for trying it out</li>
+      </ul>
+      <button type="button" class="btn btn-primary btn-lg plan-btn" data-stripe-link="https://buy.stripe.com/REPLACE_SINGLE_SESSION_LINK">Pay Now →</button>
+    </article>
+
+    <article class="plan-card plan-card-featured">
+      <span class="plan-badge">Most Popular</span>
+      <h3>5-Session Block</h3>
+      <p class="plan-price">£185<span>paid upfront — save £15</span></p>
+      <p class="plan-desc">Five sessions with a structured learning plan and progress tracked throughout.</p>
+      <ul class="plan-benefits">
+        <li>Five 60-minute sessions</li>
+        <li>Structured learning plan</li>
+        <li>Progress tracked every session</li>
+        <li>Parent updates included</li>
+      </ul>
+      <button type="button" class="btn btn-primary btn-lg plan-btn" data-stripe-link="https://buy.stripe.com/REPLACE_5_SESSION_BLOCK_LINK">Pay Now →</button>
+    </article>
+
+    <article class="plan-card">
+      <span class="plan-badge">Best Value</span>
+      <h3>10-Session Block</h3>
+      <p class="plan-price">£300<span>paid upfront — save £100</span></p>
+      <p class="plan-desc">A full revision programme with past paper practice — ideal for the run-up to exams.</p>
+      <ul class="plan-benefits">
+        <li>Ten 60-minute sessions</li>
+        <li>Full revision programme</li>
+        <li>Past paper practice included</li>
+        <li>Ideal for exam-season push</li>
+      </ul>
+      <button type="button" class="btn btn-primary btn-lg plan-btn" data-stripe-link="https://buy.stripe.com/REPLACE_10_SESSION_BLOCK_LINK">Pay Now →</button>
+    </article>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Science Sphere Online Tutoring</div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="faq.html">FAQ</a><a href="book.html">Book a Call</a><a href="mailto:hello@sciencesphere.co.uk">Contact</a></div>
+  <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
+  <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
+</footer>
+
+<p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
+
+<script>
+  document.querySelectorAll('.plan-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var name = document.getElementById('payName').value.trim();
+      var email = document.getElementById('payEmail').value.trim();
+      var errorEl = document.getElementById('payError');
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name || !email) {
+        errorEl.textContent = 'Please enter your name and email before choosing a package.';
+        document.querySelector('.pay-contact').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (!emailPattern.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        document.querySelector('.pay-contact').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      errorEl.textContent = '';
+
+      var link = btn.getAttribute('data-stripe-link');
+      var url = link + '?prefilled_email=' + encodeURIComponent(email);
+      window.location.href = url;
+    });
+  });
+</script>
+</body>
+</html>
