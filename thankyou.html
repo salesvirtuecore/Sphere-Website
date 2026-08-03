@@ -23,7 +23,7 @@
   .nav-links{display:flex;align-items:center;gap:36px;grid-column:3;justify-self:end}
   .nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
   .nav-links a:hover{color:var(--sage)}
-  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;font-family:'DM Sans',sans-serif;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.3s}
   .nav-cta:hover{background:var(--sage);color:var(--bg)}
 
   /* HERO */
@@ -154,7 +154,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <div class="nav-links">
     <a href='/'>Home</a>
     <a href='/faq'>FAQ</a>
-    <a class='nav-cta' href='/book'>Book Free Call</a>
+    <button type="button" class="nav-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Free Call</button>
   </div>
 </nav>
 
@@ -163,9 +163,9 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <div class="hero-check">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" color="var(--sage)"><polyline points="20 6 9 17 4 12"/></svg>
   </div>
-  <span class="hero-tag">You're confirmed — we'll see you soon</span>
+  <span class="hero-tag">You're confirmed &middot; we'll see you soon</span>
   <h1 class="hero-title">You've taken the first step.<br><em>Harrison can't wait to meet you.</em></h1>
-  <p class="hero-sub">A confirmation has been sent to your email. Your discovery call is also a free trial lesson — so come ready to learn something useful from the very first minute.</p>
+  <p class="hero-sub">A confirmation has been sent to your email. Your discovery call is also a free trial lesson, so come ready to learn something useful from the very first minute.</p>
 </section>
 
 <!-- VIDEO -->
@@ -189,7 +189,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
       </div>
       <div>
         <div class="step-title">Check your email &amp; confirm in your calendar</div>
-        <div class="step-body">You'll receive a booking confirmation from Calendly shortly. <strong>Add it to your calendar</strong> so you don't miss it — and check your spam folder if it doesn't arrive within a few minutes. The Zoom or Google Meet link will be in that email.</div>
+        <div class="step-body">You'll receive a booking confirmation from Calendly shortly. <strong>Add it to your calendar</strong> so you don't miss it, and check your spam folder if it doesn't arrive within a few minutes. The Zoom or Google Meet link will be in that email.</div>
         <div class="step-badge">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Check email &amp; confirm
@@ -204,7 +204,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
       </div>
       <div>
         <div class="step-title">Look out for your free guide</div>
-        <div class="step-body">The Science Sphere team will be in touch by <strong>email or message</strong> with a free guide to help you get the most out of your first session. It covers what to bring, what to expect, and how to hit the ground running — make sure to read it before the call.</div>
+        <div class="step-body">The Science Sphere team will be in touch by <strong>email or message</strong> with a free guide to help you get the most out of your first session. It covers what to bring, what to expect, and how to hit the ground running, make sure to read it before the call.</div>
         <div class="step-badge">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           Free guide incoming
@@ -218,8 +218,8 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
         <div class="step-line"></div>
       </div>
       <div>
-        <div class="step-title">Show up on time — student &amp; parent together</div>
-        <div class="step-body">This is both a <strong>discovery call and a free trial lesson</strong> — Harrison will diagnose the gaps and teach something useful in the very same session. We'd love the <strong>student and parent to join together</strong> wherever possible, so everyone is aligned and no time is wasted. Come with a specific topic or question in mind if you have one.</div>
+        <div class="step-title">Show up on time, student &amp; parent together</div>
+        <div class="step-body">This is both a <strong>discovery call and a free trial lesson</strong>, Harrison will diagnose the gaps and teach something useful in the very same session. We'd love the <strong>student and parent to join together</strong> wherever possible, so everyone is aligned and no time is wasted. Come with a specific topic or question in mind if you have one.</div>
         <div class="step-badge">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 12"/></svg>
           Discovery call + free trial lesson
@@ -291,23 +291,60 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
-  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href='/book'>Book a Call</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
 
 <p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
 
+<script async src="https://tally.so/widgets/embed.js"></script>
 <script>
-  // Persist ad attribution (UTM params) across pages so it's available
-  // whichever page the visitor eventually converts on.
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
   (function () {
-    var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
     var params = new URLSearchParams(window.location.search);
     UTM_KEYS.forEach(function (k) {
       if (params.has(k)) localStorage.setItem(k, params.get(k));
     });
   })();
+
+  function getStoredUtms() {
+    var out = {};
+    UTM_KEYS.forEach(function (k) {
+      var v = localStorage.getItem(k);
+      if (v) out[k] = v;
+    });
+    return out;
+  }
+
+  document.querySelectorAll('[data-tally-form-id]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (!window.Tally) return;
+      window.Tally.openPopup(btn.getAttribute('data-tally-form-id'), {
+        layout: btn.getAttribute('data-tally-layout') || 'modal',
+        width: parseInt(btn.getAttribute('data-tally-width'), 10) || undefined,
+        autoClose: parseInt(btn.getAttribute('data-tally-auto-close'), 10) || 0,
+        hiddenFields: getStoredUtms()
+      });
+    });
+  });
+
+  window.addEventListener('message', function (e) {
+    var data = e.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (err) { return; }
+    }
+    if (!data || data.event !== 'Tally.FormSubmitted') return;
+    var fields = (data.payload && (data.payload.fields || data.payload.answers)) || [];
+    var redirectField = fields.find(function (f) {
+      return (f.label || f.key || '').toLowerCase().indexOf('redirect_url') !== -1;
+    });
+    if (redirectField && redirectField.value) {
+      window.location.href = redirectField.value;
+    }
+  });
 </script>
 </body>
 </html>
