@@ -110,7 +110,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <div class="nav-links">
     <a href='/'>Home</a>
     <a href='/faq'>FAQ</a>
-    <a href='/book'>Book a Call</a>
+    <button type="button" class="nav-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Free Call</button>
   </div>
 </nav>
 
@@ -123,8 +123,8 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <p class="page-sub">We've logged your details and someone from our team will be in touch shortly.</p>
 
   <div class="note-card">
-    <p>Right now, we set up all new tutoring directly with a <strong>parent or guardian</strong> — that's just how enrolment and scheduling works on our end, so we're not able to book you in for a call directly as a student.</p>
-    <p>That's completely fine — we'll be in touch, and it's worth having a parent or guardian reach out to us at <strong>contact@sciencesphere.co.uk</strong> whenever suits, so we can get things moving properly.</p>
+    <p>Right now, we set up all new tutoring directly with a <strong>parent or guardian</strong>, that's just how enrolment and scheduling works on our end, so we're not able to book you in for a call directly as a student.</p>
+    <p>That's completely fine, we'll be in touch, and it's worth having a parent or guardian reach out to us at <strong>contact@sciencesphere.co.uk</strong> whenever suits, so we can get things moving properly.</p>
   </div>
 </section>
 
@@ -132,7 +132,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <div class="guide-card">
     <span class="guide-card-tag">In the meantime</span>
     <h2 class="guide-card-title">Grab your free guide</h2>
-    <p class="guide-card-sub">Top 20 GCSE &amp; A-Level Maths and Physics Exam Mistakes (and how to avoid them) — practical, exam-ready tips you can start using today.</p>
+    <p class="guide-card-sub">Top 20 GCSE &amp; A-Level Maths and Physics Exam Mistakes (and how to avoid them), practical, exam-ready tips you can start using today.</p>
     <a href="guides/exam-mistakes-guide.pdf" class="btn-primary" download>Download the Guide</a>
   </div>
 </section>
@@ -140,30 +140,67 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 <section class="review-section">
   <div class="trust-review">
     <div class="trust-review-text">"I would 100% recommend Harrison if you want to quickly boost your maths grades."</div>
-    <div class="trust-review-name">Ellie — A-Level Maths Student</div>
+    <div class="trust-review-name">Ellie, A-Level Maths Student</div>
   </div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-cta"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-cta-text">Read our reviews on <strong>Trustpilot</strong></span></a>
 </section>
 
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
-  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href='/book'>Book a Call</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
 
 <p class="disclaimer-bar">This website and any associated advertising on Meta (Facebook/Instagram) or Google are independently run by Science Sphere and are not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. or Google LLC. All trademarks belong to their respective owners.</p>
 
+<script async src="https://tally.so/widgets/embed.js"></script>
 <script>
-  // Persist ad attribution (UTM params) across pages so it's available
-  // whichever page the visitor eventually converts on.
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
   (function () {
-    var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
     var params = new URLSearchParams(window.location.search);
     UTM_KEYS.forEach(function (k) {
       if (params.has(k)) localStorage.setItem(k, params.get(k));
     });
   })();
+
+  function getStoredUtms() {
+    var out = {};
+    UTM_KEYS.forEach(function (k) {
+      var v = localStorage.getItem(k);
+      if (v) out[k] = v;
+    });
+    return out;
+  }
+
+  document.querySelectorAll('[data-tally-form-id]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (!window.Tally) return;
+      window.Tally.openPopup(btn.getAttribute('data-tally-form-id'), {
+        layout: btn.getAttribute('data-tally-layout') || 'modal',
+        width: parseInt(btn.getAttribute('data-tally-width'), 10) || undefined,
+        autoClose: parseInt(btn.getAttribute('data-tally-auto-close'), 10) || 0,
+        hiddenFields: getStoredUtms()
+      });
+    });
+  });
+
+  window.addEventListener('message', function (e) {
+    var data = e.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (err) { return; }
+    }
+    if (!data || data.event !== 'Tally.FormSubmitted') return;
+    var fields = (data.payload && (data.payload.fields || data.payload.answers)) || [];
+    var redirectField = fields.find(function (f) {
+      return (f.label || f.key || '').toLowerCase().indexOf('redirect_url') !== -1;
+    });
+    if (redirectField && redirectField.value) {
+      window.location.href = redirectField.value;
+    }
+  });
 </script>
 </body>
 </html>
