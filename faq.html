@@ -23,7 +23,7 @@
   .nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
   .nav-links a:hover{color:var(--sage)}
   .nav-links a.active{color:var(--sage)}
-  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;font-family:'DM Sans',sans-serif;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.3s}
   .nav-cta:hover{background:var(--sage);color:var(--bg)}
 
   .page-hero{padding:140px 48px 72px;text-align:center;position:relative;overflow:hidden}
@@ -56,6 +56,8 @@
   .faq-a-inner p:last-child{margin-bottom:0}
   .faq-a-inner strong{color:var(--cream);font-weight:500}
   .faq-a-inner a{color:var(--sage);text-decoration:underline;text-underline-offset:3px}
+  .faq-inline-cta{display:inline-block;margin-top:6px;padding:9px 22px;background:transparent;border:1px solid rgba(126,168,144,0.55);color:var(--sage);font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.25s}
+  .faq-inline-cta:hover{background:var(--sage);color:var(--bg);border-color:var(--sage)}
 
   .help-section{background:var(--bg2);padding:80px 48px;text-align:center;border-top:1px solid rgba(126,168,144,0.08)}
   .help-inner{max-width:560px;margin:0 auto}
@@ -127,7 +129,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <div class="nav-links">
     <a href='/'>Home</a>
     <a class='active' href='/faq'>FAQ</a>
-    <a class='nav-cta' href='/book'>Book Free Call</a>
+    <button type="button" class="nav-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Free Call</button>
   </div>
 </nav>
 
@@ -151,42 +153,41 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
     <div class="faq-category" id="sessions">
       <div class="cat-heading">Sessions &amp; Format</div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How long is each session?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>All sessions are 60 minutes. This gives enough time to work through problems properly, explain the method, and check understanding — without rushing.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How do online sessions work?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions run on Zoom with a shared digital whiteboard. You'll need a device with a camera and stable internet — a laptop or tablet works best. Harrison uses screen sharing to work through problems in real time, and you can annotate too.</p><p>Many students find online easier than in-person — no travel, comfortable environment, and sessions can be recorded for revision if needed.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What subjects and levels do you cover?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison tutors <strong>Maths and Physics</strong> at both GCSE and A-Level. He recently completed these exams himself, so his knowledge of current mark schemes and common question patterns is highly up to date.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What qualifications and experience do you have?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison has <strong>over 4 years of tutoring experience</strong> and holds a <strong>Master's degree in Physics</strong>. Combined with having recently sat his own A-Level exams, this means he brings both deep subject knowledge and a highly current understanding of exactly what examiners are looking for.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What is your teaching style — lectures or interactive learning?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions are split into two parts. The first segment covers the <strong>theory and key concepts</strong> clearly and concisely. The second moves into <strong>engaged, interactive learning on the whiteboard</strong> — working through problems together, with the approach tailored to the student's ability and pace. No passive listening; you're involved throughout.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Do you set homework between sessions?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. Targeted homework reinforces what was covered in the session and helps Harrison track where understanding has stuck and where gaps remain. It's manageable and focused — not overwhelming.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What exam boards do you support?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>All major UK exam boards including <strong>AQA, Edexcel, OCR, and WJEC</strong>. When you book your intro call, let Harrison know which board you're studying and he'll tailor sessions accordingly.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How long is each session?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>All sessions are 60 minutes. This gives enough time to work through problems properly, explain the method, and check understanding, without rushing.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How do online sessions work?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions run on Zoom with a shared digital whiteboard. You'll need a device with a camera and stable internet, a laptop or tablet works best. Harrison uses screen sharing to work through problems in real time, and you can annotate too.</p><p>Many students find online easier than in-person, no travel, comfortable environment, and sessions can be recorded for revision if needed.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What subjects and levels do you cover?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison tutors <strong>Maths and Physics</strong> at both GCSE and A-Level. He recently completed these exams himself, so his knowledge of current mark schemes and common question patterns is highly up to date.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What qualifications and experience do you have?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison has <strong>over 4 years of tutoring experience</strong> and holds a <strong>Master's degree in Physics</strong>. Combined with having recently sat his own A-Level exams, this means he brings both deep subject knowledge and a highly current understanding of exactly what examiners are looking for.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What is your teaching style, lectures or interactive learning?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions are split into two parts. The first segment covers the <strong>theory and key concepts</strong> clearly and concisely. The second moves into <strong>engaged, interactive learning on the whiteboard</strong>, working through problems together, with the approach tailored to the student's ability and pace. No passive listening; you're involved throughout.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Do you set homework between sessions?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. Targeted homework reinforces what was covered in the session and helps Harrison track where understanding has stuck and where gaps remain. It's manageable and focused, not overwhelming.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What exam boards do you support?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>All major UK exam boards including <strong>AQA, Edexcel, OCR, and WJEC</strong>. When you book your intro call, let Harrison know which board you're studying and he'll tailor sessions accordingly.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
     </div>
 
     <div class="faq-category" id="pricing">
       <div class="cat-heading">Pricing &amp; Packages</div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How much does tutoring cost?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Single sessions are <strong>£40</strong> per hour. The 5-session block is <strong>£185</strong> (saving £15), and the 10-session Exam Intensive is <strong>£350</strong>. The intro call is completely free with no obligation to book.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Can I start with just one session?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Absolutely. Many students start with a single session to see how it feels before moving to a block. Book the free intro call first, then take it from there — no pressure.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What's included in the 5-session block?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Five 60-minute sessions, a structured learning plan, progress tracking between each session, homework after each session, and parent updates if requested. The block must be used within 8 weeks of purchase.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Is there a referral offer?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. If you refer a friend or sibling who books a paid session block, you both receive a free session. Just mention it when they book and have them note your name.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Can I start with just one session?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Absolutely. Many students start with a single session to see how it feels before moving to a block. Book the free intro call first, then take it from there, no pressure.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What's included in the 5-session block?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Five 60-minute sessions, a structured learning plan, progress tracking between each session, homework after each session, and parent updates if requested. The block must be used within 8 weeks of purchase.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Is there a referral offer?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. If you refer a friend or sibling who books a paid session block, you both receive a free session. Just mention it when they book and have them note your name.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
     </div>
 
     <div class="faq-category" id="results">
       <div class="cat-heading">Results &amp; Progress</div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How quickly will I see improvement?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Most students notice increased confidence and clearer understanding within the first two or three sessions. Grade improvements on papers typically show within 4–6 weeks of consistent sessions, depending on the gap between current and target grade.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What makes Harrison different from other tutors?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>The main difference is recency. Harrison recently sat his own GCSEs and A-Levels, so he knows exactly how current exams are structured, which topics are examined most, and where students typically lose marks right now — not based on what exams looked like years ago.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Do parents receive updates on progress?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. After every session Harrison sends a personal message covering <strong>what went well</strong> and <strong>what needs working on</strong>, plus a brief note on what was covered, homework set, and what to focus on next. Parents are welcome to be copied on all communication for younger students.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How quickly will I see improvement?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Most students notice increased confidence and clearer understanding within the first two or three sessions. Grade improvements on papers typically show within 4–6 weeks of consistent sessions, depending on the gap between current and target grade.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What makes Harrison different from other tutors?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>The main difference is recency. Harrison recently sat his own GCSEs and A-Levels, so he knows exactly how current exams are structured, which topics are examined most, and where students typically lose marks right now, not based on what exams looked like years ago.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Do parents receive updates on progress?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes. After every session Harrison sends a personal message covering <strong>what went well</strong> and <strong>what needs working on</strong>, plus a brief note on what was covered, homework set, and what to focus on next. Parents are welcome to be copied on all communication for younger students.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
     </div>
 
     <div class="faq-category" id="logistics">
       <div class="cat-heading">Booking &amp; Logistics</div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What days and times are available?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions are available on <strong>weekday evenings and weekends</strong>. Exact availability is shown when you book via the calendar. Slots are allocated first-come, first-served — earlier booking is better, especially in April–May exam season.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What if I need to cancel or reschedule?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions can be rescheduled with at least <strong>24 hours' notice</strong> at no charge. Cancellations within 24 hours are charged at the full session rate. <strong>Refunds are issued within 24 hours for extenuating circumstances</strong> — if something unexpected comes up, just let Harrison know and he'll sort it. This is confirmed in writing before your first paid session.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How do I pay?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison sends a secure payment link after your intro call. All major cards are accepted. Blocks are paid upfront; single sessions can be paid upfront or on the day.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What days and times are available?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions are available on <strong>weekday evenings and weekends</strong>. Exact availability is shown when you book via the calendar. Slots are allocated first-come, first-served, earlier booking is better, especially in April–May exam season.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">What if I need to cancel or reschedule?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Sessions can be rescheduled with at least <strong>24 hours' notice</strong> at no charge. Cancellations within 24 hours are charged at the full session rate. <strong>Refunds are issued within 24 hours for extenuating circumstances</strong>, if something unexpected comes up, just let Harrison know and he'll sort it. This is confirmed in writing before your first paid session.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">How do I pay?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Harrison sends a secure payment link after your intro call. All major cards are accepted. Blocks are paid upfront; single sessions can be paid upfront or on the day.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
     </div>
 
     <div class="faq-category" id="fit">
       <div class="cat-heading">Is This Right for Me?</div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child already gets decent grades. Is this still worthwhile?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes, and often especially so. Many students on a B or 6 are losing marks in specific areas — not because they don't understand the subject, but because of exam technique or mark scheme awareness. Targeted sessions can often push a B to an A with less effort than parents expect.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child is very behind. Is it too late to make a difference?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>It depends on how much time there is, but in most cases — no. Harrison will tell you honestly on the intro call what a realistic improvement looks like given the timeline. Even a focused 4–6 week push before exams can shift a grade significantly if approached correctly.</p></div></div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Still not sure if it's the right fit?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Book the <a href='/book'>free intro call</a>. It costs nothing and takes 20 minutes. You'll leave with clarity on whether Science Sphere is the right choice — and if it isn't, Harrison will say so and suggest what else might help.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child already gets decent grades. Is this still worthwhile?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Yes, and often especially so. Many students on a B or 6 are losing marks in specific areas, not because they don't understand the subject, but because of exam technique or mark scheme awareness. Targeted sessions can often push a B to an A with less effort than parents expect.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">My child is very behind. Is it too late to make a difference?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>It depends on how much time there is, but in most cases, no. Harrison will tell you honestly on the intro call what a realistic improvement looks like given the timeline. Even a focused 4–6 week push before exams can shift a grade significantly if approached correctly.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggle(this)">Still not sure if it's the right fit?<span class="faq-arrow">+</span></button><div class="faq-a"><div class="faq-a-inner"><p>Book the <a href='/book'>free intro call</a>. It costs nothing and takes 20 minutes. You'll leave with clarity on whether Science Sphere is the right choice, and if it isn't, Harrison will say so and suggest what else might help.</p><button type="button" class="faq-inline-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book a Free Call &rarr;</button></div></div></div>
     </div>
 
   </div>
@@ -195,9 +196,9 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 <section class="help-section">
   <div class="help-inner">
     <div class="help-title">Still have a question?</div>
-    <div class="help-sub">The quickest way to get an answer is to book the free intro call. Harrison will answer anything directly — or you can email if you prefer.</div>
+    <div class="help-sub">The quickest way to get an answer is to book the free intro call. Harrison will answer anything directly, or you can email if you prefer.</div>
     <div class="help-ctas">
-      <a class='btn-primary' href='/book'>Book Free Intro Call</a>
+      <button type="button" class="btn-primary" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Free Intro Call</button>
       <a href="mailto:contact@sciencesphere.co.uk" class="btn-outline">Send an Email</a>
     </div>
   </div>
@@ -205,7 +206,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
-  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href='/book'>Book a Call</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
@@ -225,16 +226,63 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     btn.classList.add('active');
   }
 </script>
+<script async src="https://tally.so/widgets/embed.js"></script>
 <script>
-  // Persist ad attribution (UTM params) across pages so it's available
-  // whichever page the visitor eventually converts on.
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+  // Capture ad attribution from the URL (if present) and persist it, so it's
+  // still available when the visitor actually opens/submits the form, even if
+  // they clicked through from a different page.
   (function () {
-    var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
     var params = new URLSearchParams(window.location.search);
     UTM_KEYS.forEach(function (k) {
       if (params.has(k)) localStorage.setItem(k, params.get(k));
     });
   })();
+
+  function getStoredUtms() {
+    var out = {};
+    UTM_KEYS.forEach(function (k) {
+      var v = localStorage.getItem(k);
+      if (v) out[k] = v;
+    });
+    return out;
+  }
+
+  // Open the Tally popup manually (via data-tally-form-id, not Tally's own
+  // auto-init data-tally-open) so we can pass the persisted UTM values in as
+  // hidden fields on every open.
+  document.querySelectorAll('[data-tally-form-id]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (!window.Tally) return;
+      window.Tally.openPopup(btn.getAttribute('data-tally-form-id'), {
+        layout: btn.getAttribute('data-tally-layout') || 'modal',
+        width: parseInt(btn.getAttribute('data-tally-width'), 10) || undefined,
+        autoClose: parseInt(btn.getAttribute('data-tally-auto-close'), 10) || 0,
+        hiddenFields: getStoredUtms()
+      });
+    });
+  });
+
+  // On submit, read the form's own calculated "redirect_url" field out of the
+  // full submission payload Tally sends, and navigate there — this is the same
+  // per-role value (Parent -> /book, Student -> /guide) Tally computes server-side,
+  // so we don't have to guess a static destination per button.
+  window.addEventListener('message', function (e) {
+    var data = e.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (err) { return; }
+    }
+    if (!data || data.event !== 'Tally.FormSubmitted') return;
+    var fields = (data.payload && (data.payload.fields || data.payload.answers)) || [];
+    var redirectField = fields.find(function (f) {
+      return (f.label || f.key || '').toLowerCase().indexOf('redirect_url') !== -1;
+    });
+    if (redirectField && redirectField.value) {
+      window.location.href = redirectField.value;
+    }
+  });
 </script>
 </body>
 </html>
