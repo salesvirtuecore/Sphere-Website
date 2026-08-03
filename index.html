@@ -27,7 +27,7 @@
   .nav-links{display:flex;align-items:center;gap:36px;grid-column:3;justify-self:end}
   .nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
   .nav-links a:hover,.nav-links a.active{color:var(--sage)}
-  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+  .nav-cta{padding:10px 28px;background:transparent;border:1px solid var(--sage);color:var(--sage);font-size:12px;font-family:'DM Sans',sans-serif;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.3s}
   .nav-cta:hover{background:var(--sage);color:var(--bg)}
 
   /* HERO */
@@ -40,6 +40,8 @@
   .hero-headline em{font-style:italic;color:var(--sage-light)}
   .hero-sub{font-size:16px;line-height:1.7;color:var(--cream-dim);max-width:520px;margin-bottom:52px}
   .hero-ctas{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center}
+  .hero-guarantee{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;font-weight:500;color:#D4AF6A;max-width:520px;margin:0 0 40px;line-height:1.5}
+  .hero-microline{font-size:11.5px;color:var(--cream-dim);opacity:0.65;letter-spacing:0.04em;margin-top:22px;max-width:480px}
 
   /* BUTTONS */
   .btn-primary{padding:16px 44px;background:var(--sage);color:var(--bg);font-size:12px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.3s;display:inline-block}
@@ -207,17 +209,19 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     <a class='active' href='/'>Home</a>
     <a href="#about">About</a>
     <a href='/faq'>FAQ</a>
-    <a class='nav-cta' href='/book'>Book Free Call</a>
+    <button type="button" class="nav-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Free Call</button>
   </div>
 </nav>
 
 <section class="hero">
-  <div class="hero-eyebrow">Trusted by students achieving A &amp; A* grades</div>
-  <h1 class="hero-headline">How Students Stuck at Grade 5/6 Are Jumping to Grade 7/8/9 in Maths &amp; Physics — Or <em>We Tutor Them Free Until They Do</em></h1>
-  <p class="hero-sub">Premium one-to-one A-Level Maths &amp; Physics tutoring. Built for students who want the grade — not just the lesson.</p>
+  <div class="hero-eyebrow">1-to-1 Maths &amp; Physics &middot; GCSE &amp; A-Level</div>
+  <h1 class="hero-headline">You're not a grade 5. You're a grade 7 leaking marks.</h1>
+  <p class="hero-sub">It's marks lost to method and the mark scheme, not talent, and that's fixable.</p>
+  <p class="hero-guarantee">Jump to a 7, 8 or 9, or we tutor you free until you do.</p>
   <div class="hero-ctas">
-    <a href="#reviews" class="btn-outline">See Student Results</a>
+    <button type="button" class="btn-primary" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book your free discovery call &rarr;</button>
   </div>
+  <p class="hero-microline">Maths &amp; Physics only &middot; 1-to-1 &middot; guarantee applies when your child attends sessions and completes set work.</p>
 </section>
 
 <section class="vsl-section">
@@ -235,7 +239,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     <div class="section-header">
       <span class="section-tag">Student &amp; Parent Reviews</span>
       <h2 class="section-title">What they say after<br>working with Harrison</h2>
-      <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-cta"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-cta-text">Read our reviews on <strong>Trustpilot</strong></span></a>
+      <a href="/faq" class="trustpilot-cta"><span class="trustpilot-cta-text">Visit our <strong>FAQs</strong></span></a>
     </div>
     <div class="reviews-wall">
       <button type="button" class="review-shot" data-full="img/testimonials/testimonial-iyobosa.png"><img src="img/testimonials/testimonial-iyobosa.png" alt="Review from Iyobosa"></button>
@@ -292,9 +296,9 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
       <h2 class="about-title">Hi, I'm <em>Harrison.</em></h2>
       <div class="about-body">
         <p>I'm a graduate from the University of Birmingham with an M.Sci in Physics, and I've spent over 4 years helping students achieve academic success in GCSE &amp; A-Level Maths and Physics.</p>
-        <p>At the start of my academic journey, going to lectures and listening to classes just didn't click with me — that is, until I found like-minded people to work collaboratively with. That's when I saw the academic success for myself and hit the A*s.</p>
+        <p>At the start of my academic journey, going to lectures and listening to classes just didn't click with me, that is, until I found like-minded people to work collaboratively with. That's when I saw the academic success for myself and hit the A*s.</p>
         <p>I resonated most with teachers who had an easy-going teaching style and who actually wanted to work through problems with me, so I wanted to help others in the same way.</p>
-        <p>After realising other students had the same struggles I did, I started Science Sphere — a tutoring service that doesn't tell you <em>what</em> to think, but <em>how</em> to think.</p>
+        <p>After realising other students had the same struggles I did, I started Science Sphere, a tutoring service that doesn't tell you <em>what</em> to think, but <em>how</em> to think.</p>
       </div>
     </div>
   </div>
@@ -306,7 +310,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     <h2 class="section-title">Why students choose<br>Science Sphere</h2>
   </div>
   <div class="why-grid">
-    <div class="why-card"><div class="why-num">01</div><div class="why-title">I sat your exams — recently.</div><div class="why-body">Harrison just completed his own GCSEs and A-Levels. He knows the current mark schemes, the exact questions examiners are setting, and the specific mistakes students make right now — not a decade ago.</div></div>
+    <div class="why-card"><div class="why-num">01</div><div class="why-title">I sat your exams, recently.</div><div class="why-body">Harrison just completed his own GCSEs and A-Levels. He knows the current mark schemes, the exact questions examiners are setting, and the specific mistakes students make right now, not a decade ago.</div></div>
     <div class="why-card"><div class="why-num">02</div><div class="why-title">No wasted time. Pure exam focus.</div><div class="why-body">Every session is built around what you need to pass. No generic lesson plans. Harrison diagnoses your gaps in session one and maps a clear path from where you are to the grade you need.</div></div>
     <div class="why-card"><div class="why-num">03</div><div class="why-title">Patient, personal, and accountable.</div><div class="why-body">No rushing through content. No moving on until you've understood the reasoning and method behind each question. Students describe sessions as calm, clear, and effective.</div></div>
   </div>
@@ -315,7 +319,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 <section class="guide-teaser">
   <span class="guide-teaser-tag">Free Guide For Parents</span>
   <h2 class="guide-teaser-title">Is your child's tutor <em>actually</em> working?</h2>
-  <p>The 11 signs of real progress — and the red flags most parents miss. A free 3-minute read for parents of GCSE &amp; A-Level students.</p>
+  <p>The 11 signs of real progress, and the red flags most parents miss. A free 3-minute read for parents of GCSE &amp; A-Level students.</p>
   <button type="button" class="btn-primary" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Get Your Free Guide</button>
 </section>
 
@@ -327,14 +331,14 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 <section class="final-cta">
   <span class="final-cta-tag">Limited Spaces Available</span>
   <h2 class="final-cta-title">Your exams are closer<br>than they feel.</h2>
-  <p class="final-cta-sub">Book a free 20-minute intro call. No pressure, no obligation — just clarity on exactly what's holding you back and how to fix it.</p>
+  <p class="final-cta-sub">Book a free 20-minute intro call. No pressure, no obligation, just clarity on exactly what's holding you back and how to fix it.</p>
   <button type="button" class="btn-primary" style="font-size:13px;padding:18px 52px" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Your Free Intro Call</button>
   <p class="final-cta-small">Evenings &amp; weekends available · GCSE &amp; A-Level · Maths &amp; Physics</p>
 </section>
 
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
-  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href='/book'>Book a Call</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
