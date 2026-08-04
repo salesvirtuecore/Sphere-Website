@@ -31,7 +31,7 @@
   .nav-cta:hover{background:var(--sage);color:var(--bg)}
 
   /* HERO */
-  .hero{min-height:74vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 32px;position:relative;overflow:hidden}
+  .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 32px;position:relative;overflow:hidden}
   .hero::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(126,168,144,0.1) 0%,transparent 65%);pointer-events:none}
   .hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(126,168,144,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(126,168,144,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
   .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage);margin-bottom:32px}
@@ -118,10 +118,6 @@
   .lightbox-close{position:fixed;top:24px;right:32px;width:44px;height:44px;border:1px solid rgba(235,230,220,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:22px;line-height:1;cursor:pointer;transition:all 0.3s;background:rgba(8,13,11,0.6)}
   .lightbox-close:hover{border-color:var(--sage);color:var(--sage)}
 
-  /* FAQ TEASER */
-  .faq-teaser{padding:80px 48px;text-align:center;background:var(--bg2);border-top:1px solid rgba(126,168,144,0.08)}
-  .faq-teaser p{font-size:15px;color:var(--cream-dim);margin-bottom:24px}
-
   /* LEAD MAGNET STRIP */
   .guide-teaser{padding:80px 48px;text-align:center;border-top:1px solid rgba(126,168,144,0.08)}
   .guide-teaser-tag{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:block}
@@ -150,16 +146,11 @@
   .trustpilot-stars{color:#00b67a;font-size:13px;letter-spacing:1px}
   .trustpilot-badge-text{font-size:12px;letter-spacing:0.04em}
   .trustpilot-badge-text strong{color:#00b67a;font-weight:700}
-  .trustpilot-cta{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;border:1px solid rgba(126,168,144,0.25);background:var(--bg3);text-decoration:none;transition:border-color 0.3s,transform 0.3s;margin:28px auto 0}
-  .trustpilot-cta:hover{border-color:#00b67a;transform:translateY(-2px)}
-  .trustpilot-cta .trustpilot-stars{font-size:15px}
-  .trustpilot-cta-text{font-size:13px;color:var(--cream)}
-  .trustpilot-cta-text strong{color:#00b67a;font-weight:700}
 
   @media(max-width:900px){
     nav{padding:0 24px;grid-template-columns:1fr auto 1fr}
     .nav-links{display:none}
-    .hero,.vsl-section,.book-strip,.section-wrap,.reviews-inner,.faq-teaser,.final-cta,footer{padding-left:24px;padding-right:24px}
+    .hero,.vsl-section,.book-strip,.section-wrap,.reviews-inner,.final-cta,footer{padding-left:24px;padding-right:24px}
     .reviews-wall{column-count:2}
     .why-grid{grid-template-columns:1fr}
     .about-inner{grid-template-columns:1fr;gap:40px;text-align:center}
@@ -208,7 +199,6 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <div class="nav-links">
     <a class='active' href='/'>Home</a>
     <a href="#about">About</a>
-    <a href='/faq'>FAQ</a>
     <button type="button" class="nav-cta" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Free Call</button>
   </div>
 </nav>
@@ -216,12 +206,10 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 <section class="hero">
   <div class="hero-eyebrow">1-to-1 Maths &amp; Physics &middot; GCSE &amp; A-Level</div>
   <h1 class="hero-headline">You're not a grade 5. You're a grade 7 leaking marks.</h1>
-  <p class="hero-sub">It's marks lost to method and the mark scheme, not talent, and that's fixable.</p>
-  <p class="hero-guarantee">Jump to a 7, 8 or 9, or we tutor you free until you do.</p>
+  <p class="hero-sub">It's marks lost to method and the mark scheme, not talent, and that's fixable. <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;color:#D4AF6A;">Jump to a 7, 8 or 9, or we tutor you free until you do.</span></p>
   <div class="hero-ctas">
-    <button type="button" class="btn-primary" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book your free discovery call &rarr;</button>
+    <button type="button" class="btn-primary" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Your Free Intro Call</button>
   </div>
-  <p class="hero-microline">Maths &amp; Physics only &middot; 1-to-1 &middot; guarantee applies when your child attends sessions and completes set work.</p>
 </section>
 
 <section class="vsl-section">
@@ -239,7 +227,6 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     <div class="section-header">
       <span class="section-tag">Student &amp; Parent Reviews</span>
       <h2 class="section-title">What they say after<br>working with Harrison</h2>
-      <a href="/faq" class="trustpilot-cta"><span class="trustpilot-cta-text">Visit our <strong>FAQs</strong></span></a>
     </div>
     <div class="reviews-wall">
       <button type="button" class="review-shot" data-full="img/testimonials/testimonial-iyobosa.png"><img src="img/testimonials/testimonial-iyobosa.png" alt="Review from Iyobosa"></button>
@@ -323,10 +310,6 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
   <button type="button" class="btn-primary" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Get Your Free Guide</button>
 </section>
 
-<section class="faq-teaser">
-  <p>Have questions before you book? We've answered the most common ones.</p>
-  <a class='btn-outline' href='/faq'>View Frequently Asked Questions</a>
-</section>
 
 <section class="final-cta">
   <span class="final-cta-tag">Limited Spaces Available</span>
@@ -338,7 +321,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <footer>
   <div class="footer-brand">Science Sphere Online Tutoring</div>
-  <div class="footer-links"><a href='/'>Home</a><a href='/faq'>FAQ</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
+  <div class="footer-links"><a href='/'>Home</a><a href="mailto:contact@sciencesphere.co.uk">Contact</a></div>
   <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-badge"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-badge-text">Read our reviews on <strong>Trustpilot</strong></span></a>
   <div class="footer-copy">© 2026 Science Sphere. All rights reserved.</div>
 </footer>
@@ -368,18 +351,37 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
     return out;
   }
 
+  function getCookie(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : '';
+  }
+
+  // Shared with the CAPI Lead event fired server-side by n8n, so Meta can dedupe
+  // the browser pixel Lead against the server-side one instead of double-counting.
+  function generateEventId() {
+    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    return 'ss-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+  }
+
   // Open the Tally popup manually (via data-tally-form-id, not Tally's own
-  // auto-init data-tally-open) so we can pass the persisted UTM values in as
-  // hidden fields on every open.
+  // auto-init data-tally-open) so we can pass the persisted UTM values, plus
+  // fbp/fbc/event_id/user_agent for Meta CAPI match quality, in as hidden fields.
   document.querySelectorAll('[data-tally-form-id]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       if (!window.Tally) return;
+      var eventId = generateEventId();
+      sessionStorage.setItem('ss_event_id', eventId);
+      var hiddenFields = getStoredUtms();
+      hiddenFields.event_id = eventId;
+      hiddenFields.fbp = getCookie('_fbp');
+      hiddenFields.fbc = getCookie('_fbc');
+      hiddenFields.user_agent = navigator.userAgent;
       window.Tally.openPopup(btn.getAttribute('data-tally-form-id'), {
         layout: btn.getAttribute('data-tally-layout') || 'modal',
         width: parseInt(btn.getAttribute('data-tally-width'), 10) || undefined,
         autoClose: parseInt(btn.getAttribute('data-tally-auto-close'), 10) || 0,
-        hiddenFields: getStoredUtms()
+        hiddenFields: hiddenFields
       });
     });
   });

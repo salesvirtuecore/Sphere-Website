@@ -42,9 +42,16 @@
   .step-num{width:32px;height:32px;border:1px solid var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--sage);flex-shrink:0}
   .step-title{font-size:13px;font-weight:500;color:var(--cream);margin-bottom:4px;letter-spacing:0.04em}
   .step-desc{font-size:13px;color:var(--cream-dim);line-height:1.55}
-  .trust-review{background:var(--bg3);padding:24px;border-left:2px solid var(--sage);margin-top:28px}
+  .trust-review{background:var(--bg3);padding:24px;border-left:2px solid var(--sage);margin-top:28px;animation:trust-review-glow 3.2s ease-in-out infinite}
   .trust-review-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:12px}
   .trust-review-name{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sage)}
+  @keyframes trust-review-glow{
+    0%,100%{box-shadow:0 0 0 rgba(126,168,144,0);border-left-color:var(--sage);background:var(--bg3)}
+    50%{box-shadow:0 0 28px rgba(126,168,144,0.3);border-left-color:var(--sage-light);background:#182420}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .trust-review{animation:none}
+  }
 
   .calendly-panel{background:var(--bg2);border-top:1px solid rgba(126,168,144,0.15)}
   .calendly-inner{padding:44px}
@@ -100,15 +107,18 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 <script>
   // Fires only when arriving from a completed Tally submission (redirect_url has ?lead=1),
   // not on every visit to this page — avoids over-counting Leads from normal nav clicks.
+  // eventID (if set) is the same id sent to n8n as a Tally hidden field, so Meta
+  // dedupes this browser Lead against the server-side CAPI Lead instead of double-counting.
   if (new URLSearchParams(window.location.search).get('lead') === '1') {
-    fbq('track', 'Lead', { value: 25, currency: 'GBP' });
+    var leadEventId = sessionStorage.getItem('ss_event_id') || undefined;
+    fbq('track', 'Lead', {}, leadEventId ? { eventID: leadEventId } : undefined);
   }
 
   // Fires when the Calendly widget confirms an actual booking was completed.
   window.addEventListener('message', function (e) {
     if (e.origin.indexOf('calendly.com') === -1) return;
     if (e.data.event === 'calendly.event_scheduled') {
-      fbq('track', 'Schedule', { value: 25, currency: 'GBP' });
+      fbq('track', 'Schedule');
     }
   });
 </script>
