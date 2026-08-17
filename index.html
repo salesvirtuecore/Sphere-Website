@@ -106,10 +106,20 @@
   /* REVIEWS */
   .reviews-bg{background:var(--bg2);padding:100px 0}
   .reviews-inner{max-width:1100px;margin:0 auto;padding:0 48px}
-  .reviews-wall{column-count:4;column-gap:16px;margin-top:56px}
+  .reviews-wall{column-count:4;column-gap:16px;margin-top:40px}
   .review-shot{display:block;width:100%;margin:0 0 16px;padding:0;border:1px solid rgba(126,168,144,0.15);background:var(--bg3);cursor:zoom-in;break-inside:avoid;overflow:hidden;transition:border-color 0.3s,transform 0.3s;-webkit-appearance:none;appearance:none}
   .review-shot:hover{border-color:var(--sage);transform:translateY(-3px)}
   .review-shot img{display:block;width:100%;height:auto}
+  .reviews-group{margin-top:72px}
+  .reviews-group:first-of-type{margin-top:56px}
+  .reviews-subhead{text-align:center}
+  .reviews-subtag{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage);display:block;margin-bottom:12px}
+  .reviews-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.6vw,32px);font-weight:400;color:var(--cream)}
+  .trustpilot-cta{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;border:1px solid rgba(126,168,144,0.25);background:var(--bg3);text-decoration:none;transition:border-color 0.3s,transform 0.3s;margin:20px auto 0}
+  .trustpilot-cta:hover{border-color:#00b67a;transform:translateY(-2px)}
+  .trustpilot-cta .trustpilot-stars{color:#00b67a;font-size:15px;letter-spacing:1px}
+  .trustpilot-cta-text{font-size:13px;color:var(--cream)}
+  .trustpilot-cta-text strong{color:#00b67a;font-weight:700}
 
   /* LIGHTBOX */
   .lightbox{position:fixed;inset:0;background:rgba(8,13,11,0.94);display:none;align-items:center;justify-content:center;z-index:2000;padding:56px 40px;cursor:zoom-out}
@@ -228,25 +238,57 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
       <span class="section-tag">Student &amp; Parent Reviews</span>
       <h2 class="section-title">What they say after<br>working with Harrison</h2>
     </div>
-    <div class="reviews-wall">
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-iyobosa.png"><img src="img/testimonials/testimonial-iyobosa.png" alt="Review from Iyobosa"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-craig-nicholas.png"><img src="img/testimonials/testimonial-craig-nicholas.png" alt="Facebook recommendation from Craig Nicholas"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-pedro-lopes.png"><img src="img/testimonials/testimonial-pedro-lopes.png" alt="Facebook recommendation from Pedro Lopes"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-tania-bournemouth.png"><img src="img/testimonials/testimonial-tania-bournemouth.png" alt="Review from Tania, parent from Bournemouth"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-ellie.jpg"><img src="img/testimonials/testimonial-ellie.jpg" alt="Review from Ellie"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-jodie.jpg"><img src="img/testimonials/testimonial-jodie.jpg" alt="Review from Jodie"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-zak-far.png"><img src="img/testimonials/testimonial-zak-far.png" alt="Facebook recommendation from Zak Far"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-nicky.png"><img src="img/testimonials/testimonial-nicky.png" alt="Review from Nicky, parent from Worthing"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-chuks.png"><img src="img/testimonials/testimonial-chuks.png" alt="Review from Chuks, parent from Coventry"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-teal-results.jpeg"><img src="img/testimonials/testimonial-teal-results.jpeg" alt="Results day text message conversation about Teal"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-chuks-whatsapp.png"><img src="img/testimonials/testimonial-chuks-whatsapp.png" alt="WhatsApp conversation with Chuks about exam results"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-mubashir-whatsapp.jpeg"><img src="img/testimonials/testimonial-mubashir-whatsapp.jpeg" alt="WhatsApp conversation about a physics exam result"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-apprenticeship-whatsapp.jpeg"><img src="img/testimonials/testimonial-apprenticeship-whatsapp.jpeg" alt="WhatsApp message about exam grades and an apprenticeship"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-ruby-whatsapp.jpeg"><img src="img/testimonials/testimonial-ruby-whatsapp.jpeg" alt="WhatsApp message about Ruby's exam results"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-titilope.png"><img src="img/testimonials/testimonial-titilope.png" alt="Feedback report from Titilope"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-tania-student.jpeg"><img src="img/testimonials/testimonial-tania-student.jpeg" alt="Review from Tania, student"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-dean.png"><img src="img/testimonials/testimonial-dean.png" alt="Thank you message from Richard and Liz about Dean"></button>
-      <button type="button" class="review-shot" data-full="img/testimonials/testimonial-thankyou-note.png"><img src="img/testimonials/testimonial-thankyou-note.png" alt="Thank you message from a student"></button>
+
+    <div class="reviews-group">
+      <div class="reviews-subhead">
+        <span class="reviews-subtag">Straight From The Chat</span>
+        <h3 class="reviews-subtitle">Messages from students &amp; parents</h3>
+      </div>
+      <div class="reviews-wall">
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-1.jpg"><img src="img/testimonials/harrison-message-1.jpg" alt="Text message exchange about how an exam went"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-2.jpg"><img src="img/testimonials/harrison-message-2.jpg" alt="WhatsApp message thanking Harrison for helping a student get into Nottingham"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-3.jpg"><img src="img/testimonials/harrison-message-3.jpg" alt="WhatsApp conversation about better than expected exam results"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-4.jpg"><img src="img/testimonials/harrison-message-4.jpg" alt="Text message thanking Harrison for making the process 10x easier"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-5.jpg"><img src="img/testimonials/harrison-message-5.jpg" alt="WhatsApp message from a parent about their son Dante's lesson"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-6.jpg"><img src="img/testimonials/harrison-message-6.jpg" alt="WhatsApp message about a student's university offer from Leeds"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-7.jpg"><img src="img/testimonials/harrison-message-7.jpg" alt="Text message from a student who got A*A*A"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-8.jpg"><img src="img/testimonials/harrison-message-8.jpg" alt="WhatsApp message about getting accepted into university with a grade C in maths"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-message-9.jpg"><img src="img/testimonials/harrison-message-9.jpg" alt="Message from a parent thanking Harrison for a lesson with Spencer"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-iyobosa.png"><img src="img/testimonials/testimonial-iyobosa.png" alt="Review from Iyobosa"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-craig-nicholas.png"><img src="img/testimonials/testimonial-craig-nicholas.png" alt="Facebook recommendation from Craig Nicholas"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-pedro-lopes.png"><img src="img/testimonials/testimonial-pedro-lopes.png" alt="Facebook recommendation from Pedro Lopes"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-tania-bournemouth.png"><img src="img/testimonials/testimonial-tania-bournemouth.png" alt="Review from Tania, parent from Bournemouth"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-ellie.jpg"><img src="img/testimonials/testimonial-ellie.jpg" alt="Review from Ellie"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-jodie.jpg"><img src="img/testimonials/testimonial-jodie.jpg" alt="Review from Jodie"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-zak-far.png"><img src="img/testimonials/testimonial-zak-far.png" alt="Facebook recommendation from Zak Far"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-nicky.png"><img src="img/testimonials/testimonial-nicky.png" alt="Review from Nicky, parent from Worthing"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-chuks.png"><img src="img/testimonials/testimonial-chuks.png" alt="Review from Chuks, parent from Coventry"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-teal-results.jpeg"><img src="img/testimonials/testimonial-teal-results.jpeg" alt="Results day text message conversation about Teal"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-chuks-whatsapp.png"><img src="img/testimonials/testimonial-chuks-whatsapp.png" alt="WhatsApp conversation with Chuks about exam results"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-mubashir-whatsapp.jpeg"><img src="img/testimonials/testimonial-mubashir-whatsapp.jpeg" alt="WhatsApp conversation about a physics exam result"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-apprenticeship-whatsapp.jpeg"><img src="img/testimonials/testimonial-apprenticeship-whatsapp.jpeg" alt="WhatsApp message about exam grades and an apprenticeship"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-ruby-whatsapp.jpeg"><img src="img/testimonials/testimonial-ruby-whatsapp.jpeg" alt="WhatsApp message about Ruby's exam results"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-titilope.png"><img src="img/testimonials/testimonial-titilope.png" alt="Feedback report from Titilope"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-tania-student.jpeg"><img src="img/testimonials/testimonial-tania-student.jpeg" alt="Review from Tania, student"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-dean.png"><img src="img/testimonials/testimonial-dean.png" alt="Thank you message from Richard and Liz about Dean"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/testimonial-thankyou-note.png"><img src="img/testimonials/testimonial-thankyou-note.png" alt="Thank you message from a student"></button>
+      </div>
+    </div>
+
+    <div class="reviews-group">
+      <div class="reviews-subhead">
+        <span class="reviews-subtag">Verified Reviews</span>
+        <h3 class="reviews-subtitle">On Trustpilot</h3>
+        <a href="https://www.trustpilot.com/review/sciencesphere.co.uk" target="_blank" rel="noopener" class="trustpilot-cta"><span class="trustpilot-stars">★★★★★</span><span class="trustpilot-cta-text">Read our reviews on <strong>Trustpilot</strong></span></a>
+      </div>
+      <div class="reviews-wall">
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-trustpilot-1.png"><img src="img/testimonials/harrison-trustpilot-1.png" alt="Trustpilot review from Titi Oke"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-trustpilot-2.png"><img src="img/testimonials/harrison-trustpilot-2.png" alt="Trustpilot review from Betty"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-trustpilot-3.png"><img src="img/testimonials/harrison-trustpilot-3.png" alt="Trustpilot review from zak farooq"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-trustpilot-4.png"><img src="img/testimonials/harrison-trustpilot-4.png" alt="Trustpilot review from Ellie VO"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-trustpilot-5.png"><img src="img/testimonials/harrison-trustpilot-5.png" alt="Trustpilot review titled I'm really happy with my experience"></button>
+        <button type="button" class="review-shot" data-full="img/testimonials/harrison-trustpilot-6.png"><img src="img/testimonials/harrison-trustpilot-6.png" alt="Trustpilot review titled To be honest I'm very happy"></button>
+      </div>
     </div>
   </div>
 </section>
