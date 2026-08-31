@@ -69,10 +69,12 @@
   .remaining-badge.zero{background:rgba(200,122,106,0.25);color:var(--red)}
   .empty-state{padding:32px;text-align:center;color:var(--cream-dim);font-size:13px}
 
-  .log-item{padding:12px 0;border-bottom:1px solid rgba(126,168,144,0.08);font-size:13px;color:var(--cream-dim)}
+  .log-item{padding:12px 0;border-bottom:1px solid rgba(126,168,144,0.08);font-size:13px;color:var(--cream-dim);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
   .log-item:last-child{border-bottom:none}
   .log-item strong{color:var(--cream);font-weight:400}
   .log-item .log-meta{font-size:11px;color:rgba(235,230,220,0.4);margin-top:2px}
+  .log-remove{background:none;border:none;color:var(--red);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;text-decoration:underline;cursor:pointer;padding:0;flex-shrink:0;white-space:nowrap}
+  .log-remove:disabled{opacity:0.5;cursor:not-allowed}
 
   @media(max-width:640px){
     .field-row{grid-template-columns:1fr}
@@ -129,6 +131,7 @@
       </div>
       <button type="submit" class="btn-primary" id="logSubmitBtn">Log Session</button>
       <div class="form-msg" id="logMsg"></div>
+      <div class="card-sub" style="margin-top:14px;margin-bottom:0">A confirmation email is sent automatically to the parent (and student, if a student email is on file) with what was covered and sessions remaining.</div>
     </form>
   </div>
 
@@ -143,9 +146,13 @@
           <input type="text" id="addName" required>
         </div>
         <div class="field">
-          <label for="addEmail">Email</label>
+          <label for="addEmail">Parent email</label>
           <input type="email" id="addEmail" required>
         </div>
+      </div>
+      <div class="field">
+        <label for="addStudentEmail">Student email (optional)</label>
+        <input type="email" id="addStudentEmail" placeholder="Only if different from the parent — gets copied on session emails">
       </div>
       <div class="field-row">
         <div class="field">
@@ -187,7 +194,7 @@
 
 <script>
   var WEBHOOK_URL = 'https://virtualcore.app.n8n.cloud/webhook/science-sphere-session-tracker';
-  var ACCESS_CODE = 'HarrisonSSA26';
+  var ACCESS_CODE = 'Sc1enceSph3re!';
 
   // ---------- PIN gate ----------
   function tryUnlock() {
@@ -255,10 +262,42 @@
       return;
     }
     el.innerHTML = data.sessionLog.slice(0, 20).map(function (s) {
-      return '<div class="log-item"><strong>' + escapeHtml(s.studentName || s.email) + '</strong> — ' + escapeHtml(s.topic || 'No notes') +
-        '<div class="log-meta">' + escapeHtml(s.sessionDate || '') + ' · counted as ' + s.sessionsCounted + '</div></div>';
+      return '<div class="log-item">' +
+        '<div><strong>' + escapeHtml(s.studentName || s.email) + '</strong> — ' + escapeHtml(s.topic || 'No notes') +
+        '<div class="log-meta">' + escapeHtml(s.sessionDate || '') + ' · counted as ' + s.sessionsCounted + '</div></div>' +
+        '<button type="button" class="log-remove" data-session-id="' + escapeHtml(s.sessionId) + '">Remove</button>' +
+        '</div>';
     }).join('');
   }
+
+  document.getElementById('recentLog').addEventListener('click', function (e) {
+    var btn = e.target.closest('.log-remove');
+    if (!btn) return;
+    var sessionId = btn.getAttribute('data-session-id');
+    if (!confirm('Remove this logged session? This restores the session to the student\'s remaining balance.')) return;
+    btn.disabled = true;
+    btn.textContent = 'Removing…';
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'deleteSession', sessionId: Number(sessionId) })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.success) {
+          loadData();
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Remove';
+          alert('Could not remove session — try again.');
+        }
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Remove';
+        alert('Network error — try again.');
+      });
+  });
 
   function escapeHtml(str) {
     return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
@@ -348,6 +387,7 @@
         action: 'addStudent',
         studentName: document.getElementById('addName').value,
         email: document.getElementById('addEmail').value,
+        studentEmail: document.getElementById('addStudentEmail').value,
         packageLabel: document.getElementById('addPackage').value,
         totalSessions: parseFloat(document.getElementById('addTotal').value) || 0
       })
