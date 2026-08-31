@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<title>Session Tracker — Science Sphere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#080D0B;--bg2:#0F1714;--bg3:#141E1A;--sage:#7EA890;--sage-light:#A8C8B8;--cream:#EBE6DC;--cream-dim:rgba(235,230,220,0.6);--amber:#D4AF6A;--red:#C87A6A}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh}
+
+  /* PIN GATE */
+  #gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
+  .gate-box{width:100%;max-width:340px;text-align:center}
+  .gate-tag{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);margin-bottom:14px;display:block}
+  .gate-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--cream);margin-bottom:24px}
+  #gate input{width:100%;padding:14px 16px;background:var(--bg2);border:1px solid rgba(126,168,144,0.25);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;letter-spacing:0.1em;text-align:center;margin-bottom:14px}
+  #gate input:focus{outline:none;border-color:var(--sage)}
+  #gate button{width:100%;padding:14px;background:var(--sage);color:var(--bg);border:none;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
+  #gate button:hover{opacity:0.88}
+  .gate-error{color:var(--red);font-size:12px;margin-top:12px;min-height:16px}
+
+  /* SHELL */
+  #app{display:none;max-width:1000px;margin:0 auto;padding:48px 24px 100px}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-img{width:38px;height:38px;border-radius:50%;background:#D4D0CB;overflow:hidden;flex-shrink:0}
+  .brand-img img{width:100%;height:100%;object-fit:cover}
+  .brand-name{font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.06em;color:var(--cream);text-transform:uppercase}
+  .brand-name span{display:block;font-size:9px;letter-spacing:0.18em;color:var(--sage);text-transform:uppercase;margin-top:1px}
+  .page-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:var(--cream)}
+  .page-sub{font-size:13px;color:var(--cream-dim);margin-top:4px}
+
+  /* CARDS */
+  .card{background:var(--bg2);border:1px solid rgba(126,168,144,0.12);padding:32px;margin-bottom:24px}
+  .card-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--cream);margin-bottom:4px}
+  .card-sub{font-size:12.5px;color:var(--cream-dim);margin-bottom:24px}
+
+  /* FORMS */
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);margin-bottom:6px}
+  .field input, .field select, .field textarea{width:100%;padding:12px 14px;background:var(--bg3);border:1px solid rgba(126,168,144,0.18);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px}
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none;border-color:var(--sage)}
+  .field textarea{resize:vertical;min-height:70px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .btn-primary{padding:13px 32px;background:var(--sage);color:var(--bg);border:none;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
+  .btn-primary:hover{opacity:0.88}
+  .btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+  .btn-text{background:none;border:none;color:var(--sage);font-size:12px;letter-spacing:0.06em;text-decoration:underline;cursor:pointer;padding:0}
+  .form-msg{font-size:12.5px;margin-top:12px;min-height:16px}
+  .form-msg.ok{color:var(--sage-light)}
+  .form-msg.err{color:var(--red)}
+
+  /* DASHBOARD TABLE */
+  .table-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  thead th{text-align:left;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);padding:0 12px 12px;border-bottom:1px solid rgba(126,168,144,0.15);white-space:nowrap}
+  tbody td{padding:14px 12px;border-bottom:1px solid rgba(126,168,144,0.08);color:var(--cream-dim);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  .student-name{color:var(--cream);font-weight:400}
+  .remaining-badge{display:inline-block;padding:4px 12px;font-size:12px;font-weight:500;border-radius:100px}
+  .remaining-badge.healthy{background:rgba(126,168,144,0.15);color:var(--sage-light)}
+  .remaining-badge.low{background:rgba(200,122,106,0.15);color:var(--red)}
+  .remaining-badge.zero{background:rgba(200,122,106,0.25);color:var(--red)}
+  .empty-state{padding:32px;text-align:center;color:var(--cream-dim);font-size:13px}
+
+  .log-item{padding:12px 0;border-bottom:1px solid rgba(126,168,144,0.08);font-size:13px;color:var(--cream-dim)}
+  .log-item:last-child{border-bottom:none}
+  .log-item strong{color:var(--cream);font-weight:400}
+  .log-item .log-meta{font-size:11px;color:rgba(235,230,220,0.4);margin-top:2px}
+
+  @media(max-width:640px){
+    .field-row{grid-template-columns:1fr}
+    header{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-box">
+    <span class="gate-tag">Private — Staff Only</span>
+    <div class="gate-title">Session Tracker</div>
+    <input type="password" id="pinInput" placeholder="Enter access code" autocomplete="off">
+    <button type="button" id="pinSubmit">Unlock</button>
+    <div class="gate-error" id="gateError"></div>
+  </div>
+</div>
+
+<div id="app">
+  <header>
+    <div class="brand">
+      <div class="brand-img"><img src="sphere_tuition_logo.png" alt="Science Sphere"></div>
+      <div class="brand-name">Science Sphere<span>Internal Tool</span></div>
+    </div>
+  </header>
+
+  <div class="page-title">Session Tracker</div>
+  <p class="page-sub" style="margin-bottom:32px">Log completed sessions and see how many each student has left.</p>
+
+  <div class="card">
+    <div class="card-title">Log a Completed Session</div>
+    <div class="card-sub">Pick the student, confirm the date, and note what you covered.</div>
+    <form id="logForm">
+      <div class="field">
+        <label for="logStudent">Student</label>
+        <select id="logStudent" required>
+          <option value="">Loading students…</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="logDate">Session date</label>
+          <input type="date" id="logDate" required>
+        </div>
+        <div class="field">
+          <label for="logCount">Counts as</label>
+          <input type="number" id="logCount" value="1" min="0.5" step="0.5" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="logTopic">What was the session about?</label>
+        <textarea id="logTopic" placeholder="e.g. Quadratics recap, past paper Q3-6"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="logSubmitBtn">Log Session</button>
+      <div class="form-msg" id="logMsg"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Add a Student / Package</div>
+    <div class="card-sub">Stripe purchases are added automatically — use this only for manual, cash, or legacy students.</div>
+    <button type="button" class="btn-text" id="toggleAddStudent">+ Add manually</button>
+    <form id="addForm" style="display:none;margin-top:20px">
+      <div class="field-row">
+        <div class="field">
+          <label for="addName">Student name</label>
+          <input type="text" id="addName" required>
+        </div>
+        <div class="field">
+          <label for="addEmail">Email</label>
+          <input type="email" id="addEmail" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="addPackage">Package label</label>
+          <input type="text" id="addPackage" placeholder="e.g. 10-Session Block">
+        </div>
+        <div class="field">
+          <label for="addTotal">Total sessions included</label>
+          <input type="number" id="addTotal" min="0.5" step="0.5" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" id="addSubmitBtn">Add Student</button>
+      <div class="form-msg" id="addMsg"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Dashboard</div>
+    <div class="card-sub">Sorted by fewest sessions remaining first.</div>
+    <div class="table-wrap">
+      <table id="dashboardTable">
+        <thead>
+          <tr><th>Student</th><th>Package</th><th>Used</th><th>Remaining</th></tr>
+        </thead>
+        <tbody id="dashboardBody">
+          <tr><td colspan="4" class="empty-state">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Recent Sessions</div>
+    <div id="recentLog">
+      <div class="empty-state">Loading…</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var WEBHOOK_URL = 'https://virtualcore.app.n8n.cloud/webhook/science-sphere-session-tracker';
+  var ACCESS_CODE = 'HarrisonSSA26';
+
+  // ---------- PIN gate ----------
+  function tryUnlock() {
+    var val = document.getElementById('pinInput').value;
+    if (val === ACCESS_CODE) {
+      sessionStorage.setItem('ss_session_tracker_unlocked', '1');
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      init();
+    } else {
+      document.getElementById('gateError').textContent = 'Incorrect code.';
+    }
+  }
+  document.getElementById('pinSubmit').addEventListener('click', tryUnlock);
+  document.getElementById('pinInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') tryUnlock();
+  });
+  if (sessionStorage.getItem('ss_session_tracker_unlocked') === '1') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+  }
+
+  // ---------- data ----------
+  var latestData = { students: [], sessionLog: [] };
+
+  function fmtRemaining(n) {
+    var cls = n <= 0 ? 'zero' : (n <= 1 ? 'low' : 'healthy');
+    return '<span class="remaining-badge ' + cls + '">' + n + '</span>';
+  }
+
+  function renderDashboard(data) {
+    var body = document.getElementById('dashboardBody');
+    if (!data.students.length) {
+      body.innerHTML = '<tr><td colspan="4" class="empty-state">No students yet — they will appear here automatically after a Stripe purchase, or add one manually above.</td></tr>';
+      return;
+    }
+    body.innerHTML = data.students.map(function (s) {
+      return '<tr>' +
+        '<td class="student-name">' + escapeHtml(s.studentName || s.email) + '</td>' +
+        '<td>' + escapeHtml(s.packageLabel || '') + '</td>' +
+        '<td>' + s.sessionsUsed + ' / ' + s.totalSessions + '</td>' +
+        '<td>' + fmtRemaining(s.sessionsRemaining) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function renderStudentSelect(data) {
+    var select = document.getElementById('logStudent');
+    var current = select.value;
+    if (!data.students.length) {
+      select.innerHTML = '<option value="">No students yet — add one below first</option>';
+      return;
+    }
+    select.innerHTML = '<option value="">Select a student…</option>' + data.students.map(function (s) {
+      return '<option value="' + escapeHtml(s.email) + '" data-name="' + escapeHtml(s.studentName || '') + '">' +
+        escapeHtml(s.studentName || s.email) + ' (' + s.sessionsRemaining + ' left)</option>';
+    }).join('');
+    if (current) select.value = current;
+  }
+
+  function renderRecentLog(data) {
+    var el = document.getElementById('recentLog');
+    if (!data.sessionLog.length) {
+      el.innerHTML = '<div class="empty-state">No sessions logged yet.</div>';
+      return;
+    }
+    el.innerHTML = data.sessionLog.slice(0, 20).map(function (s) {
+      return '<div class="log-item"><strong>' + escapeHtml(s.studentName || s.email) + '</strong> — ' + escapeHtml(s.topic || 'No notes') +
+        '<div class="log-meta">' + escapeHtml(s.sessionDate || '') + ' · counted as ' + s.sessionsCounted + '</div></div>';
+    }).join('');
+  }
+
+  function escapeHtml(str) {
+    return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function loadData() {
+    return fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'getData' })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        latestData = data;
+        renderDashboard(data);
+        renderStudentSelect(data);
+        renderRecentLog(data);
+      })
+      .catch(function () {
+        document.getElementById('dashboardBody').innerHTML = '<tr><td colspan="4" class="empty-state">Could not load data. Try refreshing the page.</td></tr>';
+      });
+  }
+
+  // ---------- log session form ----------
+  document.getElementById('logForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var select = document.getElementById('logStudent');
+    var opt = select.options[select.selectedIndex];
+    var email = select.value;
+    var studentName = opt ? opt.getAttribute('data-name') : '';
+    var msg = document.getElementById('logMsg');
+    var btn = document.getElementById('logSubmitBtn');
+    if (!email) { msg.textContent = 'Pick a student first.'; msg.className = 'form-msg err'; return; }
+
+    btn.disabled = true;
+    msg.textContent = '';
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'logSession',
+        email: email,
+        studentName: studentName,
+        sessionDate: document.getElementById('logDate').value,
+        topic: document.getElementById('logTopic').value,
+        sessionsCounted: parseFloat(document.getElementById('logCount').value) || 1
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        btn.disabled = false;
+        if (res && res.success) {
+          msg.textContent = 'Session logged.';
+          msg.className = 'form-msg ok';
+          document.getElementById('logTopic').value = '';
+          loadData();
+        } else {
+          msg.textContent = 'Something went wrong — try again.';
+          msg.className = 'form-msg err';
+        }
+      })
+      .catch(function () {
+        btn.disabled = false;
+        msg.textContent = 'Network error — try again.';
+        msg.className = 'form-msg err';
+      });
+  });
+
+  // ---------- add student form ----------
+  document.getElementById('toggleAddStudent').addEventListener('click', function () {
+    var form = document.getElementById('addForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  });
+
+  document.getElementById('addForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('addMsg');
+    var btn = document.getElementById('addSubmitBtn');
+    btn.disabled = true;
+    msg.textContent = '';
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'addStudent',
+        studentName: document.getElementById('addName').value,
+        email: document.getElementById('addEmail').value,
+        packageLabel: document.getElementById('addPackage').value,
+        totalSessions: parseFloat(document.getElementById('addTotal').value) || 0
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        btn.disabled = false;
+        if (res && res.success) {
+          msg.textContent = 'Student added.';
+          msg.className = 'form-msg ok';
+          document.getElementById('addForm').reset();
+          loadData();
+        } else {
+          msg.textContent = 'Something went wrong — try again.';
+          msg.className = 'form-msg err';
+        }
+      })
+      .catch(function () {
+        btn.disabled = false;
+        msg.textContent = 'Network error — try again.';
+        msg.className = 'form-msg err';
+      });
+  });
+
+  // ---------- init ----------
+  function init() {
+    var today = new Date().toISOString().slice(0, 10);
+    document.getElementById('logDate').value = today;
+    loadData();
+  }
+  if (document.getElementById('app').style.display === 'block') init();
+</script>
+</body>
+</html>
