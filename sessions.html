@@ -136,10 +136,28 @@
   .grade-vals{font-size:12px;color:var(--cream-dim);margin-top:2px}
   .grade-pill{font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(126,168,144,0.15);color:var(--sage-light)}
 
+  /* CALENDAR */
+  .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .cal-month-label{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--cream)}
+  .cal-nav{background:var(--bg3);border:1px solid rgba(126,168,144,0.25);color:var(--cream);width:32px;height:32px;border-radius:3px;cursor:pointer;font-size:16px;line-height:1}
+  .cal-nav:hover{border-color:var(--sage)}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:rgba(126,168,144,0.12);border:1px solid rgba(126,168,144,0.12);overflow-x:auto}
+  .cal-dow{background:var(--bg2);padding:8px 4px;text-align:center;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage)}
+  .cal-cell{background:var(--bg2);min-height:78px;padding:6px}
+  .cal-cell-outside{opacity:0.28}
+  .cal-cell-today{background:rgba(126,168,144,0.08)}
+  .cal-cell-today .cal-cell-num{color:var(--sage-light);font-weight:600}
+  .cal-cell-num{font-size:11px;color:var(--cream-dim);margin-bottom:4px}
+  .cal-event{display:block;font-size:9.5px;line-height:1.3;background:rgba(126,168,144,0.18);color:var(--cream);padding:2px 5px;border-radius:2px;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none;cursor:pointer}
+  .cal-event:hover{background:rgba(126,168,144,0.32)}
+  .cal-more{font-size:9px;color:var(--cream-dim)}
+
   @media(max-width:640px){
     .field-row,.field-row3{grid-template-columns:1fr}
     header{flex-direction:column;align-items:flex-start}
     .stat-row{flex-direction:column;align-items:flex-start}
+    .cal-cell{min-height:52px;padding:3px}
+    .cal-event{font-size:8px}
   }
 </style>
 </head>
@@ -267,6 +285,12 @@
       <button type="submit" class="btn-primary" id="addSubmitBtn">Add Student</button>
       <div class="form-msg" id="addMsg"></div>
     </form>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Calendar</div>
+    <div class="card-sub">Every logged session across all students.</div>
+    <div id="staffCalendar"></div>
   </div>
 
   <div class="card">
@@ -652,6 +676,7 @@
         renderStudentSelects(data);
         renderRecentLog(data);
         renderMessages(data);
+        renderCalendar('staff', 'staffCalendar', buildStaffEventsByDate());
       })
       .catch(function () {
         document.getElementById('dashboardBody').innerHTML = '<tr><td colspan="4" class="empty-state">Could not load data. Try refreshing the page.</td></tr>';
@@ -955,24 +980,99 @@
     return 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + dates + '&details=' + encodeURIComponent(details || '');
   }
 
-  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  /* ---- month calendar (shared by staff + student) ---- */
+  var calendarState = {
+    staff: { year: (new Date()).getFullYear(), month: (new Date()).getMonth() },
+    student: { year: (new Date()).getFullYear(), month: (new Date()).getMonth() }
+  };
+  var MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var DOW_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  function renderSessionCalendar(sessions) {
-    var el = document.getElementById('sessionCalendar');
-    if (!sessions.length) { el.innerHTML = '<div class="empty-state">No sessions logged yet — they\'ll show up here after your first session.</div>'; return; }
-    el.innerHTML = sessions.map(function (s) {
-      var d = s.sessionDate ? new Date(s.sessionDate + 'T00:00:00') : null;
-      var dayNum = d ? d.getDate() : '—';
-      var monthLabel = d ? MONTHS[d.getMonth()] : '';
-      var link = gcalLink(s.sessionDate, s.sessionTime, 'Science Sphere Session', s.topic || '');
-      return '<div class="session-row">' +
-        '<div class="session-date-block"><div class="d">' + dayNum + '</div><div class="m">' + monthLabel + '</div></div>' +
-        '<div class="session-info"><div class="topic">' + escapeHtml(s.topic || 'Tutoring session') + '</div>' +
-        '<div class="meta">' + (s.sessionTime ? escapeHtml(s.sessionTime) + ' · ' : '') + 'Counted as ' + s.sessionsCounted + '</div></div>' +
-        (link ? '<a class="gcal-link" href="' + link + '" target="_blank" rel="noopener">+ Google Calendar</a>' : '') +
-        '</div>';
-    }).join('');
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function buildCalendarCells(year, month, eventsByDate) {
+    var firstDay = new Date(year, month, 1);
+    var startWeekday = firstDay.getDay();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+    var daysInPrevMonth = new Date(year, month, 0).getDate();
+    var cells = [];
+    var i;
+    for (i = 0; i < startWeekday; i++) {
+      cells.push({ day: daysInPrevMonth - startWeekday + 1 + i, outside: true });
+    }
+    for (var d = 1; d <= daysInMonth; d++) {
+      var key = year + '-' + pad2(month + 1) + '-' + pad2(d);
+      cells.push({ day: d, outside: false, dateKey: key, events: eventsByDate[key] || [] });
+    }
+    var trailing = (7 - (cells.length % 7)) % 7;
+    for (var t = 1; t <= trailing; t++) {
+      cells.push({ day: t, outside: true });
+    }
+    return cells;
   }
+
+  function renderCalendar(key, containerId, eventsByDate) {
+    var state = calendarState[key];
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    var cells = buildCalendarCells(state.year, state.month, eventsByDate);
+    var todayKey = (new Date()).toISOString().slice(0, 10);
+    var html = '<div class="cal-header">' +
+      '<button type="button" class="cal-nav" data-cal-key="' + key + '" data-cal-dir="-1">&lsaquo;</button>' +
+      '<div class="cal-month-label">' + MONTH_NAMES[state.month] + ' ' + state.year + '</div>' +
+      '<button type="button" class="cal-nav" data-cal-key="' + key + '" data-cal-dir="1">&rsaquo;</button>' +
+      '</div><div class="cal-grid">';
+    DOW_NAMES.forEach(function (d) { html += '<div class="cal-dow">' + d + '</div>'; });
+    cells.forEach(function (c) {
+      var classes = 'cal-cell' + (c.outside ? ' cal-cell-outside' : '') + (!c.outside && c.dateKey === todayKey ? ' cal-cell-today' : '');
+      html += '<div class="' + classes + '"><div class="cal-cell-num">' + c.day + '</div>';
+      if (c.events && c.events.length) {
+        html += c.events.slice(0, 3).map(function (ev) {
+          return ev.link
+            ? '<a class="cal-event" href="' + ev.link + '" target="_blank" rel="noopener">' + escapeHtml(ev.label) + '</a>'
+            : '<div class="cal-event">' + escapeHtml(ev.label) + '</div>';
+        }).join('');
+        if (c.events.length > 3) html += '<div class="cal-more">+' + (c.events.length - 3) + ' more</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  function buildStaffEventsByDate() {
+    var map = {};
+    (staffData.sessionLog || []).forEach(function (s) {
+      if (!s.sessionDate) return;
+      if (!map[s.sessionDate]) map[s.sessionDate] = [];
+      map[s.sessionDate].push({ label: (s.sessionTime ? s.sessionTime + ' ' : '') + (s.studentName || s.email) });
+    });
+    return map;
+  }
+
+  function buildStudentEventsByDate(sessions) {
+    var map = {};
+    sessions.forEach(function (s) {
+      if (!s.sessionDate) return;
+      if (!map[s.sessionDate]) map[s.sessionDate] = [];
+      var link = gcalLink(s.sessionDate, s.sessionTime, 'Science Sphere Session', s.topic || '');
+      map[s.sessionDate].push({ label: (s.sessionTime ? s.sessionTime + ' ' : '') + (s.topic || 'Session'), link: link || null });
+    });
+    return map;
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('[data-cal-dir]');
+    if (!btn) return;
+    var key = btn.getAttribute('data-cal-key');
+    var dir = parseInt(btn.getAttribute('data-cal-dir'), 10);
+    var state = calendarState[key];
+    state.month += dir;
+    if (state.month < 0) { state.month = 11; state.year -= 1; }
+    if (state.month > 11) { state.month = 0; state.year += 1; }
+    if (key === 'staff') renderCalendar('staff', 'staffCalendar', buildStaffEventsByDate());
+    else renderCalendar('student', 'sessionCalendar', buildStudentEventsByDate((studentData && studentData.sessionLog) || []));
+  });
 
   function renderDeliverables(files) {
     var el = document.getElementById('deliverableList');
@@ -1023,7 +1123,7 @@
         document.getElementById('studentGreeting').textContent = data.studentName ? ('Welcome back, ' + data.studentName) : 'Welcome back';
         document.getElementById('statRemaining').textContent = data.sessionsRemaining + ' / ' + data.totalSessions;
         percentGlow(data.percentRemaining, data.totalSessions);
-        renderSessionCalendar(data.sessionLog || []);
+        renderCalendar('student', 'sessionCalendar', buildStudentEventsByDate(data.sessionLog || []));
         renderDeliverables(data.files || []);
         renderGrades(data.grades || []);
         renderMessageThread(data.messages || []);
