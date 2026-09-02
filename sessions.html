@@ -177,11 +177,19 @@
   <div class="gate-box">
     <span class="gate-tag">Student Portal</span>
     <div class="gate-title">Student Login</div>
-    <p style="font-size:12.5px;color:var(--cream-dim);margin-bottom:18px">Enter the email you booked sessions with — we'll send a one-click login link.</p>
-    <input type="email" id="studentEmailInput" placeholder="you@email.com" autocomplete="off">
-    <button type="button" id="studentLoginSubmit">Send Login Link</button>
+    <div id="studentPasswordFields">
+      <input type="email" id="studentEmailInput" placeholder="you@email.com" autocomplete="username">
+      <input type="password" id="studentPasswordInput" placeholder="Password" autocomplete="current-password">
+      <button type="button" id="studentLoginSubmit">Log In</button>
+    </div>
+    <div id="studentMagicLinkFields" hidden>
+      <p style="font-size:12.5px;color:var(--cream-dim);margin-bottom:18px">Enter the email you booked sessions with — we'll send a one-click login link.</p>
+      <input type="email" id="studentMagicEmailInput" placeholder="you@email.com" autocomplete="off">
+      <button type="button" id="studentMagicLinkSubmit">Send Login Link</button>
+    </div>
     <div class="gate-error" id="studentGateError"></div>
     <div class="gate-ok" id="studentGateOk"></div>
+    <button type="button" class="btn-text" id="toggleMagicLink" style="margin-top:16px;display:block;width:100%;text-align:center">Email me a login link instead</button>
     <button type="button" class="gate-back" id="backFromStudentGate">&larr; Back</button>
   </div>
 </div>
@@ -445,6 +453,19 @@
       </div>
       <button type="submit" class="btn-primary" id="askSubmitBtn">Send</button>
       <div class="form-msg" id="askMsg"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Account</div>
+    <div class="card-sub">Set or change your portal password.</div>
+    <form id="changePasswordForm">
+      <div class="field">
+        <label for="newPassword">New password</label>
+        <input type="password" id="newPassword" minlength="8" autocomplete="new-password" required>
+      </div>
+      <button type="submit" class="btn-primary" id="changePasswordBtn">Update Password</button>
+      <div class="form-msg" id="changePasswordMsg"></div>
     </form>
   </div>
 </div>
@@ -810,9 +831,39 @@
 
   document.getElementById('studentLoginSubmit').addEventListener('click', function () {
     var email = document.getElementById('studentEmailInput').value.trim();
+    var password = document.getElementById('studentPasswordInput').value;
     var err = document.getElementById('studentGateError');
     var ok = document.getElementById('studentGateOk');
     var btn = document.getElementById('studentLoginSubmit');
+    err.textContent = ''; ok.textContent = '';
+    if (!email || !password) { err.textContent = 'Enter your email and password.'; return; }
+    btn.disabled = true;
+    sbClient.auth.signInWithPassword({ email: email, password: password }).then(function (res) {
+      btn.disabled = false;
+      if (res.error || !res.data || !res.data.session) {
+        err.textContent = 'Incorrect email or password.';
+        return;
+      }
+      saveStudentSession({
+        access_token: res.data.session.access_token,
+        refresh_token: res.data.session.refresh_token,
+        expires_at: res.data.session.expires_at
+      });
+      enterStudentApp();
+    }).catch(function () {
+      btn.disabled = false;
+      err.textContent = 'Network error — try again.';
+    });
+  });
+  document.getElementById('studentPasswordInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('studentLoginSubmit').click();
+  });
+
+  document.getElementById('studentMagicLinkSubmit').addEventListener('click', function () {
+    var email = document.getElementById('studentMagicEmailInput').value.trim();
+    var err = document.getElementById('studentGateError');
+    var ok = document.getElementById('studentGateOk');
+    var btn = document.getElementById('studentMagicLinkSubmit');
     err.textContent = ''; ok.textContent = '';
     if (!email) { err.textContent = 'Enter your email.'; return; }
     btn.disabled = true;
@@ -820,7 +871,7 @@
       btn.disabled = false;
       if (res && res.success) {
         ok.textContent = res.message || 'Check your email for a login link.';
-        document.getElementById('studentEmailInput').value = '';
+        document.getElementById('studentMagicEmailInput').value = '';
       } else {
         err.textContent = (res && res.error) || 'No account found for that email.';
       }
@@ -829,8 +880,19 @@
       err.textContent = 'Network error — try again.';
     });
   });
-  document.getElementById('studentEmailInput').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') document.getElementById('studentLoginSubmit').click();
+  document.getElementById('studentMagicEmailInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('studentMagicLinkSubmit').click();
+  });
+
+  document.getElementById('toggleMagicLink').addEventListener('click', function () {
+    var pwFields = document.getElementById('studentPasswordFields');
+    var magicFields = document.getElementById('studentMagicLinkFields');
+    var showingMagic = !magicFields.hidden;
+    pwFields.hidden = !showingMagic;
+    magicFields.hidden = showingMagic;
+    this.textContent = showingMagic ? 'Email me a login link instead' : 'Back to password login';
+    document.getElementById('studentGateError').textContent = '';
+    document.getElementById('studentGateOk').textContent = '';
   });
 
   document.getElementById('studentSignout').addEventListener('click', function () {
@@ -863,7 +925,9 @@
   function enterStudentApp() {
     hideAllOverlays();
     document.getElementById('studentApp').style.display = 'block';
-    loadStudentData();
+    sbClient.auth.setSession({ access_token: studentSession.access_token, refresh_token: studentSession.refresh_token }).then(function () {
+      loadStudentData();
+    });
   }
 
   var studentData = null;
@@ -1043,6 +1107,23 @@
     }).catch(function () {
       btn.disabled = false;
       msg.textContent = 'Upload failed — try again.'; msg.className = 'form-msg err';
+    });
+  });
+
+  document.getElementById('changePasswordForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('changePasswordMsg');
+    var btn = document.getElementById('changePasswordBtn');
+    var newPassword = document.getElementById('newPassword').value;
+    btn.disabled = true;
+    sbClient.auth.updateUser({ password: newPassword }).then(function (res) {
+      btn.disabled = false;
+      if (res.error) { msg.textContent = 'Something went wrong.'; msg.className = 'form-msg err'; return; }
+      msg.textContent = 'Password updated.'; msg.className = 'form-msg ok';
+      document.getElementById('changePasswordForm').reset();
+    }).catch(function () {
+      btn.disabled = false;
+      msg.textContent = 'Network error.'; msg.className = 'form-msg err';
     });
   });
 
