@@ -84,6 +84,10 @@
   .remaining-badge.low{background:rgba(200,122,106,0.15);color:var(--red)}
   .remaining-badge.zero{background:rgba(200,122,106,0.25);color:var(--red)}
   .empty-state{padding:32px;text-align:center;color:var(--cream-dim);font-size:13px}
+  .adjust-btns{display:flex;gap:6px}
+  .adjust-btn{width:26px;height:26px;border-radius:3px;border:1px solid rgba(126,168,144,0.3);background:var(--bg3);color:var(--cream);font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .adjust-btn:hover{border-color:var(--sage);color:var(--sage-light)}
+  .adjust-btn:disabled{opacity:0.4;cursor:not-allowed}
 
   .log-item{padding:12px 0;border-bottom:1px solid rgba(126,168,144,0.08);font-size:13px;color:var(--cream-dim);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
   .log-item:last-child{border-bottom:none}
@@ -303,7 +307,7 @@
     <div class="table-wrap">
       <table id="dashboardTable">
         <thead>
-          <tr><th>Student</th><th>Package</th><th>Used</th><th>Remaining</th></tr>
+          <tr><th>Student</th><th>Package</th><th>Used</th><th>Remaining</th><th>Adjust</th></tr>
         </thead>
         <tbody id="dashboardBody">
           <tr><td colspan="4" class="empty-state">Loading…</td></tr>
@@ -577,7 +581,7 @@
   function renderDashboard(data) {
     var body = document.getElementById('dashboardBody');
     if (!data.students.length) {
-      body.innerHTML = '<tr><td colspan="4" class="empty-state">No students yet — they will appear here automatically after a Stripe purchase, or add one manually above.</td></tr>';
+      body.innerHTML = '<tr><td colspan="5" class="empty-state">No students yet — they will appear here automatically after a Stripe purchase, or add one manually above.</td></tr>';
       return;
     }
     body.innerHTML = data.students.map(function (s) {
@@ -586,8 +590,23 @@
         '<td>' + escapeHtml(s.packageLabel || '') + '</td>' +
         '<td>' + s.sessionsUsed + ' / ' + s.totalSessions + '</td>' +
         '<td>' + fmtRemaining(s.sessionsRemaining) + '</td>' +
+        '<td><div class="adjust-btns">' +
+          '<button type="button" class="adjust-btn" data-adjust="-1" data-adjust-email="' + escapeHtml(s.email) + '" data-adjust-name="' + escapeHtml(s.studentName || '') + '" title="Remove a session">&minus;</button>' +
+          '<button type="button" class="adjust-btn" data-adjust="1" data-adjust-email="' + escapeHtml(s.email) + '" data-adjust-name="' + escapeHtml(s.studentName || '') + '" title="Add a bonus session">+</button>' +
+        '</div></td>' +
         '</tr>';
     }).join('');
+    body.querySelectorAll('[data-adjust]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.disabled = true;
+        postJson(STAFF_WEBHOOK, {
+          action: 'adjustSessions',
+          email: btn.getAttribute('data-adjust-email'),
+          studentName: btn.getAttribute('data-adjust-name'),
+          delta: parseInt(btn.getAttribute('data-adjust'), 10)
+        }).then(function () { loadStaffData(); });
+      });
+    });
   }
 
   function studentOptionsHtml(students) {
