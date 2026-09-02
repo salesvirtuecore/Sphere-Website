@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  if (location.hash && location.hash.indexOf('access_token=') !== -1) {
+    location.replace('/sessions.html' + location.hash);
+  }
+</script>
 <meta charset="UTF-8">
 <meta name="facebook-domain-verification" content="pjdj7u233k7tbty3igx9wrd8mjaf13" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
