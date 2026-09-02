@@ -268,9 +268,13 @@
           <input type="text" id="addName" required>
         </div>
         <div class="field">
-          <label for="addEmail">Email</label>
+          <label for="addEmail">Parent email</label>
           <input type="email" id="addEmail" required>
         </div>
+      </div>
+      <div class="field">
+        <label for="addStudentEmail">Student email (optional)</label>
+        <input type="email" id="addStudentEmail" placeholder="Only if different from the parent — gets copied on session emails">
       </div>
       <div class="field-row">
         <div class="field">
@@ -736,6 +740,7 @@
       action: 'addStudent',
       studentName: document.getElementById('addName').value,
       email: document.getElementById('addEmail').value,
+      studentEmail: document.getElementById('addStudentEmail').value,
       packageLabel: document.getElementById('addPackage').value,
       totalSessions: parseFloat(document.getElementById('addTotal').value) || 0
     }).then(function (res) {
