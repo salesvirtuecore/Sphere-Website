@@ -9,32 +9,45 @@
 <title>Session Tracker — Science Sphere</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
   :root{--bg:#080D0B;--bg2:#0F1714;--bg3:#141E1A;--sage:#7EA890;--sage-light:#A8C8B8;--cream:#EBE6DC;--cream-dim:rgba(235,230,220,0.6);--amber:#D4AF6A;--red:#C87A6A}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh}
+  [hidden]{display:none!important}
 
-  /* PIN GATE */
-  #gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
-  .gate-box{width:100%;max-width:340px;text-align:center}
+  /* GATES / OVERLAYS */
+  .overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
+  .gate-box{width:100%;max-width:360px;text-align:center}
   .gate-tag{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);margin-bottom:14px;display:block}
   .gate-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--cream);margin-bottom:24px}
-  #gate input{width:100%;padding:14px 16px;background:var(--bg2);border:1px solid rgba(126,168,144,0.25);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;letter-spacing:0.1em;text-align:center;margin-bottom:14px}
-  #gate input:focus{outline:none;border-color:var(--sage)}
-  #gate button{width:100%;padding:14px;background:var(--sage);color:var(--bg);border:none;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
-  #gate button:hover{opacity:0.88}
+  .gate-box input{width:100%;padding:14px 16px;background:var(--bg2);border:1px solid rgba(126,168,144,0.25);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;letter-spacing:0.04em;text-align:center;margin-bottom:14px}
+  .gate-box input:focus{outline:none;border-color:var(--sage)}
+  .gate-box button{width:100%;padding:14px;background:var(--sage);color:var(--bg);border:none;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
+  .gate-box button:hover{opacity:0.88}
+  .gate-box button:disabled{opacity:0.5;cursor:not-allowed}
   .gate-error{color:var(--red);font-size:12px;margin-top:12px;min-height:16px}
+  .gate-ok{color:var(--sage-light);font-size:12px;margin-top:12px;min-height:16px}
+  .gate-back{display:inline-block;margin-top:22px;font-size:11.5px;color:var(--cream-dim);text-decoration:underline;cursor:pointer;background:none;border:none}
+
+  /* ROLE SELECT */
+  .role-cards{display:grid;gap:16px;margin-top:8px}
+  .role-card{background:var(--bg2);border:1px solid rgba(126,168,144,0.18);padding:26px 22px;text-align:left;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+  .role-card:hover{border-color:var(--sage);transform:translateY(-1px)}
+  .role-card-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);margin-bottom:4px}
+  .role-card-sub{font-size:12px;color:var(--cream-dim)}
 
   /* SHELL */
-  #app{display:none;max-width:1000px;margin:0 auto;padding:48px 24px 100px}
+  .app{display:none;max-width:1000px;margin:0 auto;padding:48px 24px 100px}
   header{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px}
   .brand{display:flex;align-items:center;gap:12px}
   .brand-img{width:38px;height:38px;border-radius:50%;background:#D4D0CB;overflow:hidden;flex-shrink:0}
   .brand-img img{width:100%;height:100%;object-fit:cover}
   .brand-name{font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.06em;color:var(--cream);text-transform:uppercase}
   .brand-name span{display:block;font-size:9px;letter-spacing:0.18em;color:var(--sage);text-transform:uppercase;margin-top:1px}
+  .signout{font-size:11px;color:var(--cream-dim);text-decoration:underline;background:none;border:none;cursor:pointer}
   .page-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:var(--cream)}
-  .page-sub{font-size:13px;color:var(--cream-dim);margin-top:4px}
+  .page-sub{font-size:13px;color:var(--cream-dim);margin-top:4px;margin-bottom:32px}
 
   /* CARDS */
   .card{background:var(--bg2);border:1px solid rgba(126,168,144,0.12);padding:32px;margin-bottom:24px}
@@ -48,10 +61,13 @@
   .field input:focus, .field select:focus, .field textarea:focus{outline:none;border-color:var(--sage)}
   .field textarea{resize:vertical;min-height:70px}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
   .btn-primary{padding:13px 32px;background:var(--sage);color:var(--bg);border:none;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
   .btn-primary:hover{opacity:0.88}
   .btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+  .btn-small{padding:8px 16px;font-size:11px}
   .btn-text{background:none;border:none;color:var(--sage);font-size:12px;letter-spacing:0.06em;text-decoration:underline;cursor:pointer;padding:0}
+  .btn-danger-text{background:none;border:none;color:var(--red);font-size:11px;text-decoration:underline;cursor:pointer;padding:0}
   .form-msg{font-size:12.5px;margin-top:12px;min-height:16px}
   .form-msg.ok{color:var(--sage-light)}
   .form-msg.err{color:var(--red)}
@@ -73,41 +89,118 @@
   .log-item:last-child{border-bottom:none}
   .log-item strong{color:var(--cream);font-weight:400}
   .log-item .log-meta{font-size:11px;color:rgba(235,230,220,0.4);margin-top:2px}
-  .log-remove{background:none;border:none;color:var(--red);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;text-decoration:underline;cursor:pointer;padding:0;flex-shrink:0;white-space:nowrap}
-  .log-remove:disabled{opacity:0.5;cursor:not-allowed}
+
+  /* MESSAGES / THREADS */
+  .thread{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid rgba(126,168,144,0.1)}
+  .thread:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .thread-name{color:var(--cream);font-size:13.5px;margin-bottom:8px}
+  .bubble{max-width:80%;padding:10px 14px;border-radius:4px;font-size:13px;line-height:1.55;margin-bottom:6px}
+  .bubble.student{background:var(--bg3);color:var(--cream-dim);margin-right:auto}
+  .bubble.harrison{background:rgba(126,168,144,0.14);color:var(--cream);margin-left:auto}
+  .bubble-time{font-size:10px;color:rgba(235,230,220,0.35);margin-top:2px}
+  .thread-reply{display:flex;gap:10px;margin-top:10px}
+  .thread-reply textarea{flex:1;min-height:44px}
+
+  /* STUDENT: sessions-remaining stat + glow button */
+  .stat-row{display:flex;flex-wrap:wrap;gap:24px;align-items:center;margin-bottom:28px}
+  .stat-big{font-family:'Cormorant Garamond',serif;font-size:48px;color:var(--cream);line-height:1}
+  .stat-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);margin-top:6px}
+  .glow-btn{display:inline-block;padding:15px 30px;border:none;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:3px;transition:transform 0.15s}
+  .glow-btn:hover{transform:translateY(-1px)}
+  .glow-btn.calm{background:var(--sage);color:var(--bg)}
+  .glow-btn.amber{background:var(--amber);color:var(--bg);box-shadow:0 0 18px rgba(212,175,106,0.45)}
+  .glow-btn.hot{background:var(--red);color:var(--bg);animation:pulse-red 1.6s ease-in-out infinite}
+  @keyframes pulse-red{0%,100%{box-shadow:0 0 12px rgba(200,122,106,0.5)}50%{box-shadow:0 0 30px rgba(200,122,106,0.95)}}
+
+  /* SESSION CALENDAR LIST */
+  .session-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(126,168,144,0.08)}
+  .session-row:last-child{border-bottom:none}
+  .session-date-block{width:56px;flex-shrink:0;text-align:center;background:var(--bg3);padding:8px 0;border-radius:3px}
+  .session-date-block .d{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);line-height:1}
+  .session-date-block .m{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);margin-top:2px}
+  .session-info{flex:1}
+  .session-info .topic{color:var(--cream);font-size:13.5px}
+  .session-info .meta{font-size:11.5px;color:var(--cream-dim);margin-top:2px}
+  .gcal-link{font-size:11px;color:var(--sage-light);text-decoration:underline;white-space:nowrap}
+
+  /* FILE ROWS */
+  .file-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(126,168,144,0.08);font-size:13px}
+  .file-row:last-child{border-bottom:none}
+  .file-row a{color:var(--sage-light)}
+  .file-meta{font-size:11px;color:var(--cream-dim)}
+
+  /* GRADES */
+  .grade-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(126,168,144,0.08)}
+  .grade-row:last-child{border-bottom:none}
+  .grade-subject{color:var(--cream);font-size:13.5px}
+  .grade-vals{font-size:12px;color:var(--cream-dim);margin-top:2px}
+  .grade-pill{font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(126,168,144,0.15);color:var(--sage-light)}
 
   @media(max-width:640px){
-    .field-row{grid-template-columns:1fr}
+    .field-row,.field-row3{grid-template-columns:1fr}
     header{flex-direction:column;align-items:flex-start}
+    .stat-row{flex-direction:column;align-items:flex-start}
   }
 </style>
 </head>
 <body>
 
-<div id="gate">
-  <div class="gate-box">
-    <span class="gate-tag">Private — Staff Only</span>
+<div class="overlay" id="roleSelect">
+  <div class="gate-box" style="max-width:400px">
+    <span class="gate-tag">Science Sphere — Private</span>
     <div class="gate-title">Session Tracker</div>
-    <input type="password" id="pinInput" placeholder="Enter access code" autocomplete="off">
-    <button type="button" id="pinSubmit">Unlock</button>
-    <div class="gate-error" id="gateError"></div>
+    <div class="role-cards">
+      <button type="button" class="role-card" id="pickStaff">
+        <div class="role-card-title">Staff Login</div>
+        <div class="role-card-sub">Harrison — log sessions, manage students, reply to messages.</div>
+      </button>
+      <button type="button" class="role-card" id="pickStudent">
+        <div class="role-card-title">Student Login</div>
+        <div class="role-card-sub">See your sessions, homework, messages and grades.</div>
+      </button>
+    </div>
   </div>
 </div>
 
-<div id="app">
+<div class="overlay" id="staffGate" hidden>
+  <div class="gate-box">
+    <span class="gate-tag">Private — Staff Only</span>
+    <div class="gate-title">Staff Login</div>
+    <input type="password" id="pinInput" placeholder="Enter access code" autocomplete="off">
+    <button type="button" id="pinSubmit">Unlock</button>
+    <div class="gate-error" id="gateError"></div>
+    <button type="button" class="gate-back" id="backFromStaffGate">&larr; Back</button>
+  </div>
+</div>
+
+<div class="overlay" id="studentGate" hidden>
+  <div class="gate-box">
+    <span class="gate-tag">Student Portal</span>
+    <div class="gate-title">Student Login</div>
+    <p style="font-size:12.5px;color:var(--cream-dim);margin-bottom:18px">Enter the email you booked sessions with — we'll send a one-click login link.</p>
+    <input type="email" id="studentEmailInput" placeholder="you@email.com" autocomplete="off">
+    <button type="button" id="studentLoginSubmit">Send Login Link</button>
+    <div class="gate-error" id="studentGateError"></div>
+    <div class="gate-ok" id="studentGateOk"></div>
+    <button type="button" class="gate-back" id="backFromStudentGate">&larr; Back</button>
+  </div>
+</div>
+
+<div class="app" id="staffApp">
   <header>
     <div class="brand">
       <div class="brand-img"><img src="sphere_tuition_logo.png" alt="Science Sphere"></div>
       <div class="brand-name">Science Sphere<span>Internal Tool</span></div>
     </div>
+    <button type="button" class="signout" id="staffSignout">Sign out</button>
   </header>
 
   <div class="page-title">Session Tracker</div>
-  <p class="page-sub" style="margin-bottom:32px">Log completed sessions and see how many each student has left.</p>
+  <p class="page-sub">Log completed sessions, manage students, and answer questions.</p>
 
   <div class="card">
     <div class="card-title">Log a Completed Session</div>
-    <div class="card-sub">Pick the student, confirm the date, and note what you covered.</div>
+    <div class="card-sub">Pick the student, confirm the date/time, and note what you covered.</div>
     <form id="logForm">
       <div class="field">
         <label for="logStudent">Student</label>
@@ -115,10 +208,14 @@
           <option value="">Loading students…</option>
         </select>
       </div>
-      <div class="field-row">
+      <div class="field-row3">
         <div class="field">
           <label for="logDate">Session date</label>
           <input type="date" id="logDate" required>
+        </div>
+        <div class="field">
+          <label for="logTime">Session time</label>
+          <input type="time" id="logTime">
         </div>
         <div class="field">
           <label for="logCount">Counts as</label>
@@ -131,7 +228,6 @@
       </div>
       <button type="submit" class="btn-primary" id="logSubmitBtn">Log Session</button>
       <div class="form-msg" id="logMsg"></div>
-      <div class="card-sub" style="margin-top:14px;margin-bottom:0">A confirmation email is sent automatically to the parent (and student, if a student email is on file) with what was covered and sessions remaining.</div>
     </form>
   </div>
 
@@ -146,13 +242,9 @@
           <input type="text" id="addName" required>
         </div>
         <div class="field">
-          <label for="addEmail">Parent email</label>
+          <label for="addEmail">Email</label>
           <input type="email" id="addEmail" required>
         </div>
-      </div>
-      <div class="field">
-        <label for="addStudentEmail">Student email (optional)</label>
-        <input type="email" id="addStudentEmail" placeholder="Only if different from the parent — gets copied on session emails">
       </div>
       <div class="field-row">
         <div class="field">
@@ -190,35 +282,243 @@
       <div class="empty-state">Loading…</div>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-title">Student Messages</div>
+    <div class="card-sub">Questions from the student portal — reply and they'll get an email.</div>
+    <div id="messagesList">
+      <div class="empty-state">Loading…</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Send a File to a Student</div>
+    <div class="card-sub">Uploaded straight to their portal, plus a notification email.</div>
+    <form id="deliverableForm">
+      <div class="field-row">
+        <div class="field">
+          <label for="delivStudent">Student</label>
+          <select id="delivStudent" required><option value="">Loading students…</option></select>
+        </div>
+        <div class="field">
+          <label for="delivCategory">Category</label>
+          <select id="delivCategory">
+            <option value="deliverable">General File</option>
+            <option value="marked-homework">Marked Homework</option>
+            <option value="notes">Notes / Resources</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="delivFile">File</label>
+        <input type="file" id="delivFile" required>
+      </div>
+      <div class="field">
+        <label for="delivNote">Note (optional)</label>
+        <textarea id="delivNote" placeholder="Any context for the student"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="delivSubmitBtn">Send File</button>
+      <div class="form-msg" id="delivMsg"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Update a Student's Grades</div>
+    <div class="card-sub">Sets the current grade Harrison sees and tracks against their goal.</div>
+    <form id="gradeForm">
+      <div class="field-row">
+        <div class="field">
+          <label for="gradeStudent">Student</label>
+          <select id="gradeStudent" required><option value="">Loading students…</option></select>
+        </div>
+        <div class="field">
+          <label for="gradeSubject">Subject</label>
+          <input type="text" id="gradeSubject" placeholder="e.g. Physics A-Level" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="gradeCurrent">Current grade</label>
+          <input type="text" id="gradeCurrent" placeholder="e.g. B">
+        </div>
+        <div class="field">
+          <label for="gradeGoal">Goal grade</label>
+          <input type="text" id="gradeGoal" placeholder="e.g. A">
+        </div>
+      </div>
+      <div class="field">
+        <label for="gradeNote">Note (optional)</label>
+        <textarea id="gradeNote"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="gradeSubmitBtn">Save Grade</button>
+      <div class="form-msg" id="gradeMsg"></div>
+    </form>
+  </div>
+</div>
+
+<div class="app" id="studentApp">
+  <header>
+    <div class="brand">
+      <div class="brand-img"><img src="sphere_tuition_logo.png" alt="Science Sphere"></div>
+      <div class="brand-name">Science Sphere<span>Student Portal</span></div>
+    </div>
+    <button type="button" class="signout" id="studentSignout">Sign out</button>
+  </header>
+
+  <div class="page-title" id="studentGreeting">Welcome back</div>
+  <p class="page-sub">Your sessions, homework and messages with Harrison — all in one place.</p>
+
+  <div class="card">
+    <div class="stat-row">
+      <div>
+        <div class="stat-big" id="statRemaining">—</div>
+        <div class="stat-label">Sessions Remaining</div>
+      </div>
+      <a href="/payment.html" class="glow-btn calm" id="buyBtn" target="_blank" rel="noopener">Buy More Sessions</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Your Sessions</div>
+    <div class="card-sub">Every session Harrison logs shows up here.</div>
+    <div id="sessionCalendar"><div class="empty-state">Loading…</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Files From Harrison</div>
+    <div id="deliverableList"><div class="empty-state">Loading…</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Upload Homework or Answers</div>
+    <div class="card-sub">Goes straight into your file, and Harrison gets notified.</div>
+    <form id="studentUploadForm">
+      <div class="field-row">
+        <div class="field">
+          <label for="uploadCategory">This is</label>
+          <select id="uploadCategory">
+            <option value="homework">Homework</option>
+            <option value="answers">My Answers</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="uploadFile">File</label>
+          <input type="file" id="uploadFile" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="uploadNote">Note (optional)</label>
+        <textarea id="uploadNote"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="uploadSubmitBtn">Upload</button>
+      <div class="form-msg" id="uploadMsg"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Grades</div>
+    <div id="gradesList"><div class="empty-state">Loading…</div></div>
+    <button type="button" class="btn-text" id="toggleSetGoal" style="margin-top:16px">+ Set a goal grade</button>
+    <form id="setGoalForm" style="display:none;margin-top:20px">
+      <div class="field-row">
+        <div class="field">
+          <label for="goalSubject">Subject</label>
+          <input type="text" id="goalSubject" placeholder="e.g. Maths A-Level" required>
+        </div>
+        <div class="field">
+          <label for="goalGrade">Goal grade</label>
+          <input type="text" id="goalGrade" placeholder="e.g. A*" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" id="goalSubmitBtn">Save Goal</button>
+      <div class="form-msg" id="goalMsg"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Ask Harrison a Question</div>
+    <div id="messageThread" style="margin-bottom:20px"></div>
+    <form id="askForm">
+      <div class="field">
+        <textarea id="askMessage" placeholder="Type your question…" required></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="askSubmitBtn">Send</button>
+      <div class="form-msg" id="askMsg"></div>
+    </form>
+  </div>
 </div>
 
 <script>
-  var WEBHOOK_URL = 'https://virtualcore.app.n8n.cloud/webhook/science-sphere-session-tracker';
-  var ACCESS_CODE = 'Sc1enceSph3re!';
+  var SB_URL = 'https://csxtchmkxeotzhrnktwo.supabase.co';
+  var SB_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzeHRjaG1reGVvdHpocm5rdHdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyOTQzNzMsImV4cCI6MjEwMzg3MDM3M30.yUgJFFgtx_XqtDQ__V4J5mEDaf4fwxSwWzjGANwkDt8';
+  var STAFF_WEBHOOK = 'https://virtualcore.app.n8n.cloud/webhook/science-sphere-session-tracker';
+  var STUDENT_LOGIN_WEBHOOK = 'https://virtualcore.app.n8n.cloud/webhook/science-sphere-student-login';
+  var STUDENT_API_WEBHOOK = 'https://virtualcore.app.n8n.cloud/webhook/science-sphere-student-api';
+  var ACCESS_CODE = 'HarrisonSSA26';
 
-  // ---------- PIN gate ----------
+  var sbClient = window.supabase.createClient(SB_URL, SB_ANON_KEY);
+
+  function escapeHtml(str) {
+    return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function postJson(url, body) {
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) { return r.json(); });
+  }
+
+  function showOverlay(id) {
+    ['roleSelect', 'staffGate', 'studentGate'].forEach(function (o) {
+      document.getElementById(o).hidden = (o !== id);
+    });
+    document.getElementById('staffApp').style.display = 'none';
+    document.getElementById('studentApp').style.display = 'none';
+  }
+
+  function hideAllOverlays() {
+    ['roleSelect', 'staffGate', 'studentGate'].forEach(function (o) {
+      document.getElementById(o).hidden = true;
+    });
+  }
+
+  document.getElementById('pickStaff').addEventListener('click', function () { showOverlay('staffGate'); });
+  document.getElementById('pickStudent').addEventListener('click', function () { showOverlay('studentGate'); });
+  document.getElementById('backFromStaffGate').addEventListener('click', function () { showOverlay('roleSelect'); });
+  document.getElementById('backFromStudentGate').addEventListener('click', function () { showOverlay('roleSelect'); });
+
+  /* ================= STAFF ================= */
+
   function tryUnlock() {
     var val = document.getElementById('pinInput').value;
     if (val === ACCESS_CODE) {
-      sessionStorage.setItem('ss_session_tracker_unlocked', '1');
-      document.getElementById('gate').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-      init();
+      sessionStorage.setItem('ss_staff_unlocked', '1');
+      enterStaffApp();
     } else {
       document.getElementById('gateError').textContent = 'Incorrect code.';
     }
   }
   document.getElementById('pinSubmit').addEventListener('click', tryUnlock);
-  document.getElementById('pinInput').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') tryUnlock();
+  document.getElementById('pinInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
+  document.getElementById('staffSignout').addEventListener('click', function () {
+    sessionStorage.removeItem('ss_staff_unlocked');
+    location.reload();
   });
-  if (sessionStorage.getItem('ss_session_tracker_unlocked') === '1') {
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
+
+  function enterStaffApp() {
+    hideAllOverlays();
+    document.getElementById('staffApp').style.display = 'block';
+    var today = new Date().toISOString().slice(0, 10);
+    document.getElementById('logDate').value = today;
+    loadStaffData();
   }
 
-  // ---------- data ----------
-  var latestData = { students: [], sessionLog: [] };
+  var staffData = { students: [], sessionLog: [], messages: [], grades: [], fileLog: [] };
 
   function fmtRemaining(n) {
     var cls = n <= 0 ? 'zero' : (n <= 1 ? 'low' : 'healthy');
@@ -241,18 +541,20 @@
     }).join('');
   }
 
-  function renderStudentSelect(data) {
-    var select = document.getElementById('logStudent');
-    var current = select.value;
-    if (!data.students.length) {
-      select.innerHTML = '<option value="">No students yet — add one below first</option>';
-      return;
-    }
-    select.innerHTML = '<option value="">Select a student…</option>' + data.students.map(function (s) {
+  function studentOptionsHtml(students) {
+    return '<option value="">Select a student…</option>' + students.map(function (s) {
       return '<option value="' + escapeHtml(s.email) + '" data-name="' + escapeHtml(s.studentName || '') + '">' +
         escapeHtml(s.studentName || s.email) + ' (' + s.sessionsRemaining + ' left)</option>';
     }).join('');
-    if (current) select.value = current;
+  }
+
+  function renderStudentSelects(data) {
+    ['logStudent', 'delivStudent', 'gradeStudent'].forEach(function (id) {
+      var select = document.getElementById(id);
+      var current = select.value;
+      select.innerHTML = data.students.length ? studentOptionsHtml(data.students) : '<option value="">No students yet — add one below first</option>';
+      if (current) select.value = current;
+    });
   }
 
   function renderRecentLog(data) {
@@ -264,66 +566,77 @@
     el.innerHTML = data.sessionLog.slice(0, 20).map(function (s) {
       return '<div class="log-item">' +
         '<div><strong>' + escapeHtml(s.studentName || s.email) + '</strong> — ' + escapeHtml(s.topic || 'No notes') +
-        '<div class="log-meta">' + escapeHtml(s.sessionDate || '') + ' · counted as ' + s.sessionsCounted + '</div></div>' +
-        '<button type="button" class="log-remove" data-session-id="' + escapeHtml(s.sessionId) + '">Remove</button>' +
+        '<div class="log-meta">' + escapeHtml(s.sessionDate || '') + (s.sessionTime ? ' at ' + escapeHtml(s.sessionTime) : '') + ' · counted as ' + s.sessionsCounted + '</div></div>' +
+        '<button type="button" class="btn-danger-text" data-delete-session="' + s.sessionId + '">Delete</button>' +
         '</div>';
     }).join('');
-  }
-
-  document.getElementById('recentLog').addEventListener('click', function (e) {
-    var btn = e.target.closest('.log-remove');
-    if (!btn) return;
-    var sessionId = btn.getAttribute('data-session-id');
-    if (!confirm('Remove this logged session? This restores the session to the student\'s remaining balance.')) return;
-    btn.disabled = true;
-    btn.textContent = 'Removing…';
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'deleteSession', sessionId: Number(sessionId) })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (res) {
-        if (res && res.success) {
-          loadData();
-        } else {
-          btn.disabled = false;
-          btn.textContent = 'Remove';
-          alert('Could not remove session — try again.');
-        }
-      })
-      .catch(function () {
-        btn.disabled = false;
-        btn.textContent = 'Remove';
-        alert('Network error — try again.');
+    el.querySelectorAll('[data-delete-session]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (!confirm('Delete this logged session?')) return;
+        postJson(STAFF_WEBHOOK, { action: 'deleteSession', sessionId: btn.getAttribute('data-delete-session') })
+          .then(function () { loadStaffData(); });
       });
-  });
-
-  function escapeHtml(str) {
-    return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
 
-  function loadData() {
-    return fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'getData' })
-    })
-      .then(function (r) { return r.json(); })
+  function renderMessages(data) {
+    var el = document.getElementById('messagesList');
+    if (!data.messages.length) {
+      el.innerHTML = '<div class="empty-state">No messages yet.</div>';
+      return;
+    }
+    var byThread = {};
+    data.messages.forEach(function (m) {
+      byThread[m.threadId] = byThread[m.threadId] || [];
+      byThread[m.threadId].push(m);
+    });
+    el.innerHTML = Object.keys(byThread).map(function (threadId) {
+      var msgs = byThread[threadId];
+      var last = msgs[msgs.length - 1];
+      var bubbles = msgs.map(function (m) {
+        return '<div class="bubble ' + (m.fromRole === 'harrison' ? 'harrison' : 'student') + '">' + escapeHtml(m.message) +
+          '<div class="bubble-time">' + new Date(m.postedAt).toLocaleString() + '</div></div>';
+      }).join('');
+      return '<div class="thread">' +
+        '<div class="thread-name">' + escapeHtml(last.studentName || last.studentEmail) + '</div>' +
+        bubbles +
+        '<div class="thread-reply">' +
+          '<textarea placeholder="Reply…" data-reply-thread="' + escapeHtml(threadId) + '" data-reply-email="' + escapeHtml(last.studentEmail) + '" data-reply-name="' + escapeHtml(last.studentName || '') + '"></textarea>' +
+          '<button type="button" class="btn-primary btn-small" data-send-reply="' + escapeHtml(threadId) + '">Reply</button>' +
+        '</div></div>';
+    }).join('');
+    el.querySelectorAll('[data-send-reply]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var threadId = btn.getAttribute('data-send-reply');
+        var textarea = el.querySelector('[data-reply-thread="' + CSS.escape(threadId) + '"]');
+        var message = textarea.value.trim();
+        if (!message) return;
+        btn.disabled = true;
+        postJson(STAFF_WEBHOOK, {
+          action: 'replyToMessage',
+          threadId: threadId,
+          studentEmail: textarea.getAttribute('data-reply-email'),
+          studentName: textarea.getAttribute('data-reply-name'),
+          message: message
+        }).then(function () { loadStaffData(); });
+      });
+    });
+  }
+
+  function loadStaffData() {
+    return postJson(STAFF_WEBHOOK, { action: 'getData' })
       .then(function (data) {
-        latestData = data;
+        staffData = data;
         renderDashboard(data);
-        renderStudentSelect(data);
+        renderStudentSelects(data);
         renderRecentLog(data);
+        renderMessages(data);
       })
       .catch(function () {
         document.getElementById('dashboardBody').innerHTML = '<tr><td colspan="4" class="empty-state">Could not load data. Try refreshing the page.</td></tr>';
       });
   }
 
-  // ---------- log session form ----------
   document.getElementById('logForm').addEventListener('submit', function (e) {
     e.preventDefault();
     var select = document.getElementById('logStudent');
@@ -336,39 +649,32 @@
 
     btn.disabled = true;
     msg.textContent = '';
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'logSession',
-        email: email,
-        studentName: studentName,
-        sessionDate: document.getElementById('logDate').value,
-        topic: document.getElementById('logTopic').value,
-        sessionsCounted: parseFloat(document.getElementById('logCount').value) || 1
-      })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (res) {
-        btn.disabled = false;
-        if (res && res.success) {
-          msg.textContent = 'Session logged.';
-          msg.className = 'form-msg ok';
-          document.getElementById('logTopic').value = '';
-          loadData();
-        } else {
-          msg.textContent = 'Something went wrong — try again.';
-          msg.className = 'form-msg err';
-        }
-      })
-      .catch(function () {
-        btn.disabled = false;
-        msg.textContent = 'Network error — try again.';
+    postJson(STAFF_WEBHOOK, {
+      action: 'logSession',
+      email: email,
+      studentName: studentName,
+      sessionDate: document.getElementById('logDate').value,
+      sessionTime: document.getElementById('logTime').value,
+      topic: document.getElementById('logTopic').value,
+      sessionsCounted: parseFloat(document.getElementById('logCount').value) || 1
+    }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        msg.textContent = 'Session logged.';
+        msg.className = 'form-msg ok';
+        document.getElementById('logTopic').value = '';
+        loadStaffData();
+      } else {
+        msg.textContent = 'Something went wrong — try again.';
         msg.className = 'form-msg err';
-      });
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      msg.textContent = 'Network error — try again.';
+      msg.className = 'form-msg err';
+    });
   });
 
-  // ---------- add student form ----------
   document.getElementById('toggleAddStudent').addEventListener('click', function () {
     var form = document.getElementById('addForm');
     form.style.display = form.style.display === 'none' ? 'block' : 'none';
@@ -380,45 +686,401 @@
     var btn = document.getElementById('addSubmitBtn');
     btn.disabled = true;
     msg.textContent = '';
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'addStudent',
-        studentName: document.getElementById('addName').value,
-        email: document.getElementById('addEmail').value,
-        studentEmail: document.getElementById('addStudentEmail').value,
-        packageLabel: document.getElementById('addPackage').value,
-        totalSessions: parseFloat(document.getElementById('addTotal').value) || 0
-      })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (res) {
-        btn.disabled = false;
-        if (res && res.success) {
-          msg.textContent = 'Student added.';
-          msg.className = 'form-msg ok';
-          document.getElementById('addForm').reset();
-          loadData();
-        } else {
-          msg.textContent = 'Something went wrong — try again.';
-          msg.className = 'form-msg err';
-        }
-      })
-      .catch(function () {
-        btn.disabled = false;
-        msg.textContent = 'Network error — try again.';
+    postJson(STAFF_WEBHOOK, {
+      action: 'addStudent',
+      studentName: document.getElementById('addName').value,
+      email: document.getElementById('addEmail').value,
+      packageLabel: document.getElementById('addPackage').value,
+      totalSessions: parseFloat(document.getElementById('addTotal').value) || 0
+    }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        msg.textContent = 'Student added.';
+        msg.className = 'form-msg ok';
+        document.getElementById('addForm').reset();
+        loadStaffData();
+      } else {
+        msg.textContent = 'Something went wrong — try again.';
         msg.className = 'form-msg err';
-      });
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      msg.textContent = 'Network error — try again.';
+      msg.className = 'form-msg err';
+    });
   });
 
-  // ---------- init ----------
-  function init() {
-    var today = new Date().toISOString().slice(0, 10);
-    document.getElementById('logDate').value = today;
-    loadData();
+  function fileToBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () { resolve(reader.result.split(',')[1]); };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   }
-  if (document.getElementById('app').style.display === 'block') init();
+
+  document.getElementById('deliverableForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('delivMsg');
+    var btn = document.getElementById('delivSubmitBtn');
+    var select = document.getElementById('delivStudent');
+    var opt = select.options[select.selectedIndex];
+    var email = select.value;
+    var fileInput = document.getElementById('delivFile');
+    var file = fileInput.files[0];
+    if (!email || !file) { msg.textContent = 'Pick a student and a file.'; msg.className = 'form-msg err'; return; }
+
+    btn.disabled = true;
+    msg.textContent = 'Uploading…';
+    msg.className = 'form-msg';
+    fileToBase64(file).then(function (base64) {
+      return postJson(STAFF_WEBHOOK, {
+        action: 'uploadDeliverable',
+        studentEmail: email,
+        studentName: opt.getAttribute('data-name'),
+        fileName: file.name,
+        fileBase64: base64,
+        mimeType: file.type || 'application/octet-stream',
+        note: document.getElementById('delivNote').value
+      });
+    }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        msg.textContent = 'Sent.';
+        msg.className = 'form-msg ok';
+        document.getElementById('deliverableForm').reset();
+        loadStaffData();
+      } else {
+        msg.textContent = 'Something went wrong — try again.';
+        msg.className = 'form-msg err';
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      msg.textContent = 'Upload failed — try again.';
+      msg.className = 'form-msg err';
+    });
+  });
+
+  document.getElementById('gradeForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('gradeMsg');
+    var btn = document.getElementById('gradeSubmitBtn');
+    var select = document.getElementById('gradeStudent');
+    var opt = select.options[select.selectedIndex];
+    var email = select.value;
+    if (!email) { msg.textContent = 'Pick a student first.'; msg.className = 'form-msg err'; return; }
+
+    btn.disabled = true;
+    msg.textContent = '';
+    postJson(STAFF_WEBHOOK, {
+      action: 'updateGrade',
+      studentEmail: email,
+      studentName: opt.getAttribute('data-name'),
+      subject: document.getElementById('gradeSubject').value,
+      currentGrade: document.getElementById('gradeCurrent').value,
+      goalGrade: document.getElementById('gradeGoal').value,
+      note: document.getElementById('gradeNote').value
+    }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        msg.textContent = 'Saved.';
+        msg.className = 'form-msg ok';
+        document.getElementById('gradeForm').reset();
+        loadStaffData();
+      } else {
+        msg.textContent = 'Something went wrong — try again.';
+        msg.className = 'form-msg err';
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      msg.textContent = 'Network error — try again.';
+      msg.className = 'form-msg err';
+    });
+  });
+
+  /* ================= STUDENT ================= */
+
+  var studentSession = null;
+
+  function saveStudentSession(s) { localStorage.setItem('ss_student_session', JSON.stringify(s)); studentSession = s; }
+  function loadStoredStudentSession() {
+    try { return JSON.parse(localStorage.getItem('ss_student_session') || 'null'); } catch (e) { return null; }
+  }
+  function clearStudentSession() { localStorage.removeItem('ss_student_session'); studentSession = null; }
+
+  document.getElementById('studentLoginSubmit').addEventListener('click', function () {
+    var email = document.getElementById('studentEmailInput').value.trim();
+    var err = document.getElementById('studentGateError');
+    var ok = document.getElementById('studentGateOk');
+    var btn = document.getElementById('studentLoginSubmit');
+    err.textContent = ''; ok.textContent = '';
+    if (!email) { err.textContent = 'Enter your email.'; return; }
+    btn.disabled = true;
+    postJson(STUDENT_LOGIN_WEBHOOK, { email: email }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        ok.textContent = res.message || 'Check your email for a login link.';
+        document.getElementById('studentEmailInput').value = '';
+      } else {
+        err.textContent = (res && res.error) || 'No account found for that email.';
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      err.textContent = 'Network error — try again.';
+    });
+  });
+  document.getElementById('studentEmailInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('studentLoginSubmit').click();
+  });
+
+  document.getElementById('studentSignout').addEventListener('click', function () {
+    clearStudentSession();
+    location.href = location.pathname;
+  });
+
+  function refreshStudentSessionIfNeeded() {
+    if (!studentSession) return Promise.resolve(false);
+    var stillValid = studentSession.expires_at && (studentSession.expires_at * 1000) > (Date.now() + 60000);
+    if (stillValid) return Promise.resolve(true);
+    return fetch(SB_URL + '/auth/v1/token?grant_type=refresh_token', {
+      method: 'POST',
+      headers: { 'apikey': SB_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: studentSession.refresh_token })
+    }).then(function (r) { return r.json(); }).then(function (res) {
+      if (res && res.access_token) {
+        saveStudentSession({
+          access_token: res.access_token,
+          refresh_token: res.refresh_token,
+          expires_at: res.expires_at
+        });
+        return true;
+      }
+      clearStudentSession();
+      return false;
+    }).catch(function () { clearStudentSession(); return false; });
+  }
+
+  function enterStudentApp() {
+    hideAllOverlays();
+    document.getElementById('studentApp').style.display = 'block';
+    loadStudentData();
+  }
+
+  var studentData = null;
+
+  function percentGlow(percent, totalSessions) {
+    var btn = document.getElementById('buyBtn');
+    btn.classList.remove('calm', 'amber', 'hot');
+    if (!totalSessions || totalSessions <= 0) {
+      btn.classList.add('hot'); btn.textContent = "Stock Up Now — You're Out of Sessions"; return;
+    }
+    if (percent <= 20) { btn.classList.add('hot'); btn.textContent = 'Re-up Now — Running Low'; return; }
+    if (percent <= 50) { btn.classList.add('amber'); btn.textContent = 'Top Up Your Sessions'; return; }
+    btn.classList.add('calm'); btn.textContent = 'Buy More Sessions';
+  }
+
+  function gcalLink(dateStr, timeStr, title, details) {
+    if (!dateStr || !timeStr) return '';
+    var datePart = dateStr.replace(/-/g, '');
+    var parts = timeStr.split(':');
+    var sh = parseInt(parts[0], 10), sm = parseInt(parts[1], 10);
+    var eh = sh + 1;
+    if (eh > 23) eh = 23;
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+    var dates = datePart + 'T' + pad(sh) + pad(sm) + '00/' + datePart + 'T' + pad(eh) + pad(sm) + '00';
+    return 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + dates + '&details=' + encodeURIComponent(details || '');
+  }
+
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function renderSessionCalendar(sessions) {
+    var el = document.getElementById('sessionCalendar');
+    if (!sessions.length) { el.innerHTML = '<div class="empty-state">No sessions logged yet — they\'ll show up here after your first session.</div>'; return; }
+    el.innerHTML = sessions.map(function (s) {
+      var d = s.sessionDate ? new Date(s.sessionDate + 'T00:00:00') : null;
+      var dayNum = d ? d.getDate() : '—';
+      var monthLabel = d ? MONTHS[d.getMonth()] : '';
+      var link = gcalLink(s.sessionDate, s.sessionTime, 'Science Sphere Session', s.topic || '');
+      return '<div class="session-row">' +
+        '<div class="session-date-block"><div class="d">' + dayNum + '</div><div class="m">' + monthLabel + '</div></div>' +
+        '<div class="session-info"><div class="topic">' + escapeHtml(s.topic || 'Tutoring session') + '</div>' +
+        '<div class="meta">' + (s.sessionTime ? escapeHtml(s.sessionTime) + ' · ' : '') + 'Counted as ' + s.sessionsCounted + '</div></div>' +
+        (link ? '<a class="gcal-link" href="' + link + '" target="_blank" rel="noopener">+ Google Calendar</a>' : '') +
+        '</div>';
+    }).join('');
+  }
+
+  function renderDeliverables(files) {
+    var el = document.getElementById('deliverableList');
+    var toStudent = files.filter(function (f) { return f.direction === 'toStudent'; });
+    if (!toStudent.length) { el.innerHTML = '<div class="empty-state">Nothing here yet.</div>'; return; }
+    el.innerHTML = toStudent.map(function (f) {
+      return '<div class="file-row"><div><strong>' + escapeHtml(f.fileName) + '</strong>' +
+        (f.note ? '<div class="file-meta">' + escapeHtml(f.note) + '</div>' : '') + '</div>' +
+        '<a href="#" data-download="' + escapeHtml(f.storagePath) + '">Download</a></div>';
+    }).join('');
+    el.querySelectorAll('[data-download]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        sbClient.storage.from('student-files').createSignedUrl(a.getAttribute('data-download'), 300).then(function (res) {
+          if (res.data && res.data.signedUrl) window.open(res.data.signedUrl, '_blank');
+        });
+      });
+    });
+  }
+
+  function renderGrades(grades) {
+    var el = document.getElementById('gradesList');
+    if (!grades.length) { el.innerHTML = '<div class="empty-state">No grades tracked yet.</div>'; return; }
+    var bySubject = {};
+    grades.forEach(function (g) { if (!bySubject[g.subject]) bySubject[g.subject] = g; });
+    el.innerHTML = Object.keys(bySubject).map(function (subj) {
+      var g = bySubject[subj];
+      return '<div class="grade-row"><div><div class="grade-subject">' + escapeHtml(subj) + '</div>' +
+        '<div class="grade-vals">Currently: ' + escapeHtml(g.currentGrade || '—') + '</div></div>' +
+        '<span class="grade-pill">Goal: ' + escapeHtml(g.goalGrade || '—') + '</span></div>';
+    }).join('');
+  }
+
+  function renderMessageThread(messages) {
+    var el = document.getElementById('messageThread');
+    if (!messages.length) { el.innerHTML = '<div class="empty-state">No messages yet — ask Harrison anything below.</div>'; return; }
+    el.innerHTML = messages.map(function (m) {
+      return '<div class="bubble ' + (m.fromRole === 'harrison' ? 'harrison' : 'student') + '">' + escapeHtml(m.message) +
+        '<div class="bubble-time">' + new Date(m.postedAt).toLocaleString() + '</div></div>';
+    }).join('');
+  }
+
+  function loadStudentData() {
+    return postJson(STUDENT_API_WEBHOOK, { accessToken: studentSession.access_token, action: 'getMyData' })
+      .then(function (data) {
+        if (data && data.error) { clearStudentSession(); showOverlay('studentGate'); return; }
+        studentData = data;
+        document.getElementById('studentGreeting').textContent = data.studentName ? ('Welcome back, ' + data.studentName) : 'Welcome back';
+        document.getElementById('statRemaining').textContent = data.sessionsRemaining + ' / ' + data.totalSessions;
+        percentGlow(data.percentRemaining, data.totalSessions);
+        renderSessionCalendar(data.sessionLog || []);
+        renderDeliverables(data.files || []);
+        renderGrades(data.grades || []);
+        renderMessageThread(data.messages || []);
+      });
+  }
+
+  document.getElementById('toggleSetGoal').addEventListener('click', function () {
+    var form = document.getElementById('setGoalForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  });
+
+  document.getElementById('setGoalForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('goalMsg');
+    var btn = document.getElementById('goalSubmitBtn');
+    btn.disabled = true;
+    postJson(STUDENT_API_WEBHOOK, {
+      accessToken: studentSession.access_token,
+      action: 'setGoal',
+      studentName: studentData.studentName,
+      subject: document.getElementById('goalSubject').value,
+      goalGrade: document.getElementById('goalGrade').value
+    }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        msg.textContent = 'Saved.'; msg.className = 'form-msg ok';
+        document.getElementById('setGoalForm').reset();
+        loadStudentData();
+      } else { msg.textContent = 'Something went wrong.'; msg.className = 'form-msg err'; }
+    }).catch(function () { btn.disabled = false; msg.textContent = 'Network error.'; msg.className = 'form-msg err'; });
+  });
+
+  document.getElementById('askForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('askMsg');
+    var btn = document.getElementById('askSubmitBtn');
+    var textarea = document.getElementById('askMessage');
+    if (!textarea.value.trim()) return;
+    btn.disabled = true;
+    postJson(STUDENT_API_WEBHOOK, {
+      accessToken: studentSession.access_token,
+      action: 'askQuestion',
+      studentName: studentData.studentName,
+      message: textarea.value.trim()
+    }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        msg.textContent = 'Sent.'; msg.className = 'form-msg ok';
+        textarea.value = '';
+        loadStudentData();
+      } else { msg.textContent = 'Something went wrong.'; msg.className = 'form-msg err'; }
+    }).catch(function () { btn.disabled = false; msg.textContent = 'Network error.'; msg.className = 'form-msg err'; });
+  });
+
+  document.getElementById('studentUploadForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('uploadMsg');
+    var btn = document.getElementById('uploadSubmitBtn');
+    var fileInput = document.getElementById('uploadFile');
+    var file = fileInput.files[0];
+    if (!file) return;
+    btn.disabled = true;
+    msg.textContent = 'Uploading…'; msg.className = 'form-msg';
+    var path = studentData.email + '/' + Date.now() + '-' + file.name;
+    sbClient.storage.from('student-files').upload(path, file, { upsert: true }).then(function (res) {
+      if (res.error) throw res.error;
+      return postJson(STUDENT_API_WEBHOOK, {
+        accessToken: studentSession.access_token,
+        action: 'logFileUpload',
+        studentName: studentData.studentName,
+        fileName: file.name,
+        category: document.getElementById('uploadCategory').value,
+        note: document.getElementById('uploadNote').value
+      });
+    }).then(function (res) {
+      btn.disabled = false;
+      if (res && res.success) {
+        msg.textContent = 'Uploaded.'; msg.className = 'form-msg ok';
+        document.getElementById('studentUploadForm').reset();
+      } else { msg.textContent = 'Something went wrong.'; msg.className = 'form-msg err'; }
+    }).catch(function () {
+      btn.disabled = false;
+      msg.textContent = 'Upload failed — try again.'; msg.className = 'form-msg err';
+    });
+  });
+
+  /* ================= BOOT ================= */
+
+  function boot() {
+    var hash = location.hash;
+    if (hash && hash.indexOf('access_token=') !== -1) {
+      var params = new URLSearchParams(hash.slice(1));
+      var accessToken = params.get('access_token');
+      var refreshToken = params.get('refresh_token');
+      var expiresAt = params.get('expires_at');
+      if (accessToken) {
+        saveStudentSession({ access_token: accessToken, refresh_token: refreshToken, expires_at: expiresAt ? parseInt(expiresAt, 10) : null });
+        history.replaceState(null, '', location.pathname + location.search);
+        enterStudentApp();
+        return;
+      }
+    }
+
+    var stored = loadStoredStudentSession();
+    if (stored) {
+      studentSession = stored;
+      refreshStudentSessionIfNeeded().then(function (ok) {
+        if (ok) { enterStudentApp(); } else { showOverlay('roleSelect'); }
+      });
+      return;
+    }
+
+    if (sessionStorage.getItem('ss_staff_unlocked') === '1') {
+      enterStaffApp();
+      return;
+    }
+
+    showOverlay('roleSelect');
+  }
+
+  boot();
 </script>
 </body>
 </html>
