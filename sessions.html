@@ -62,6 +62,9 @@
   .field textarea{resize:vertical;min-height:70px}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .field-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .field-check{margin-bottom:16px}
+  .field-check label{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--cream-dim);cursor:pointer}
+  .field-check input{width:auto;margin:0}
   .btn-primary{padding:13px 32px;background:var(--sage);color:var(--bg);border:none;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
   .btn-primary:hover{opacity:0.88}
   .btn-primary:disabled{opacity:0.5;cursor:not-allowed}
@@ -256,6 +259,9 @@
         <label for="logTopic">What was the session about?</label>
         <textarea id="logTopic" placeholder="e.g. Quadratics recap, past paper Q3-6"></textarea>
       </div>
+      <div class="field-check">
+        <label><input type="checkbox" id="logSendEmail" checked> Send email (confirmation / low-sessions alert)</label>
+      </div>
       <button type="submit" class="btn-primary" id="logSubmitBtn">Log Session</button>
       <div class="form-msg" id="logMsg"></div>
     </form>
@@ -356,6 +362,9 @@
       <div class="field">
         <label for="delivNote">Note (optional)</label>
         <textarea id="delivNote" placeholder="Any context for the student"></textarea>
+      </div>
+      <div class="field-check">
+        <label><input type="checkbox" id="delivSendEmail" checked> Send notification email</label>
       </div>
       <button type="submit" class="btn-primary" id="delivSubmitBtn">Send File</button>
       <div class="form-msg" id="delivMsg"></div>
@@ -671,12 +680,15 @@
         '<div class="thread-reply">' +
           '<textarea placeholder="Reply…" data-reply-thread="' + escapeHtml(threadId) + '" data-reply-email="' + escapeHtml(last.studentEmail) + '" data-reply-name="' + escapeHtml(last.studentName || '') + '"></textarea>' +
           '<button type="button" class="btn-primary btn-small" data-send-reply="' + escapeHtml(threadId) + '">Reply</button>' +
-        '</div></div>';
+        '</div>' +
+        '<div class="field-check" style="margin-top:8px"><label><input type="checkbox" checked data-reply-send-email="' + escapeHtml(threadId) + '"> Send email</label></div>' +
+        '</div>';
     }).join('');
     el.querySelectorAll('[data-send-reply]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var threadId = btn.getAttribute('data-send-reply');
         var textarea = el.querySelector('[data-reply-thread="' + CSS.escape(threadId) + '"]');
+        var sendEmailBox = el.querySelector('[data-reply-send-email="' + CSS.escape(threadId) + '"]');
         var message = textarea.value.trim();
         if (!message) return;
         btn.disabled = true;
@@ -685,7 +697,8 @@
           threadId: threadId,
           studentEmail: textarea.getAttribute('data-reply-email'),
           studentName: textarea.getAttribute('data-reply-name'),
-          message: message
+          message: message,
+          sendEmail: sendEmailBox ? sendEmailBox.checked : true
         }).then(function () { loadStaffData(); });
       });
     });
@@ -725,13 +738,15 @@
       sessionDate: document.getElementById('logDate').value,
       sessionTime: document.getElementById('logTime').value,
       topic: document.getElementById('logTopic').value,
-      sessionsCounted: parseFloat(document.getElementById('logCount').value) || 1
+      sessionsCounted: parseFloat(document.getElementById('logCount').value) || 1,
+      sendEmail: document.getElementById('logSendEmail').checked
     }).then(function (res) {
       btn.disabled = false;
       if (res && res.success) {
         msg.textContent = 'Session logged.';
         msg.className = 'form-msg ok';
         document.getElementById('logTopic').value = '';
+        document.getElementById('logSendEmail').checked = true;
         loadStaffData();
       } else {
         msg.textContent = 'Something went wrong — try again.';
