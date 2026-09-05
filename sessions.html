@@ -602,6 +602,7 @@
         '<td><div class="adjust-btns">' +
           '<button type="button" class="adjust-btn" data-adjust="-1" data-adjust-email="' + escapeHtml(s.email) + '" data-adjust-name="' + escapeHtml(s.studentName || '') + '" title="Remove a session">&minus;</button>' +
           '<button type="button" class="adjust-btn" data-adjust="1" data-adjust-email="' + escapeHtml(s.email) + '" data-adjust-name="' + escapeHtml(s.studentName || '') + '" title="Add a bonus session">+</button>' +
+          '<button type="button" class="btn-text" data-mark-reviewed data-review-email="' + escapeHtml(s.email) + '" data-review-name="' + escapeHtml(s.studentName || '') + '" style="margin-left:4px;white-space:nowrap" title="Confirm they left a Trustpilot review and grant a free session">Mark Reviewed</button>' +
         '</div></td>' +
         '</tr>';
     }).join('');
@@ -613,6 +614,17 @@
           email: btn.getAttribute('data-adjust-email'),
           studentName: btn.getAttribute('data-adjust-name'),
           delta: parseInt(btn.getAttribute('data-adjust'), 10)
+        }).then(function () { loadStaffData(); });
+      });
+    });
+    body.querySelectorAll('[data-mark-reviewed]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (!confirm('Confirm they left a Trustpilot review? This grants them a free session and stops future review requests.')) return;
+        btn.disabled = true;
+        postJson(STAFF_WEBHOOK, {
+          action: 'markReviewed',
+          email: btn.getAttribute('data-review-email'),
+          studentName: btn.getAttribute('data-review-name')
         }).then(function () { loadStaffData(); });
       });
     });
