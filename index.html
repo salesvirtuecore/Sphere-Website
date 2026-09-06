@@ -58,6 +58,11 @@
 
   /* BUTTONS */
   .btn-primary{padding:16px 44px;background:var(--sage);color:var(--bg);font-size:12px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.3s;display:inline-block}
+  .btn-glow{animation:btn-glow-pulse 1.8s ease-in-out infinite}
+  @keyframes btn-glow-pulse{
+    0%,100%{box-shadow:0 0 12px rgba(126,168,144,0.5),0 0 0 rgba(126,168,144,0)}
+    50%{box-shadow:0 0 32px rgba(126,168,144,0.95),0 0 10px rgba(126,168,144,0.45)}
+  }
   .btn-primary:hover{opacity:0.88}
   .btn-outline{padding:16px 44px;background:transparent;color:var(--sage);border:1px solid var(--sage);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.3s;display:inline-block}
   .btn-outline:hover{background:var(--sage);color:var(--bg)}
@@ -257,7 +262,7 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
 
 <section class="book-strip">
   <p>No commitment. 20 minutes. Find out exactly what's holding you back.</p>
-  <button type="button" class="btn-primary" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Your Free Intro Call</button>
+  <button type="button" class="btn-primary btn-glow" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Your Free Intro Call</button>
 </section>
 
 <section class="reviews-bg" id="reviews">
@@ -323,6 +328,11 @@ src="https://www.facebook.com/tr?id=2063290941729698&ev=PageView&noscript=1"
       </div>
     </div>
   </div>
+</section>
+
+<section class="book-strip">
+  <p>Loved by students and parents. See what a session with Harrison could do for you.</p>
+  <button type="button" class="btn-primary btn-glow" data-tally-form-id="xXLDjr" data-tally-layout="modal" data-tally-width="500" data-tally-auto-close="0">Book Your Free Intro Call</button>
 </section>
 
 <div class="lightbox" id="lightbox">
